@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0fff0; /* Verde muito claro */
+    color: #006400; /* Verde escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background-color: #a8d5a8; /* Verde claro */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 77, 0, 0.3);
+    text-align: center;
+    width: 380px;
+    position: relative;
+}
+
+.logo {
+    width: 130px; /* Ajuste para melhor visibilidade */
+    margin-bottom: 10px;
+}
+
+.login-container h2 {
+    color: #ffffff; /* Texto branco para contraste */
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #004d00; /* Verde escuro */
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #66bb66; /* Tom verde para borda */
+    border-radius: 6px;
+    background: #c8e6c8; /* Verde claro */
+    color: #004d00; /* Verde escuro */
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #55aa55; /* Verde mais escuro ao focar */
+    background: #e0f2e0;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #66bb66; /* Verde claro para botão */
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #55aa55; /* Verde um pouco mais escuro no hover */
+}
+
+.register-link {
+    margin-top: 15px;
+    display: block;
+    color: #004d00; /* Verde escuro */
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}

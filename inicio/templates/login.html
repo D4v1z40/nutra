@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutra - Login</title>
+    <link rel="stylesheet" href="{% static 'inicio/css/login.css' %}">
+</head>
+<body>
+    <div class="login-container" style="padding-top: 10px;">
+        <img src="{% static 'inicio/img/Logo.png' %}" alt="Logo Nutra" class="logo" style="width: 250px; margin-bottom: 5px;"> 
+        <h2 style="color: #004d00; margin-top: 5px; margin-bottom: 10px;">Nutra - Login</h2>
+        <form class="login-form" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="input-group" style="text-align: center; width: 100%;">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Digite seu email" style="width: 90%;">
+            </div>
+            <div class="input-group" style="text-align: center; width: 100%;">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite sua senha" style="width: 90%;">
+            </div>
+            <button type="submit" class="btn" style="color: black;">Entrar</button>
+        </form>
+        <a href="#" class="register-link" style="color: black;">Não tem uma conta? <span style="color: #004d00; font-weight: bold;">Cadastrar</span></a>
+    </div>
+</body>
+</html>
