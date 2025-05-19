@@ -12,7 +12,7 @@
     <div class="login-container" style="padding-top: 10px;">
         <img src="{% static 'inicio/img/Logo.png' %}" alt="Logo Nutra" class="logo" style="width: 250px; margin-bottom: 5px;"> 
         <h2 style="color: #004d00; margin-top: 5px; margin-bottom: 10px;">Nutra - Login</h2>
-        <form class="login-form" style="display: flex; flex-direction: column; align-items: center;">
+            <form action="{% url 'login' %}" method="post" class="login-form" style="display: flex; flex-direction: column; align-items: center;">{% csrf_token %}
             <div class="input-group" style="text-align: center; width: 100%;">
                 <label for="email">Email</label>
                 <input type="email" id="email" placeholder="Digite seu email" style="width: 90%;">

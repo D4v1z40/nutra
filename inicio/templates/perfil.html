@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutra - Treino e Dieta</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="#" class="settings-icon">⚙️</a>
+    </header>
+    <main>
+        <div class="user-icon">
+            <img src="{% static 'inicio/img/userCircle.png' %}" 
+                 alt="Ícone de usuário" />
+          </div>
+          
+      <h1>Seja bem-vindo(a)</h1>
+      <p>(nome do user aq)</p>
+      <button class="edit">Editar Perfil</button>
+      <button class="info">Dados Pessoais</button>
+      <button class="logout">Sair</button>
+    </main>
+    <footer>
+      <nav>
+        <a href="#">🏋 Treinos</a>
+        <a href="#">🍽 Dieta</a>
+        <a href="#">👤 Perfil</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

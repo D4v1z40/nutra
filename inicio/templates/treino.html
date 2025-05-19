@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="{% static 'inicio/css/treino.css' %}">
+  <title>Treinos - Nutra</title>
+</head>
+<body>
+  <header>
+    <h1 class="titulo">TREINOS</h1>
+  </header>
+
+  <main class="treinos-container">
+    <button class="btn montar">➕ Montar Treino</button>
+
+    <div class="treino-box">Treino A <button>▶️</button></div>
+    <div class="treino-box">Treino B <button>▶️</button></div>
+    <div class="treino-box">Treino C <button>▶️</button></div>
+  </main>
+
+  <footer>
+    <nav>
+      <a href="#">🏋️ Treinos</a>
+      <a href="#">🍽️ Dieta</a>
+      <a href="#">👤 Perfil</a>
+    </nav>
+  </footer>
+</body>
+</html>
