@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações - Nutra</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .config-header { background: #185c1b; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 22px; font-weight: bold; letter-spacing: 1px; }
+    .config-logo { position: absolute; left: 18px; top: 12px; background: #185c1b; border-radius: 4px; padding: 2px 12px; color: #b1f2be; font-size: 28px; font-family: 'Times New Roman', serif; border: 2px solid #b1f2be; }
+    .config-voltar { position: absolute; left: 18px; top: 60px; color: #8fd19e; font-size: 28px; cursor: pointer; }
+    .config-box { background: #333; border-radius: 16px; margin: 30px auto 18px auto; max-width: 400px; padding: 22px 18px 18px 18px; box-shadow: 0 2px 12px rgba(143,209,158,0.10); }
+    .config-box h3 { color: #8fd19e; margin-bottom: 10px; font-size: 18px; }
+    .config-link { display: block; background: #232323; color: #b1f2be; border-radius: 8px; padding: 12px 10px; margin: 8px 0; text-decoration: none; font-size: 16px; transition: background 0.2s; }
+    .config-link:hover { background: #222e22; color: #fff; }
+    @media (max-width: 600px) { .config-header { font-size: 16px; } .config-logo { font-size: 20px; padding: 1px 8px; } .config-box { padding: 10px 4px; } }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top:0;">
+    <div class="config-header">
+      <span class="config-logo">N</span>
+      CONFIGURAÇÕES
+    </div>
+    <a href="{% url 'perfil' %}" class="config-voltar"><i class="fas fa-arrow-left"></i></a>
+    <div class="config-box">
+      <h3>Detalhes da conta:</h3>
+      <a href="#" class="config-link">Alterar senha</a>
+    </div>
+    <div class="config-box">
+      <h3>Detalhes do site:</h3>
+      <a href="{% url 'sobre_sistema' %}" class="config-link">Sobre o sistema</a>
+      <a href="{% url 'sobre_desenvolvedores' %}" class="config-link">Sobre os desenvolvedores</a>
+    </div>
+  </div>
+</body>
+</html> 

@@ -113,6 +113,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Redirecionamento da Autenticação
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/inicio/login/'
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -124,3 +129,5 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'templates/static') ]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGOUT_REDIRECT_URL = '/login/'

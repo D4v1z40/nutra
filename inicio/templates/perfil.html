@@ -6,31 +6,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nutra - Treino e Dieta</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
   <div class="container">
-    <header>
-      <a href="#" class="settings-icon">⚙️</a>
+    <header style="position:relative;">
+      <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="position:fixed;top:32px;right:32px;z-index:1001;"><i class="fas fa-cog"></i></a>
     </header>
     <main>
         <div class="user-icon">
             <img src="{% static 'inicio/img/userCircle.png' %}" 
                  alt="Ícone de usuário" />
-          </div>
-          
+        </div>
       <h1>Seja bem-vindo(a)</h1>
-      <p>(nome do user aq)</p>
-      <button class="edit">Editar Perfil</button>
-      <button class="info">Dados Pessoais</button>
-      <button class="logout">Sair</button>
+      <p>{{ user.get_full_name|default:user.username }}</p>      
+      <button class="edit perfil-btn" id="openEditModal">Editar Perfil</button>     
+      <button class="info perfil-btn" id="openInfoModal">Dados Pessoais</button>
+      <div> 
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+          <button type="submit" class="sair perfil-btn">Sair</button>
+        </form>
+      </div>
+      <!-- Modal Editar Perfil -->
+      <div id="editModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeEditModal">&times;</span>
+          <h2>Editar Perfil</h2>
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
+      <!-- Modal Dados Pessoais -->
+      <div id="infoModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeInfoModal">&times;</span>
+          <h2>Dados Pessoais</h2>
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
+      <!-- Modal Configurações -->
+      <div id="settingsModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeSettingsModal">&times;</span>
+          <h2>Configurações</h2>
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
     </main>
     <footer>
       <nav>
-        <a href="#">🏋 Treinos</a>
-        <a href="#">🍽 Dieta</a>
-        <a href="#">👤 Perfil</a>
+        <a href="{% url 'montar_treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+        <a href="#" class="active"><i class="fas fa-user"></i> Perfil</a>
       </nav>
     </footer>
   </div>
+  <script>
+    // Modal Editar Perfil
+    document.getElementById('openEditModal').onclick = function() {
+      document.getElementById('editModal').style.display = 'block';
+    };
+    document.getElementById('closeEditModal').onclick = function() {
+      document.getElementById('editModal').style.display = 'none';
+    };
+    // Modal Dados Pessoais
+    document.getElementById('openInfoModal').onclick = function() {
+      document.getElementById('infoModal').style.display = 'block';
+    };
+    document.getElementById('closeInfoModal').onclick = function() {
+      document.getElementById('infoModal').style.display = 'none';
+    };
+    // Modal Configurações
+    document.getElementById('openSettings').onclick = function() {
+      window.location.href = "{% url 'configuracoes' %}";
+    };
+    document.getElementById('closeSettingsModal').onclick = function() {
+      document.getElementById('settingsModal').style.display = 'none';
+    };
+    // Fechar modal ao clicar fora
+    window.onclick = function(event) {
+      ['editModal','infoModal','settingsModal'].forEach(function(id) {
+        var modal = document.getElementById(id);
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+  </script>
 </body>
 </html>
