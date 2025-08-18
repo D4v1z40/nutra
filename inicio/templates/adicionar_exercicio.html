@@ -1,0 +1,625 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adicionar Exercício - Nutra</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .exercise-header {
+      background: linear-gradient(135deg, #0a5e00, #0d7a00);
+      color: #fff;
+      padding: 1.5rem 0;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      position: relative;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    
+    .back-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .header-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .search-bar {
+      background: #232323;
+      border: 1px solid #333;
+      border-radius: 25px;
+      padding: 12px 20px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+    
+    .search-bar input {
+      background: none;
+      border: none;
+      color: #fff;
+      flex: 1;
+      margin-left: 10px;
+      outline: none;
+    }
+    
+    .search-bar input::placeholder {
+      color: #888;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    
+    .filter-btn {
+      background: #232323;
+      border: 1px solid #333;
+      color: #8fd19e;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+    
+    .filter-btn.active {
+      background: #8fd19e;
+      color: #121212;
+    }
+    
+    .muscle-group {
+      margin: 30px 0;
+    }
+    
+    .muscle-title {
+      color: #8fd19e;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding: 0 20px;
+    }
+    
+    .exercise-item {
+      background: #232323;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 8px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .exercise-item:hover {
+      background: #2a2a2a;
+      border-color: #8fd19e;
+    }
+    
+    .exercise-item.selected {
+      background: linear-gradient(145deg, #2a3a2a, #1e2e1e);
+      border-color: #8fd19e;
+    }
+    
+    .exercise-icon {
+      width: 40px;
+      height: 40px;
+      background: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: #8fd19e;
+    }
+    
+    .exercise-info {
+      flex: 1;
+    }
+    
+    .exercise-name {
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    
+    .exercise-muscle {
+      color: #888;
+      font-size: 14px;
+    }
+    
+    .exercise-checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #8fd19e;
+      border-radius: 50%;
+      background: none;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .exercise-checkbox.checked {
+      background: #8fd19e;
+    }
+    
+    .exercise-checkbox.checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #121212;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    .sticky-button-container {
+      position: fixed;
+      bottom: 80px;
+      left: 0;
+      right: 0;
+      background: #111;
+      padding: 20px;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 100;
+    }
+    
+    .add-exercises-btn {
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      display: block;
+    }
+    
+    .add-exercises-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .add-exercises-btn:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+    
+    .exercises-container {
+      margin-bottom: 120px; /* Space for sticky button */
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top: 0;">
+    <!-- Header -->
+    <div class="exercise-header">
+      <div class="header-content">
+        <button class="back-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">Adicionar Exercício</h1>
+        <div style="width: 40px;"></div> <!-- Spacer for centering -->
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <i class="fas fa-search" style="color: #888;"></i>
+      <input type="text" placeholder="Procurar exercício" id="searchInput">
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="openMuscleFilter()">Todos os Músculos</button>
+    </div>
+
+    <!-- Exercises List -->
+    <div class="exercises-container" id="exercisesList">
+      <!-- Peito -->
+      <div class="muscle-group" data-muscle="peito">
+        <h3 class="muscle-title">Peito</h3>
+        <div class="exercise-item" data-exercise="supino-reto">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Supino Reto</div>
+            <div class="exercise-muscle">Peito</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="supino-inclinado">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Supino Inclinado</div>
+            <div class="exercise-muscle">Peito</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="crucifixo">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Crucifixo</div>
+            <div class="exercise-muscle">Peito</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Ombro -->
+      <div class="muscle-group" data-muscle="ombro">
+        <h3 class="muscle-title">Ombro</h3>
+        <div class="exercise-item" data-exercise="desenvolvimento">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Desenvolvimento</div>
+            <div class="exercise-muscle">Ombro</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="elevacao-lateral">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Elevação Lateral</div>
+            <div class="exercise-muscle">Ombro</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="elevacao-frontal">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Elevação Frontal</div>
+            <div class="exercise-muscle">Ombro</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Tríceps -->
+      <div class="muscle-group" data-muscle="triceps">
+        <h3 class="muscle-title">Tríceps</h3>
+        <div class="exercise-item" data-exercise="triceps-pulley">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Tríceps Pulley</div>
+            <div class="exercise-muscle">Tríceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="triceps-frances">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Tríceps Francês</div>
+            <div class="exercise-muscle">Tríceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Bíceps -->
+      <div class="muscle-group" data-muscle="biceps">
+        <h3 class="muscle-title">Bíceps</h3>
+        <div class="exercise-item" data-exercise="rosca-direta">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Rosca Direta</div>
+            <div class="exercise-muscle">Bíceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="rosca-alternada">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Rosca Alternada</div>
+            <div class="exercise-muscle">Bíceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Costas -->
+      <div class="muscle-group" data-muscle="costas">
+        <h3 class="muscle-title">Costas</h3>
+        <div class="exercise-item" data-exercise="remada-curvada">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Remada Curvada</div>
+            <div class="exercise-muscle">Costas</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="puxada-frente">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Puxada Frente</div>
+            <div class="exercise-muscle">Costas</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="puxada-costas">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Puxada Costas</div>
+            <div class="exercise-muscle">Costas</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Quadríceps -->
+      <div class="muscle-group" data-muscle="quadriceps">
+        <h3 class="muscle-title">Quadríceps</h3>
+        <div class="exercise-item" data-exercise="agachamento">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Agachamento</div>
+            <div class="exercise-muscle">Quadríceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="cadeira-extensora">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Cadeira Extensora</div>
+            <div class="exercise-muscle">Quadríceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="leg-press">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Leg Press</div>
+            <div class="exercise-muscle">Quadríceps</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Posterior -->
+      <div class="muscle-group" data-muscle="posterior">
+        <h3 class="muscle-title">Posterior</h3>
+        <div class="exercise-item" data-exercise="flexora-deitada">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Flexora Deitada</div>
+            <div class="exercise-muscle">Posterior</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="stiff">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Stiff</div>
+            <div class="exercise-muscle">Posterior</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+
+      <!-- Panturrilha -->
+      <div class="muscle-group" data-muscle="panturrilha">
+        <h3 class="muscle-title">Panturrilha</h3>
+        <div class="exercise-item" data-exercise="gemeos-em-pe">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Gêmeos em Pé</div>
+            <div class="exercise-muscle">Panturrilha</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+        <div class="exercise-item" data-exercise="gemeos-sentado">
+          <div class="exercise-icon"><i class="fas fa-dumbbell"></i></div>
+          <div class="exercise-info">
+            <div class="exercise-name">Gêmeos Sentado</div>
+            <div class="exercise-muscle">Panturrilha</div>
+          </div>
+          <div class="exercise-checkbox"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Add Button -->
+    <div class="sticky-button-container">
+      <button class="add-exercises-btn" id="addExercisesBtn" disabled>
+        Adicionar 0 exercícios
+      </button>
+    </div>
+  </div>
+
+  <!-- Notification System -->
+  <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
+
+  <script>
+    // Notification system
+    function showNotification(message, type = 'info', duration = 3000) {
+      const container = document.getElementById('notificationContainer');
+      const notification = document.createElement('div');
+      
+      notification.className = `notification notification-${type}`;
+      notification.style.cssText = `
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
+                      type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
+                      type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
+                      'linear-gradient(135deg, #2196f3, #1976d2)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        pointer-events: auto;
+        max-width: 300px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      `;
+      
+      const icon = document.createElement('i');
+      icon.className = type === 'success' ? 'fas fa-check-circle' :
+                      type === 'error' ? 'fas fa-exclamation-circle' :
+                      type === 'warning' ? 'fas fa-exclamation-triangle' :
+                      'fas fa-info-circle';
+      
+      const text = document.createElement('span');
+      text.textContent = message;
+      
+      notification.appendChild(icon);
+      notification.appendChild(text);
+      container.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Auto remove
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, duration);
+      
+      // Click to dismiss
+      notification.addEventListener('click', () => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      });
+    }
+    
+    // Page entrance animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        container.style.transition = 'all 0.5s ease';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 100);
+    });
+    
+    let selectedExercises = [];
+
+    // Load previously selected exercises
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedExercises = JSON.parse(localStorage.getItem('selectedExercises') || '[]');
+      selectedExercises = savedExercises;
+      
+      // Mark previously selected exercises as checked
+      selectedExercises.forEach(exerciseId => {
+        const exerciseItem = document.querySelector(`[data-exercise="${exerciseId}"]`);
+        if (exerciseItem) {
+          exerciseItem.classList.add('selected');
+          exerciseItem.querySelector('.exercise-checkbox').classList.add('checked');
+        }
+      });
+      
+      updateAddButton();
+    });
+
+    // Exercise selection
+    document.querySelectorAll('.exercise-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const exerciseId = this.dataset.exercise;
+        const checkbox = this.querySelector('.exercise-checkbox');
+        
+        if (selectedExercises.includes(exerciseId)) {
+          selectedExercises = selectedExercises.filter(id => id !== exerciseId);
+          this.classList.remove('selected');
+          checkbox.classList.remove('checked');
+        } else {
+          selectedExercises.push(exerciseId);
+          this.classList.add('selected');
+          checkbox.classList.add('checked');
+        }
+        
+        updateAddButton();
+      });
+    });
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      document.querySelectorAll('.exercise-item').forEach(item => {
+        const exerciseName = item.querySelector('.exercise-name').textContent.toLowerCase();
+        const exerciseMuscle = item.querySelector('.exercise-muscle').textContent.toLowerCase();
+        
+        if (exerciseName.includes(searchTerm) || exerciseMuscle.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+
+    function updateAddButton() {
+      const btn = document.getElementById('addExercisesBtn');
+      const count = selectedExercises.length;
+      btn.textContent = `Adicionar ${count} exercício${count !== 1 ? 's' : ''}`;
+      btn.disabled = count === 0;
+    }
+
+    function createWorkout() {
+      if (selectedExercises.length === 0) return;
+      
+      // Save selected exercises to localStorage
+      localStorage.setItem('selectedExercises', JSON.stringify(selectedExercises));
+      window.location.href = "{% url 'montar_treino_detalhes' %}";
+    }
+
+    // Add exercises button
+    document.getElementById('addExercisesBtn').addEventListener('click', createWorkout);
+  </script>
+</body>
+</html> 

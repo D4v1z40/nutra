@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualizar Treino - Nutra</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .post-header {
+      background: #232323;
+      border-radius: 12px;
+      margin: 20px;
+      padding: 20px;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      background: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: #8fd19e;
+      font-size: 20px;
+    }
+    .user-details h3 {
+      color: #fff;
+      margin: 0 0 5px 0;
+      font-size: 16px;
+    }
+    .user-details p {
+      color: #888;
+      margin: 0;
+      font-size: 14px;
+    }
+    .workout-title {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0 0 15px 0;
+    }
+    .workout-stats {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-label {
+      color: #888;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .stat-value {
+      color: #8fd19e;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .exercises-list {
+      background: #232323;
+      border-radius: 12px;
+      margin: 20px;
+      padding: 20px;
+    }
+    .exercises-title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .exercise-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #2a2a2a;
+      border-radius: 8px;
+    }
+    .exercise-item:last-child {
+      margin-bottom: 0;
+    }
+    .exercise-icon {
+      width: 40px;
+      height: 40px;
+      background: #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: #8fd19e;
+    }
+    .exercise-details {
+      flex: 1;
+    }
+    .exercise-name {
+      color: #8fd19e;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .exercise-sets {
+      color: #888;
+      font-size: 14px;
+    }
+    .action-buttons {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 100;
+    }
+    .action-btn {
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: #fff;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s;
+    }
+    .action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+    .action-btn.secondary {
+      background: linear-gradient(135deg, #666, #555);
+    }
+    .action-btn.secondary:hover {
+      box-shadow: 0 6px 20px rgba(102, 102, 102, 0.4);
+    }
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #232323;
+      border: none;
+      color: #8fd19e;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    .back-btn:hover {
+      background: #2a2a2a;
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top: 0;">
+    <button class="back-btn" onclick="window.history.back()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="post-header">
+      <h2 class="workout-title" id="workoutTitle">Meu Treino</h2>
+      
+      <div class="workout-stats">
+        <div class="stat-item">
+          <div class="stat-label">Tempo</div>
+          <div class="stat-value" id="workoutTime">0min</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Volume</div>
+          <div class="stat-value" id="workoutVolume">0 kg</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exercises-list">
+      <h3 class="exercises-title">Treinamento</h3>
+      <div id="exercisesList">
+        <!-- Exercícios serão carregados dinamicamente aqui -->
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn secondary" onclick="saveWorkout()">Salvar Treino</button>
+      <button class="action-btn" onclick="startNewWorkout()">Novo Treino</button>
+    </div>
+  </div>
+
+  <script>
+    let workoutData = {};
+
+    // Carregar dados do treino
+    function loadWorkoutData() {
+      const savedData = localStorage.getItem('workoutData');
+      if (savedData) {
+        workoutData = JSON.parse(savedData);
+        renderWorkout();
+      } else {
+        // Se não há dados, redirecionar para montar treino
+        window.location.href = "{% url 'montar_treino' %}";
+      }
+    }
+
+    // Renderizar treino
+    function renderWorkout() {
+      // Atualizar título
+      document.getElementById('workoutTitle').textContent = workoutData.name;
+      
+      // Calcular estatísticas
+      let totalVolume = 0;
+      let totalSets = 0;
+      
+      workoutData.exercises.forEach(exercise => {
+        exercise.sets.forEach(set => {
+          if (set.weight && set.reps) {
+            totalVolume += parseInt(set.weight) * parseInt(set.reps);
+          }
+          totalSets++;
+        });
+      });
+      
+      // Atualizar estatísticas
+      document.getElementById('workoutVolume').textContent = `${totalVolume} kg`;
+      
+      // Calcular tempo (simulado - você pode ajustar conforme necessário)
+      const duration = Math.floor((new Date() - new Date(workoutData.startTime)) / 1000 / 60);
+      document.getElementById('workoutTime').textContent = `${duration}min`;
+      
+      // Renderizar exercícios
+      const exercisesList = document.getElementById('exercisesList');
+      exercisesList.innerHTML = '';
+      
+      workoutData.exercises.forEach(exercise => {
+        const exerciseItem = document.createElement('div');
+        exerciseItem.className = 'exercise-item';
+        
+        exerciseItem.innerHTML = `
+          <div class="exercise-icon">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <div class="exercise-details">
+            <div class="exercise-name">${exercise.name}</div>
+            <div class="exercise-sets">${exercise.sets.length} sets</div>
+          </div>
+        `;
+        
+        exercisesList.appendChild(exerciseItem);
+      });
+    }
+
+    // Salvar treino
+    function saveWorkout() {
+      // Criar chave única para o usuário
+      const userId = '{{ user.id }}';
+      const userWorkoutsKey = `savedWorkouts_${userId}`;
+      
+      // Salvar o treino na lista de treinos salvos do usuário específico
+      const savedWorkouts = JSON.parse(localStorage.getItem(userWorkoutsKey) || '[]');
+      
+      savedWorkouts.push({
+        ...workoutData,
+        id: Date.now(),
+        userId: userId,
+        savedAt: new Date().toISOString()
+      });
+      localStorage.setItem(userWorkoutsKey, JSON.stringify(savedWorkouts));
+      
+      alert('Treino salvo com sucesso!');
+      
+      // Limpar dados temporários do localStorage
+      localStorage.removeItem('selectedExercises');
+      localStorage.removeItem('workoutData');
+      
+      // Redirecionar para a página de treinos
+      window.location.href = "{% url 'treino' %}";
+    }
+
+    // Iniciar novo treino
+    function startNewWorkout() {
+      // Limpar dados do localStorage
+      localStorage.removeItem('workoutData');
+      localStorage.removeItem('selectedExercises');
+      
+      // Redirecionar para montar treino
+      window.location.href = "{% url 'montar_treino' %}";
+    }
+
+    // Carregar dados ao iniciar
+    loadWorkoutData();
+  </script>
+</body>
+</html> 

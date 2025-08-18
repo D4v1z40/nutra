@@ -4,26 +4,132 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="{% static 'inicio/css/montar_treino.css' %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Montar Treino - Nutra</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .workout-header {
+      background: linear-gradient(135deg, #0a5e00, #0d7a00);
+      color: #fff;
+      padding: 1.5rem 0;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      position: relative;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    
+    .back-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .header-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .add-exercise-section {
+      margin: 20px;
+      text-align: center;
+    }
+    
+    .add-exercise-btn {
+      background: linear-gradient(135deg, #8fd19e, #6bbf7a);
+      color: #121212;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    
+    .add-exercise-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.4);
+      text-decoration: none;
+      color: #121212;
+    }
+    
+    .empty-state {
+      text-align: center;
+      color: #888;
+      margin: 50px 20px;
+      font-size: 16px;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1 class="titulo">TREINOS</h1>
-  </header>
+  <div class="container" style="padding-top: 0;">
+    <!-- Header -->
+    <div class="workout-header">
+      <div class="header-content">
+        <button class="back-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">Montar Treino</h1>
+        <div style="width: 40px;"></div> <!-- Spacer for centering -->
+      </div>
+    </div>
 
-  <main class="montar-container">
-    <section class="exercicio">
-      <button class="btn-add">+ Adicionar exercício</button>
-    </section>
-  </main>
+    <!-- Add Exercise Button -->
+    <div class="add-exercise-section">
+      <a href="{% url 'adicionar_exercicio' %}" class="add-exercise-btn">
+        <i class="fas fa-plus"></i>
+        Adicionar Exercício
+      </a>
+    </div>
+    
+    <!-- Empty State -->
+    <div class="empty-state">
+      <i class="fas fa-dumbbell"></i>
+      <p>Nenhum exercício adicionado ainda.</p>
+      <p>Clique em "+ Adicionar Exercício" para começar!</p>
+    </div>
+  </div>
 
+  <!-- Footer -->
   <footer>
     <nav>
-      <a href="#">🏋️ Treinos</a>
-      <a href="#">🍽️ Dieta</a>
-      <a href="#">👤 Perfil</a>
+      <a href="#" class="active"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
     </nav>
   </footer>
 </body>

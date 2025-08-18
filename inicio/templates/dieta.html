@@ -1,0 +1,1381 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutra - Dieta</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .diet-header {
+      background: linear-gradient(135deg, #0a5e00, #0d7a00);
+      color: #fff;
+      padding: 1.5rem 0;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      position: relative;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    
+    .menu-icon {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    
+    .date-navigation {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .nav-arrow {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .current-date {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .daily-goal-card {
+      background: #232323;
+      border-radius: 15px;
+      margin: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .goal-title {
+      color: #8fd19e;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .edit-goal-btn {
+      background: none;
+      border: none;
+      color: #8fd19e;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .progress-circle {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+    }
+    
+    .progress-circle svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 8;
+    }
+    
+    .progress-bg {
+      stroke: #333;
+    }
+    
+    .progress-fill {
+      stroke: #8fd19e;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.3s ease;
+    }
+    
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    
+    .progress-label {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    
+    .progress-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8fd19e;
+    }
+    
+    .calories-summary {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .calories-item {
+      text-align: center;
+    }
+    
+    .calories-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+    }
+    
+    .calories-label {
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .macros-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    
+    .macro-item {
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 15px;
+    }
+    
+    .macro-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .macro-name {
+      font-size: 14px;
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .macro-values {
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .macro-progress {
+      width: 100%;
+      height: 6px;
+      background: #333;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .macro-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    
+    .macro-fill.protein { background: #ff6b6b; }
+    .macro-fill.carbs { background: #4ecdc4; }
+    .macro-fill.fat { background: #ffe66d; }
+    
+    .daily-cost {
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .cost-label {
+      font-size: 14px;
+      color: #fff;
+    }
+    
+    .cost-value {
+      font-size: 16px;
+      font-weight: bold;
+      color: #4caf50;
+    }
+    
+    .meals-section {
+      margin: 20px;
+    }
+    
+    .meal-card {
+      background: #232323;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .meal-header {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .meal-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #8fd19e;
+    }
+    
+    .meal-calories {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .calories-text {
+      color: #4ecdc4;
+      font-weight: bold;
+    }
+    
+    .add-food-btn {
+      background: #4ecdc4;
+      border: none;
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .add-food-btn:hover {
+      background: #45b7aa;
+      transform: scale(1.1);
+    }
+    
+    .meal-macros {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid #333;
+    }
+    
+    .macro-display {
+      text-align: center;
+    }
+    
+    .macro-amount {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    
+    .macro-amount.carb { color: #4ecdc4; }
+    .macro-amount.prot { color: #ff6b6b; }
+    .macro-amount.gord { color: #ffe66d; }
+    .macro-amount.fib { color: #a8e6cf; }
+    
+    .macro-label {
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .meal-cost {
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .meal-actions {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px;
+    }
+    
+    .action-btn {
+      flex: 1;
+      background: #333;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    
+    .action-btn:hover {
+      background: #444;
+      border-color: #8fd19e;
+    }
+    
+    .bottom-actions {
+      display: flex;
+      gap: 10px;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .bottom-action-btn {
+      flex: 1;
+      min-width: 120px;
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: #fff;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .bottom-action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+    
+    .bottom-action-btn.secondary {
+      background: linear-gradient(135deg, #666, #555);
+    }
+    
+    .bottom-action-btn.secondary:hover {
+      box-shadow: 0 6px 20px rgba(102, 102, 102, 0.4);
+    }
+    
+    .bottom-action-btn i {
+      font-size: 18px;
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-content {
+      background: #232323;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .modal-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8fd19e;
+    }
+    
+    .close {
+      color: #888;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: #fff;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+      font-weight: bold;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #8fd19e;
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .modal-btn {
+      flex: 1;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .modal-btn.primary {
+      background: #8fd19e;
+      color: #121212;
+    }
+    
+    .modal-btn.secondary {
+      background: #666;
+      color: #fff;
+    }
+    
+    /* Food search modal */
+    .food-search {
+      margin-bottom: 20px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #444;
+      border-radius: 25px;
+      background: #333;
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #8fd19e;
+    }
+    
+    .filter-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .filter-tab {
+      flex: 1;
+      padding: 8px 12px;
+      background: #333;
+      border: 1px solid #444;
+      color: #fff;
+      border-radius: 20px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .filter-tab.active {
+      background: #8fd19e;
+      color: #121212;
+      border-color: #8fd19e;
+    }
+    
+    .food-list {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .food-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .food-item:hover {
+      background: #2a2a2a;
+    }
+    
+    .food-info {
+      flex: 1;
+    }
+    
+    .food-name {
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    
+    .food-macros {
+      font-size: 12px;
+      color: #888;
+    }
+    
+    .food-calories {
+      color: #4ecdc4;
+      font-weight: bold;
+    }
+    
+    .quantity-input {
+      width: 80px;
+      padding: 8px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+    
+    .quantity-input::-webkit-outer-spin-button,
+    .quantity-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    .quantity-input:focus {
+      outline: none;
+      border-color: #8fd19e;
+    }
+    
+    .empty-state {
+      text-align: center;
+      color: #888;
+      padding: 40px 20px;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    
+    @media (max-width: 768px) {
+      .macros-section {
+        grid-template-columns: 1fr;
+      }
+      
+      .bottom-actions {
+        flex-direction: column;
+      }
+      
+      .bottom-action-btn {
+        min-width: auto;
+      }
+      
+      .meal-macros {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      
+      .macro-display {
+        min-width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top: 0;">
+    <!-- Header -->
+    <div class="diet-header">
+      <div class="header-content">
+        <div style="width: 40px;"></div> <!-- Spacer for centering -->
+        <div class="logo">Nutra</div>
+        <div class="date-navigation">
+          <button class="nav-arrow" onclick="changeDate(-1)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <span class="current-date" id="currentDate">Hoje</span>
+          <button class="nav-arrow" onclick="changeDate(1)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daily Goal Card -->
+    <div class="daily-goal-card">
+      <div class="goal-header">
+        <span class="goal-title">Meta diária: <span id="dailyGoal">{{ profile.daily_calories }}</span> kcal</span>
+        <button class="edit-goal-btn" onclick="openGoalModal()">
+          <i class="fas fa-pencil"></i> Editar
+        </button>
+      </div>
+      
+      <div class="progress-circle">
+        <svg>
+          <circle class="progress-bg" cx="60" cy="60" r="52"></circle>
+          <circle class="progress-fill" cx="60" cy="60" r="52" 
+                  stroke-dasharray="0 327" id="progressCircle"></circle>
+        </svg>
+        <div class="progress-text">
+          <div class="progress-label">Restam</div>
+          <div class="progress-value" id="remainingCalories">{{ profile.daily_calories }}</div>
+        </div>
+      </div>
+      
+      <div class="calories-summary">
+        <div class="calories-item">
+          <div class="calories-value" id="consumedCalories">{{ total_calories }}</div>
+          <div class="calories-label">Consumidas</div>
+        </div>
+        <div class="calories-item">
+          <div class="calories-value" id="burnedCalories">{{ daily_nutrition.calories_burned }}</div>
+          <div class="calories-label">Queimadas</div>
+        </div>
+      </div>
+      
+      <div class="macros-section">
+        <div class="macro-item">
+          <div class="macro-header">
+            <span class="macro-name">Carboidrato</span>
+            <span class="macro-values" id="carbsValues">{{ total_carbs }}g / {{ profile.carbs_goal }}g (restam <span id="carbsRemaining">0</span>g)</span>
+          </div>
+          <div class="macro-progress">
+            <div class="macro-fill carbs" id="carbsProgress" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div class="macro-item">
+          <div class="macro-header">
+            <span class="macro-name">Proteína</span>
+            <span class="macro-values" id="proteinValues">{{ total_protein }}g / {{ profile.protein_goal }}g (restam <span id="proteinRemaining">0</span>g)</span>
+          </div>
+          <div class="macro-progress">
+            <div class="macro-fill protein" id="proteinProgress" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div class="macro-item">
+          <div class="macro-header">
+            <span class="macro-name">Gordura</span>
+            <span class="macro-values" id="fatValues">{{ total_fat }}g / {{ profile.fat_goal }}g (restam <span id="fatRemaining">0</span>g)</span>
+          </div>
+          <div class="macro-progress">
+            <div class="macro-fill fat" id="fatProgress" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div class="macro-item">
+          <div class="macro-header">
+            <span class="macro-name">Fibra</span>
+            <span class="macro-values">{{ total_fiber }}g</span>
+          </div>
+          <div class="macro-progress">
+            <div class="macro-fill" style="width: 0%; background: #a8e6cf;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="daily-cost">
+        <span class="cost-label">Hoje minha dieta custou:</span>
+        <span class="cost-value">R$ {{ total_cost|floatformat:2 }}</span>
+      </div>
+    </div>
+
+    <!-- Meals Section -->
+    <div class="meals-section" id="mealsSection">
+      {% for meal in meals %}
+      <div class="meal-card" data-meal-id="{{ meal.id }}">
+        <div class="meal-header">
+          <span class="meal-name">{{ meal.name }}</span>
+          <div class="meal-calories">
+            <span class="calories-text">Kcal: {{ meal.get_total_calories }}</span>
+            <button class="add-food-btn" onclick="addFoodToMeal({{ meal.id }})">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="meal-macros">
+          <div class="macro-display">
+            <div class="macro-amount carb">Carb: {{ meal.get_total_carbs|floatformat:0 }}</div>
+            <div class="macro-label">Carboidratos</div>
+          </div>
+          <div class="macro-display">
+            <div class="macro-amount prot">Prot: {{ meal.get_total_protein|floatformat:0 }}</div>
+            <div class="macro-label">Proteínas</div>
+          </div>
+          <div class="macro-display">
+            <div class="macro-amount gord">Gord: {{ meal.get_total_fat|floatformat:0 }}</div>
+            <div class="macro-label">Gorduras</div>
+          </div>
+          <div class="macro-display">
+            <div class="macro-amount fib">Fib: {{ meal.get_total_fiber|floatformat:0 }}</div>
+            <div class="macro-label">Fibras</div>
+          </div>
+          <div class="macro-display">
+            <div class="macro-amount">R$ {{ meal.get_total_cost|floatformat:2 }}</div>
+            <div class="macro-label">Custo</div>
+          </div>
+        </div>  
+        
+        <div class="meal-actions">
+          <button class="action-btn" onclick="copyMeal({{ meal.id }})">
+            <i class="fas fa-copy"></i> Copiar
+          </button>
+          <button class="action-btn" onclick="editMeal({{ meal.id }})">
+            <i class="fas fa-edit"></i> Editar
+          </button>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-state">
+        <i class="fas fa-utensils"></i>
+        <p>Nenhuma refeição adicionada ainda.</p>
+        <p>Clique em "+ Adicionar Refeição" para começar!</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Bottom Action Buttons -->
+    <div class="bottom-actions">
+      <button class="bottom-action-btn" onclick="openAddMealModal()">
+        <i class="fas fa-plus"></i>
+        Adicionar refeição
+      </button>
+      <button class="bottom-action-btn secondary" onclick="replicateDay()">
+        <i class="fas fa-copy"></i>
+        Replicar dia
+      </button>
+      <button class="bottom-action-btn secondary" onclick="exportDiet()">
+        <i class="fas fa-download"></i>
+        Exportar dieta
+      </button>
+      <button class="bottom-action-btn secondary" onclick="clearDay()">
+        <i class="fas fa-broom"></i>
+        Limpar dia
+      </button>
+      <button class="bottom-action-btn secondary" onclick="showMoreOptions()">
+        <i class="fas fa-ellipsis-h"></i>
+        Mais opções
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <nav>
+      <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="#" class="active"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
+    </nav>
+  </footer>
+
+  <!-- Goal Edit Modal -->
+  <div id="goalModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Editar Metas</h3>
+        <span class="close" onclick="closeGoalModal()">&times;</span>
+      </div>
+      
+      <form id="goalForm">
+        <div class="form-group">
+          <label class="form-label">Calorias Diárias</label>
+          <input type="number" class="form-input" id="dailyCaloriesInput" value="{{ profile.daily_calories }}" min="1000" max="5000">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Proteínas (g)</label>
+          <input type="number" class="form-input" id="proteinGoalInput" value="{{ profile.protein_goal }}" min="50" max="300">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Carboidratos (g)</label>
+          <input type="number" class="form-input" id="carbsGoalInput" value="{{ profile.carbs_goal }}" min="100" max="600">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Gorduras (g)</label>
+          <input type="number" class="form-input" id="fatGoalInput" value="{{ profile.fat_goal }}" min="30" max="150">
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="modal-btn secondary" onclick="closeGoalModal()">Cancelar</button>
+          <button type="submit" class="modal-btn primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Meal Modal -->
+  <div id="addMealModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Adicionar Refeição</h3>
+        <span class="close" onclick="closeAddMealModal()">&times;</span>
+      </div>
+      
+      <div class="food-search">
+        <input type="text" class="search-input" id="foodSearchInput" placeholder="Buscar alimentos...">
+      </div>
+      
+      <div class="filter-tabs">
+        <div class="filter-tab active" data-filter="all">Todos</div>
+        <div class="filter-tab" data-filter="favorites">Favoritos</div>
+        <div class="filter-tab" data-filter="recent">Recentes</div>
+      </div>
+      
+      <div class="food-list" id="foodList">
+        <!-- Foods will be loaded here -->
+      </div>
+      
+      <div class="modal-actions">
+        <button type="button" class="modal-btn secondary" onclick="closeAddMealModal()">Cancelar</button>
+        <button type="button" class="modal-btn primary" onclick="createMeal()">Criar Refeição</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification System -->
+  <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
+
+  <script>
+    // Page entrance animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        container.style.transition = 'all 0.5s ease';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 100);
+    });
+    
+    // Global variables
+    let currentDate = new Date('{{ selected_date|date:"Y-m-d" }}');
+    let selectedFoods = [];
+    let currentFilter = 'all';
+    
+    // Notification system
+    function showNotification(message, type = 'info', duration = 3000) {
+      const container = document.getElementById('notificationContainer');
+      const notification = document.createElement('div');
+      
+      notification.className = `notification notification-${type}`;
+      notification.style.cssText = `
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
+                      type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
+                      type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
+                      'linear-gradient(135deg, #2196f3, #1976d2)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        pointer-events: auto;
+        max-width: 300px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      `;
+      
+      const icon = document.createElement('i');
+      icon.className = type === 'success' ? 'fas fa-check-circle' :
+                      type === 'error' ? 'fas fa-exclamation-circle' :
+                      type === 'warning' ? 'fas fa-exclamation-triangle' :
+                      'fas fa-info-circle';
+      
+      const text = document.createElement('span');
+      text.textContent = message;
+      
+      notification.appendChild(icon);
+      notification.appendChild(text);
+      container.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Auto remove
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, duration);
+      
+      // Click to dismiss
+      notification.addEventListener('click', () => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      });
+    }
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateDateDisplay();
+      updateProgress();
+      updateMacroRemaining();
+      loadFoods();
+      
+      // Event listeners
+      document.getElementById('foodSearchInput').addEventListener('input', debounce(searchFoods, 300));
+      
+      // Filter tabs
+      document.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          searchFoods();
+        });
+      });
+      
+      // Goal form
+      document.getElementById('goalForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        updateGoals();
+      });
+    });
+    
+    // Calculate remaining macros
+    function updateMacroRemaining() {
+      const carbsGoal = parseInt(document.getElementById('carbsValues').textContent.match(/(\d+)g/)[1]);
+      const proteinGoal = parseInt(document.getElementById('proteinValues').textContent.match(/(\d+)g/)[1]);
+      const fatGoal = parseInt(document.getElementById('fatValues').textContent.match(/(\d+)g/)[1]);
+      
+      const carbsConsumed = parseInt(document.getElementById('carbsValues').textContent.match(/^(\d+)/)[1]);
+      const proteinConsumed = parseInt(document.getElementById('proteinValues').textContent.match(/^(\d+)/)[1]);
+      const fatConsumed = parseInt(document.getElementById('fatValues').textContent.match(/^(\d+)/)[1]);
+      
+      const carbsRemaining = Math.max(0, carbsGoal - carbsConsumed);
+      const proteinRemaining = Math.max(0, proteinGoal - proteinConsumed);
+      const fatRemaining = Math.max(0, fatGoal - fatConsumed);
+      
+      document.getElementById('carbsRemaining').textContent = carbsRemaining;
+      document.getElementById('proteinRemaining').textContent = proteinRemaining;
+      document.getElementById('fatRemaining').textContent = fatRemaining;
+    }
+    
+    // Date navigation
+    function changeDate(days) {
+      currentDate.setDate(currentDate.getDate() + days);
+      updateDateDisplay();
+      window.location.href = `{% url 'dieta' %}?date=${currentDate.toISOString().split('T')[0]}`;
+    }
+    
+    function updateDateDisplay() {
+      const today = new Date();
+      const dateStr = currentDate.toLocaleDateString('pt-BR');
+      
+      if (currentDate.toDateString() === today.toDateString()) {
+        document.getElementById('currentDate').textContent = 'Hoje';
+      } else {
+        document.getElementById('currentDate').textContent = dateStr;
+      }
+    }
+    
+    // Progress calculations
+    function updateProgress() {
+      const dailyGoal = parseInt(document.getElementById('dailyGoal').textContent);
+      const consumed = parseInt(document.getElementById('consumedCalories').textContent);
+      const remaining = Math.max(0, dailyGoal - consumed);
+      
+      // Update progress circle
+      const percentage = Math.min(100, (consumed / dailyGoal) * 100);
+      const circumference = 2 * Math.PI * 52;
+      const dashArray = (percentage / 100) * circumference;
+      
+      document.getElementById('progressCircle').style.strokeDasharray = `${dashArray} ${circumference}`;
+      document.getElementById('remainingCalories').textContent = remaining;
+      
+      // Update macro progress bars
+      updateMacroProgress('carbs', {{ total_carbs }}, {{ profile.carbs_goal }});
+      updateMacroProgress('protein', {{ total_protein }}, {{ profile.protein_goal }});
+      updateMacroProgress('fat', {{ total_fat }}, {{ profile.fat_goal }});
+      
+      // Update remaining macros
+      updateMacroRemaining();
+    }
+    
+    function updateMacroProgress(macro, consumed, goal) {
+      const percentage = Math.min(100, (consumed / goal) * 100);
+      document.getElementById(`${macro}Progress`).style.width = `${percentage}%`;
+    }
+    
+    // Goal modal
+    function openGoalModal() {
+      document.getElementById('goalModal').style.display = 'block';
+    }
+    
+    function closeGoalModal() {
+      document.getElementById('goalModal').style.display = 'none';
+    }
+    
+    async function updateGoals() {
+      const data = {
+        daily_calories: parseInt(document.getElementById('dailyCaloriesInput').value),
+        protein_goal: parseInt(document.getElementById('proteinGoalInput').value),
+        carbs_goal: parseInt(document.getElementById('carbsGoalInput').value),
+        fat_goal: parseInt(document.getElementById('fatGoalInput').value),
+      };
+      
+      try {
+        const response = await fetch('{% url "update_profile" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          document.getElementById('dailyGoal').textContent = data.daily_calories;
+          closeGoalModal();
+          updateProgress();
+          showNotification('Metas atualizadas com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao atualizar metas: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao atualizar metas: ' + error.message, 'error');
+      }
+    }
+    
+    // Food search and selection
+    async function loadFoods() {
+      await searchFoods();
+    }
+    
+    async function searchFoods() {
+      const query = document.getElementById('foodSearchInput').value;
+      
+      try {
+        const response = await fetch(`{% url "search_foods" %}?q=${encodeURIComponent(query)}&filter=${currentFilter}`);
+        const data = await response.json();
+        
+        const foodList = document.getElementById('foodList');
+        foodList.innerHTML = '';
+        
+        data.foods.forEach(food => {
+          const foodItem = createFoodItem(food);
+          foodList.appendChild(foodItem);
+        });
+      } catch (error) {
+        console.error('Erro ao buscar alimentos:', error);
+        showNotification('Erro ao buscar alimentos', 'error');
+      }
+    }
+    
+    function createFoodItem(food) {
+      const div = document.createElement('div');
+      div.className = 'food-item';
+      div.innerHTML = `
+        <div class="food-info">
+          <div class="food-name">${food.name}</div>
+          <div class="food-macros">
+            P: ${food.protein_per_100g}g | C: ${food.carbs_per_100g}g | G: ${food.fat_per_100g}g | F: ${food.fiber_per_100g}g
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="food-calories">${food.calories_per_100g} kcal</span>
+          <input type="number" class="quantity-input" placeholder="g" min="1" value="100" 
+                 onchange="updateSelectedFood(${food.id}, this.value)">
+        </div>
+      `;
+      
+      div.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+          // Redirect to food details page
+          window.location.href = `/inicio/detalhes_alimento/${food.id}/`;
+        }
+      });
+      
+      return div;
+    }
+    
+    function toggleFoodSelection(foodId) {
+      const index = selectedFoods.findIndex(f => f.food_id === foodId);
+      if (index > -1) {
+        selectedFoods.splice(index, 1);
+      } else {
+        selectedFoods.push({
+          food_id: foodId,
+          quantity: 100
+        });
+      }
+    }
+    
+    function updateSelectedFood(foodId, quantity) {
+      const food = selectedFoods.find(f => f.food_id === foodId);
+      if (food) {
+        food.quantity = parseInt(quantity);
+      }
+    }
+    
+    // Meal modals
+    function openAddMealModal() {
+      document.getElementById('addMealModal').style.display = 'block';
+      selectedFoods = [];
+    }
+    
+    function closeAddMealModal() {
+      document.getElementById('addMealModal').style.display = 'none';
+      selectedFoods = [];
+    }
+    
+    async function createMeal() {
+      if (selectedFoods.length === 0) {
+        showNotification('Selecione pelo menos um alimento', 'warning');
+        return;
+      }
+      
+      const mealName = prompt('Nome da refeição:') || 'Refeição';
+      
+      const data = {
+        name: mealName,
+        date: currentDate.toISOString().split('T')[0],
+        items: selectedFoods
+      };
+      
+      try {
+        const response = await fetch('{% url "add_meal" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          closeAddMealModal();
+          showNotification('Refeição criada com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao criar refeição: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao criar refeição: ' + error.message, 'error');
+      }
+    }
+    
+    // Meal actions
+    async function copyMeal(mealId) {
+      const targetDate = prompt('Data de destino (YYYY-MM-DD):');
+      if (!targetDate) return;
+      
+      try {
+        const response = await fetch(`{% url "copy_meal" meal_id=0 %}`.replace('0', mealId), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ target_date: targetDate })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Refeição copiada com sucesso!', 'success');
+        } else {
+          showNotification('Erro ao copiar refeição: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao copiar refeição: ' + error.message, 'error');
+      }
+    }
+    
+    function editMeal(mealId) {
+      showNotification('Funcionalidade de edição em desenvolvimento', 'info');
+    }
+    
+    function addFoodToMeal(mealId) {
+      showNotification('Funcionalidade de adicionar alimento em desenvolvimento', 'info');
+    }
+    
+    // Day actions
+    async function clearDay() {
+      if (!confirm('Tem certeza que deseja limpar todas as refeições deste dia?')) return;
+      
+      try {
+        const response = await fetch('{% url "clear_day" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ date: currentDate.toISOString().split('T')[0] })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Dia limpo com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao limpar dia: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao limpar dia: ' + error.message, 'error');
+      }
+    }
+    
+    async function replicateDay() {
+      const targetDate = prompt('Data de destino (YYYY-MM-DD):');
+      if (!targetDate) return;
+      
+      try {
+        const response = await fetch('{% url "replicate_day" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({
+            source_date: currentDate.toISOString().split('T')[0],
+            target_date: targetDate
+          })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Dia replicado com sucesso!', 'success');
+        } else {
+          showNotification('Erro ao replicar dia: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao replicar dia: ' + error.message, 'error');
+      }
+    }
+    
+    function exportDiet() {
+      showNotification('Funcionalidade de exportação em desenvolvimento', 'info');
+    }
+    
+    function showMoreOptions() {
+      showNotification('Funcionalidade de mais opções em desenvolvimento', 'info');
+    }
+    
+    // Utility functions
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    
+    // Close modals when clicking outside
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+  </script>
+</body>
+</html> 

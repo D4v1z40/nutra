@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre os Desenvolvedores</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { background: #111; color: #fff; min-height: 100vh; margin:0; }
+    .sobre-header { background: #232323; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
+    .sobre-voltar { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #8fd19e; font-size: 32px; cursor: pointer; z-index: 10; background: none; border: none; }
+    .devs-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 70px);
+      width: 100vw;
+    }
+    .devs-container { display: flex; justify-content: center; align-items: flex-start; gap: 60px; margin-top: 0; }
+    .dev-box { background: none; border: 2px solid #fff; border-radius: 10px; padding: 18px 24px; min-width: 260px; max-width: 320px; color: #fff; text-align: left; margin-top: 18px; }
+    .dev-foto { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #8fd19e; display: block; margin: 0 auto 10px auto; box-shadow: 0 0 15px rgba(143,209,158,0.18); background: #232323; }
+    .dev-foto[src=""] { background: #232323 url('https://cdn-icons-png.flaticon.com/512/149/149071.png') center/60% no-repeat; }
+    .dev-nome { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+    .dev-contato { margin-top: 10px; }
+    .dev-contato i { color: #25d366; margin-right: 8px; font-size: 20px; vertical-align: middle; }
+    .dev-contato .email-icon { color: #ea4335; }
+    .dev-contato span { font-size: 16px; vertical-align: middle; }
+    .dev-contato a { color: #fff; text-decoration: none; }
+    .dev-contato a:hover { text-decoration: underline; }
+    .dev-traco { width: 60px; height: 180px; display: flex; align-items: center; justify-content: center; }
+    .dev-traco svg { width: 100%; height: 100%; }
+    @media (max-width: 900px) { .devs-container { flex-direction: column; align-items: center; gap: 0; } .dev-traco { display: none; } }
+    @media (max-width: 600px) { .dev-box { min-width: 90vw; max-width: 98vw; padding: 10px 4vw; } .dev-foto { width: 80px; height: 80px; } .sobre-header { font-size: 16px; } .sobre-voltar { font-size: 22px; } }
+  </style>
+</head>
+<body>
+  <div class="sobre-header">
+    SOBRE OS DESENVOLVEDORES
+    <a href="{% url 'configuracoes' %}" class="sobre-voltar"><i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="devs-center">
+    <div class="devs-container">
+      <div>
+        <img src="{% static 'inicio/img/programador1.png' %}" alt="Davizao" class="dev-foto">
+        <div class="dev-nome">Davi Pinheiro Moreira</div>
+        <div class="dev-box">
+          <div class="dev-contato"><i class="fab fa-whatsapp"></i><span>+55 19 98752-3023</span></div>
+          <div class="dev-contato"><i class="fas fa-envelope email-icon"></i><span>daviimoreira096@gmail.com</span></div>
+        </div>
+      </div>
+      <div class="dev-traco">
+        <svg viewBox="0 0 60 180"><path d="M30,0 Q40,40 30,90 Q20,140 30,180" stroke="#8fd19e" stroke-width="3" fill="none"/></svg>
+      </div>
+      <div>
+        <img src="{% static 'inicio/img/programador2.png' %}" alt="Raissa" class="dev-foto">
+        <div class="dev-nome">Raissa Franco dos Santos</div>
+        <div class="dev-box">
+          <div class="dev-contato"><i class="fab fa-whatsapp"></i><span>+55 (19) 99112-8143</span></div>
+          <div class="dev-contato"><i class="fas fa-envelope email-icon"></i><span>raissafsantos41447@gmail.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

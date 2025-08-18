@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,23 +6,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutra - Login</title>
     <link rel="stylesheet" href="{% static 'inicio/css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .password-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-btn {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+        
+        .toggle-btn:hover {
+            color: #8fd19e;
+        }
+        
+        .input-group input[type="password"] {
+            padding-right: 45px;
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container" style="padding-top: 10px;">
-        <img src="{% static 'inicio/img/Logo.png' %}" alt="Logo Nutra" class="logo" style="width: 250px; margin-bottom: 5px;"> 
-        <h2 style="color: #004d00; margin-top: 5px; margin-bottom: 10px;">Nutra - Login</h2>
-            <form action="{% url 'login' %}" method="post" class="login-form" style="display: flex; flex-direction: column; align-items: center;">{% csrf_token %}
-            <div class="input-group" style="text-align: center; width: 100%;">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Digite seu email" style="width: 90%;">
+    <div class="login-container">
+        <img src="{% static 'inicio/img/Logo.png' %}" alt="Logo Nutra" class="logo"> 
+        <h2>Login</h2>
+        
+        <!-- Notification System -->
+        <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
+        
+        <form action="{% url 'login' %}" method="post" class="login-form" id="loginForm">
+            {% csrf_token %}
+            <div class="input-group">
+                <span class="input-icon"><i class="fa fa-envelope"></i></span>
+                <input type="text" name="username" id="username" placeholder="Usuário" required>
             </div>
-            <div class="input-group" style="text-align: center; width: 100%;">
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Digite sua senha" style="width: 90%;">
+            <div class="input-group">
+                <span class="input-icon"><i class="fa fa-lock"></i></span>
+                <div class="password-toggle">
+                    <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                    <button type="button" class="toggle-btn" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
             </div>
-            <button type="submit" class="btn" style="color: black;">Entrar</button>
+            <button type="submit" class="btn">Entrar</button>
         </form>
-        <a href="#" class="register-link" style="color: black;">Não tem uma conta? <span style="color: #004d00; font-weight: bold;">Cadastrar</span></a>
+        <a href="{% url 'register' %}" class="register-link">Não tem uma conta? <span>Cadastrar</span></a>
     </div>
+
+    <script>
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('senha');
+            const toggleBtn = document.querySelector('.toggle-btn i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.className = 'fas fa-eye';
+            }
+        }
+        
+        // Notification system
+        function showNotification(message, type = 'info', duration = 3000) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            
+            notification.className = `notification notification-${type}`;
+            notification.style.cssText = `
+                background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
+                              type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
+                              type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
+                              'linear-gradient(135deg, #2196f3, #1976d2)'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                pointer-events: auto;
+                max-width: 300px;
+                font-size: 14px;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            const icon = document.createElement('i');
+            icon.className = type === 'success' ? 'fas fa-check-circle' :
+                            type === 'error' ? 'fas fa-exclamation-circle' :
+                            type === 'warning' ? 'fas fa-exclamation-triangle' :
+                            'fas fa-info-circle';
+            
+            const text = document.createElement('span');
+            text.textContent = message;
+            
+            notification.appendChild(icon);
+            notification.appendChild(text);
+            container.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            // Auto remove
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, duration);
+            
+            // Click to dismiss
+            notification.addEventListener('click', () => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            });
+        }
+
+        // Form validation
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            const username = document.getElementById('username').value.trim();
+            const senha = document.getElementById('senha').value.trim();
+            
+            if (!username) {
+                e.preventDefault();
+                showNotification('Por favor, preencha o campo usuário', 'warning');
+                document.getElementById('username').focus();
+                return;
+            }
+            
+            if (!senha) {
+                e.preventDefault();
+                showNotification('Por favor, preencha o campo senha', 'warning');
+                document.getElementById('senha').focus();
+                return;
+            }
+        });
+
+        // Page entrance animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.login-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.5s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
 </body>
 </html>

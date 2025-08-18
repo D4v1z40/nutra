@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre o Sistema</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { background: #111; color: #fff; min-height: 100vh; margin:0; }
+    .sobre-header { background: #232323; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
+    .sobre-voltar { position: absolute; left: 18px; top: 18px; color: #8fd19e; font-size: 28px; cursor: pointer; }
+    .sobre-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 70px);
+      width: 100vw;
+    }
+    .sobre-box {
+      border: 2px solid #b18fff;
+      border-radius: 10px;
+      background: none;
+      color: #fff;
+      font-size: 1.25rem;
+      text-align: center;
+      line-height: 1.6;
+      box-shadow: 0 2px 18px rgba(177,143,255,0.05);
+      max-width: 600px;
+      width: 90vw;
+      padding: 38px 32px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 700px) {
+      .sobre-header { font-size: 16px; }
+      .sobre-box { font-size: 15px; padding: 8vw 2vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sobre-header">
+    SOBRE O SISTEMA
+  </div>
+  <a href="{% url 'configuracoes' %}" class="sobre-voltar"><i class="fas fa-arrow-left"></i></a>
+  <div class="sobre-center">
+    <div class="sobre-box">
+      O sistema oferece uma plataforma integrada para acompanhamento de treinos e alimentação, permitindo o cálculo preciso de calorias e macronutrientes, além do registro detalhado de exercícios e grupos musculares trabalhados.<br><br>
+      Destinado a atletas e praticantes comuns, ele facilita o planejamento e otimização dos resultados físicos, democratizando o acesso a ferramentas antes exclusivas de academias e consultórios nutricionais. Com isso, qualquer pessoa pode gerir sua jornada fitness de forma prática e autônoma, promovendo saúde, desempenho e qualidade de vida.
+    </div>
+  </div>
+</body>
+</html> 

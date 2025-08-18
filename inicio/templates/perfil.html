@@ -6,31 +6,548 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nutra - Treino e Dieta</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Centralizar formulários dos modais */
+    .modal-content {
+      max-width: 500px;
+      width: 90vw;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      color: #8fd19e;
+      font-weight: bold;
+      margin-bottom: 8px;
+      font-size: 14px;
+      text-align: left;
+    }
+    
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      background: #232323;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #8fd19e;
+      box-shadow: 0 0 0 2px rgba(143, 209, 158, 0.2);
+    }
+    
+    .profile-photo-upload {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    #profilePhotoPreview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #8fd19e;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    #profilePhotoPreview:hover {
+      transform: scale(1.05);
+    }
+    
+    .upload-btn {
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .upload-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    
+    .modal-btn {
+      flex: 1;
+      max-width: 150px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .modal-btn.primary {
+      background: #8fd19e;
+      color: #121212;
+    }
+    
+    .modal-btn.primary:hover {
+      background: #7bc08a;
+    }
+    
+    .modal-btn.secondary {
+      background: #666;
+      color: #fff;
+    }
+    
+    .modal-btn.secondary:hover {
+      background: #555;
+    }
+    
+    .loading-spinner {
+      border: 3px solid #333;
+      border-top: 3px solid #8fd19e;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    #logoutLoading .modal-content {
+      text-align: center;
+      padding: 30px;
+    }
+    
+    #logoutLoading p {
+      margin: 0;
+      color: #8fd19e;
+      font-weight: bold;
+    }
+    
+    /* Fixar navegação no rodapé e evitar sobreposição do conteúdo */
+    body { padding-bottom: 90px; }
+    .container { padding-bottom: 90px; }
+    footer { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; z-index: 1000; }
+  </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <a href="#" class="settings-icon">⚙️</a>
+    <header style="position:relative;">
+      <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="background: none !important; box-shadow: none !important;"><i class="fas fa-cog"></i></a>
     </header>
     <main>
         <div class="user-icon">
             <img src="{% static 'inicio/img/userCircle.png' %}" 
                  alt="Ícone de usuário" />
-          </div>
-          
+        </div>
       <h1>Seja bem-vindo(a)</h1>
-      <p>(nome do user aq)</p>
-      <button class="edit">Editar Perfil</button>
-      <button class="info">Dados Pessoais</button>
-      <button class="logout">Sair</button>
+      <p>{{ user.get_full_name|default:user.username }}</p>      
+      <button class="edit perfil-btn" id="openEditModal">Editar Perfil</button>     
+      <button class="info perfil-btn" id="openInfoModal">Dados Pessoais</button>
+      <div> 
+        <button type="button" class="sair perfil-btn" onclick="confirmLogout()">Sair</button>
+      </div>
+      
+      <!-- Modal de Confirmação de Logout -->
+      <div id="logoutModal" class="modal">
+        <div class="modal-content">
+          <h2>Confirmar Saída</h2>
+          <p>Tem certeza que deseja sair?</p>
+          <div class="modal-actions">
+            <button class="modal-btn secondary" onclick="closeLogoutModal()">Cancelar</button>
+            <button class="modal-btn primary" onclick="performLogout()">Sair</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Loading de Logout -->
+      <div id="logoutLoading" class="modal">
+        <div class="modal-content">
+          <div class="loading-spinner"></div>
+          <p>Saindo...</p>
+        </div>
+      </div>
+      
+      <!-- Modal Editar Perfil -->
+      <div id="editModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeEditModal">&times;</span>
+          <h2>Editar Perfil</h2>
+          <form id="editProfileForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Foto de Perfil</label>
+              <div class="profile-photo-upload">
+                <img id="profilePhotoPreview" src="{% static 'inicio/img/userCircle.png' %}" alt="Foto de perfil">
+                <input type="file" id="profilePhotoInput" name="profile_photo" accept="image/*" style="display: none;">
+                <button type="button" class="upload-btn" onclick="document.getElementById('profilePhotoInput').click()">
+                  <i class="fas fa-camera"></i> Alterar Foto
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Nome Completo</label>
+              <input type="text" id="fullNameInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}" required>
+            </div>
+            <div class="form-group">
+              <label>Data de Nascimento</label>
+              <input type="date" id="birthDateInput" name="birth_date" value="{% if user.profile.birth_date %}{{ user.profile.birth_date|date:'Y-m-d' }}{% endif %}">
+            </div>
+            <div class="form-group">
+              <label>Gênero</label>
+              <select id="genderInput" name="gender">
+                <option value="M" {% if user.profile.gender == 'M' %}selected{% endif %}>Masculino</option>
+                <option value="F" {% if user.profile.gender == 'F' %}selected{% endif %}>Feminino</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Altura (cm)</label>
+              <input type="number" id="heightInput" name="height" value="{% if user.profile.height %}{{ user.profile.height }}{% endif %}" min="100" max="250">
+            </div>
+            <div class="form-group">
+              <label>Peso (kg)</label>
+              <input type="number" id="weightInput" name="weight" value="{% if user.profile.weight %}{{ user.profile.weight }}{% endif %}" min="30" max="300" step="0.1">
+            </div>
+            <div class="form-group">
+              <label>Objetivo</label>
+              <select id="objectiveInput" name="objective">
+                <option value="maintain" {% if user.profile.objective == 'maintain' %}selected{% endif %}>Manter Peso</option>
+                <option value="lose" {% if user.profile.objective == 'lose' %}selected{% endif %}>Perder Peso</option>
+                <option value="gain" {% if user.profile.objective == 'gain' %}selected{% endif %}>Ganhar Peso</option>
+              </select>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="modal-btn secondary" onclick="closeEditModal()">Cancelar</button>
+              <button type="submit" class="modal-btn primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Modal Dados Pessoais -->
+      <div id="infoModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeInfoModal">&times;</span>
+          <h2>Dados Pessoais</h2>
+          <form id="personalDataForm">
+            <div class="form-group">
+              <label>Nome de Usuário</label>
+              <input type="text" id="usernameInput" name="username" value="{{ user.username }}" readonly>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="emailInput" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+              <label>Telefone</label>
+              <input type="tel" id="phoneInput" name="phone" value="{% if user.profile.phone %}{{ user.profile.phone }}{% endif %}" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group">
+              <label>Nome Completo</label>
+              <input type="text" id="fullNameInfoInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% endif %}" required>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="modal-btn secondary" onclick="closeInfoModal()">Cancelar</button>
+              <button type="submit" class="modal-btn primary">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Modal Configurações -->
+      <div id="settingsModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeSettingsModal">&times;</span>
+          <h2>Configurações</h2>
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
     </main>
-    <footer>
-      <nav>
-        <a href="#">🏋 Treinos</a>
-        <a href="#">🍽 Dieta</a>
-        <a href="#">👤 Perfil</a>
-      </nav>
-    </footer>
   </div>
+  
+  <footer>
+    <nav>
+      <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="#" class="active"><i class="fas fa-user"></i> Perfil</a>
+    </nav>
+  </footer>
+  
+  <!-- Notification System -->
+  <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
+  
+  <script>
+    // Page entrance animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        container.style.transition = 'all 0.5s ease';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 100);
+    });
+    
+    // Notification system
+    function showNotification(message, type = 'info', duration = 3000) {
+      const container = document.getElementById('notificationContainer');
+      const notification = document.createElement('div');
+      
+      notification.className = `notification notification-${type}`;
+      notification.style.cssText = `
+        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
+                      type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
+                      type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
+                      'linear-gradient(135deg, #2196f3, #1976d2)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        pointer-events: auto;
+        max-width: 300px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      `;
+      
+      const icon = document.createElement('i');
+      icon.className = type === 'success' ? 'fas fa-check-circle' :
+                      type === 'error' ? 'fas fa-exclamation-circle' :
+                      type === 'warning' ? 'fas fa-exclamation-triangle' :
+                      'fas fa-info-circle';
+      
+      const text = document.createElement('span');
+      text.textContent = message;
+      
+      notification.appendChild(icon);
+      notification.appendChild(text);
+      container.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+      }, 100);
+      
+      // Auto remove
+      setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }, duration);
+      
+      // Click to dismiss
+      notification.addEventListener('click', () => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      });
+    }
+    
+    // Modal Editar Perfil
+    document.getElementById('openEditModal').onclick = function() {
+      document.getElementById('editModal').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    };
+    
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+    
+    document.getElementById('closeEditModal').onclick = closeEditModal;
+    
+    // Profile photo preview
+    document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profilePhotoPreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Form submissions
+    document.getElementById('editProfileForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      try {
+        const response = await fetch('{% url "update_profile" %}', {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: formData
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Perfil atualizado com sucesso!', 'success');
+          closeEditModal();
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao atualizar perfil: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao atualizar perfil: ' + error.message, 'error');
+      }
+    });
+    
+    document.getElementById('personalDataForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      
+      try {
+        const response = await fetch('{% url "update_personal_data" %}', {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: formData
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Dados pessoais atualizados com sucesso!', 'success');
+          closeInfoModal();
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao atualizar dados: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao atualizar dados: ' + error.message, 'error');
+      }
+    });
+    
+    // Modal Dados Pessoais
+    document.getElementById('openInfoModal').onclick = function() {
+      document.getElementById('infoModal').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    };
+    
+    function closeInfoModal() {
+      document.getElementById('infoModal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+    
+    document.getElementById('closeInfoModal').onclick = closeInfoModal;
+    
+    // Modal Configurações
+    document.getElementById('openSettings').onclick = function() {
+      window.location.href = "{% url 'configuracoes' %}";
+    };
+    
+    document.getElementById('closeSettingsModal').onclick = function() {
+      document.getElementById('settingsModal').style.display = 'none';
+    };
+    
+    // Fechar modal ao clicar fora
+    window.onclick = function(event) {
+      ['editModal','infoModal','settingsModal','logoutModal','logoutLoading'].forEach(function(id) {
+        var modal = document.getElementById(id);
+        if (event.target == modal) {
+          modal.style.display = 'none';
+          document.body.classList.remove('modal-open');
+        }
+      });
+    };
+
+    // Funções de logout
+    function confirmLogout() {
+      document.getElementById('logoutModal').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    }
+    
+    function closeLogoutModal() {
+      document.getElementById('logoutModal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+    
+    function performLogout() {
+      // Limpar dados temporários do localStorage
+      localStorage.removeItem('selectedExercises');
+      localStorage.removeItem('workoutData');
+      
+      // Mostrar loading
+      document.getElementById('logoutModal').style.display = 'none';
+      document.getElementById('logoutLoading').style.display = 'flex';
+      document.body.classList.add('modal-open');
+      
+      // Simular delay e fazer logout
+      setTimeout(() => {
+        // Criar form temporário para fazer logout
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = "{% url 'logout' %}";
+        
+        const csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = 'csrfmiddlewaretoken';
+        csrfToken.value = getCookie('csrftoken');
+        
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+      }, 1500);
+    }
+    
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+  </script>
 </body>
 </html>
