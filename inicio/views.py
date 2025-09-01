@@ -4,6 +4,7 @@ from django.contrib import messages  # para exibir mensagens (opcional)
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+<<<<<<< HEAD
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
@@ -12,12 +13,15 @@ from datetime import date, timedelta
 import json
 
 from .models import UserProfile, Food, UserFood, Meal, MealItem, DailyNutrition
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 
 # Create your views here.
 
 
 def login(request):
     if request.method == 'POST':
+<<<<<<< HEAD
         username = request.POST.get('username')
         senha = request.POST.get('senha')
 
@@ -26,6 +30,11 @@ def login(request):
             messages.error(request, "Por favor, preencha todos os campos.")
             return render(request, 'login.html')
 
+=======
+        username = request.POST.get('username')  # Antes estava "email"
+        senha = request.POST.get('senha')
+
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
         user = authenticate(request, username=username, password=senha)
 
         if user is not None:
@@ -87,6 +96,7 @@ def configuracoes(request):
 
 
 @login_required
+<<<<<<< HEAD
 def alterar_senha(request):
     return render(request, 'alterar_senha.html')
 
@@ -177,6 +187,8 @@ def update_personal_data(request):
 
 
 @login_required
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 def sobre_sistema(request):
     return render(request, 'sobre_sistema.html')
 
@@ -186,6 +198,7 @@ def sobre_desenvolvedores(request):
     return render(request, 'sobre_desenvolvedores.html')
 
 
+<<<<<<< HEAD
 @login_required
 def detalhes_alimento(request, food_id):
     try:
@@ -303,10 +316,13 @@ def visualizar_treino(request):
     return render(request, 'visualizar_treino.html')
 
 
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 def logout_view(request):
     logout(request)
     # O 'login' aqui é o nome da URL da página de login
     return redirect('login')
+<<<<<<< HEAD
 
 
 # APIs para o sistema de dieta
@@ -724,3 +740,5 @@ def populate_sample_foods(request):
         )
     
     return JsonResponse({'success': True, 'message': 'Alimentos de exemplo adicionados!'})
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9

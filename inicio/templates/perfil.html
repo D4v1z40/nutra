@@ -7,6 +7,7 @@
   <title>Nutra - Treino e Dieta</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<<<<<<< HEAD
   <style>
     /* Centralizar formulários dos modais */
     .modal-content {
@@ -156,11 +157,17 @@
     .container { padding-bottom: 90px; }
     footer { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; z-index: 1000; }
   </style>
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 </head>
 <body>
   <div class="container">
     <header style="position:relative;">
+<<<<<<< HEAD
       <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="background: none !important; box-shadow: none !important;"><i class="fas fa-cog"></i></a>
+=======
+      <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="position:fixed;top:32px;right:32px;z-index:1001;"><i class="fas fa-cog"></i></a>
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     </header>
     <main>
         <div class="user-icon">
@@ -172,6 +179,7 @@
       <button class="edit perfil-btn" id="openEditModal">Editar Perfil</button>     
       <button class="info perfil-btn" id="openInfoModal">Dados Pessoais</button>
       <div> 
+<<<<<<< HEAD
         <button type="button" class="sair perfil-btn" onclick="confirmLogout()">Sair</button>
       </div>
       
@@ -195,11 +203,18 @@
         </div>
       </div>
       
+=======
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+          <button type="submit" class="sair perfil-btn">Sair</button>
+        </form>
+      </div>
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
       <!-- Modal Editar Perfil -->
       <div id="editModal" class="modal">
         <div class="modal-content">
           <span class="close" id="closeEditModal">&times;</span>
           <h2>Editar Perfil</h2>
+<<<<<<< HEAD
           <form id="editProfileForm" enctype="multipart/form-data">
             <div class="form-group">
               <label>Foto de Perfil</label>
@@ -250,11 +265,17 @@
         </div>
       </div>
       
+=======
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
       <!-- Modal Dados Pessoais -->
       <div id="infoModal" class="modal">
         <div class="modal-content">
           <span class="close" id="closeInfoModal">&times;</span>
           <h2>Dados Pessoais</h2>
+<<<<<<< HEAD
           <form id="personalDataForm">
             <div class="form-group">
               <label>Nome de Usuário</label>
@@ -280,6 +301,11 @@
         </div>
       </div>
       
+=======
+          <p>Funcionalidade em desenvolvimento.</p>
+        </div>
+      </div>
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
       <!-- Modal Configurações -->
       <div id="settingsModal" class="modal">
         <div class="modal-content">
@@ -289,6 +315,7 @@
         </div>
       </div>
     </main>
+<<<<<<< HEAD
   </div>
   
   <footer>
@@ -475,10 +502,35 @@
     
     document.getElementById('closeInfoModal').onclick = closeInfoModal;
     
+=======
+    <footer>
+      <nav>
+        <a href="{% url 'montar_treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+        <a href="#" class="active"><i class="fas fa-user"></i> Perfil</a>
+      </nav>
+    </footer>
+  </div>
+  <script>
+    // Modal Editar Perfil
+    document.getElementById('openEditModal').onclick = function() {
+      document.getElementById('editModal').style.display = 'block';
+    };
+    document.getElementById('closeEditModal').onclick = function() {
+      document.getElementById('editModal').style.display = 'none';
+    };
+    // Modal Dados Pessoais
+    document.getElementById('openInfoModal').onclick = function() {
+      document.getElementById('infoModal').style.display = 'block';
+    };
+    document.getElementById('closeInfoModal').onclick = function() {
+      document.getElementById('infoModal').style.display = 'none';
+    };
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     // Modal Configurações
     document.getElementById('openSettings').onclick = function() {
       window.location.href = "{% url 'configuracoes' %}";
     };
+<<<<<<< HEAD
     
     document.getElementById('closeSettingsModal').onclick = function() {
       document.getElementById('settingsModal').style.display = 'none';
@@ -548,6 +600,20 @@
       }
       return cookieValue;
     }
+=======
+    document.getElementById('closeSettingsModal').onclick = function() {
+      document.getElementById('settingsModal').style.display = 'none';
+    };
+    // Fechar modal ao clicar fora
+    window.onclick = function(event) {
+      ['editModal','infoModal','settingsModal'].forEach(function(id) {
+        var modal = document.getElementById(id);
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      });
+    };
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
   </script>
 </body>
 </html>

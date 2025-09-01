@@ -38,6 +38,7 @@
 <body>
     <div class="login-container">
         <img src="{% static 'inicio/img/Logo.png' %}" alt="Logo Nutra" class="logo"> 
+<<<<<<< HEAD
         <h2>Login</h2>
         
         <!-- Notification System -->
@@ -59,6 +60,20 @@
                 </div>
             </div>
             <button type="submit" class="btn">Entrar</button>
+=======
+        <h2>Nutra - Login</h2>
+        <form action="{% url 'login' %}" method="post" class="login-form">
+            {% csrf_token %}
+            <div class="input-group">
+                <span class="input-icon"><i class="fa fa-envelope"></i></span>
+                <input type="text" name="username" id="username" placeholder="Email">
+            </div>
+            <div class="input-group">
+                <span class="input-icon"><i class="fa fa-lock"></i></span>
+                <input type="password" name="senha" id="senha" placeholder="Senha">
+            </div>
+            <button href="{% url 'perfil' %}" type="submit" class="btn">Entrar</button>
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
         </form>
         <a href="{% url 'register' %}" class="register-link">Não tem uma conta? <span>Cadastrar</span></a>
     </div>

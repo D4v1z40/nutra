@@ -11,6 +11,7 @@ urlpatterns = [
     path('montar_treino/', views.montar_treino, name='montar_treino'),
     path('logout/', views.logout_view, name='logout'),
     path('configuracoes/', views.configuracoes, name='configuracoes'),
+<<<<<<< HEAD
     path('alterar_senha/', views.alterar_senha, name='alterar_senha'),
     path('sobre_sistema/', views.sobre_sistema, name='sobre_sistema'),
     path('sobre_desenvolvedores/', views.sobre_desenvolvedores,
@@ -39,6 +40,12 @@ urlpatterns = [
          views.toggle_favorite, name='toggle_favorite'),
     path('populate-foods/', views.populate_sample_foods, name='populate_foods'),
 
+=======
+    path('sobre_sistema/', views.sobre_sistema, name='sobre_sistema'),
+    path('sobre_desenvolvedores/', views.sobre_desenvolvedores,
+         name='sobre_desenvolvedores'),
+
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     # Outras rotas...
 
 ]

@@ -14,7 +14,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+<<<<<<< HEAD
     overflow-x: hidden;
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 }
 
 .container {
@@ -35,11 +38,19 @@ header {
     top: 32px !important;
     right: 32px !important;
     z-index: 1001 !important;
+<<<<<<< HEAD
     background: none;
+=======
+    background: #232323;
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     border-radius: 50%;
     padding: 10px;
     font-size: 32px !important;
     color: #8fd19e;
+<<<<<<< HEAD
+=======
+    box-shadow: 0 2px 8px rgba(143,209,158,0.10);
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     transition: transform 0.4s, color 0.4s;
 }
 
@@ -81,6 +92,7 @@ button, .sair {
     border-radius: 40px;
     border: none;
     font-size: 16px;
+<<<<<<< HEAD
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -158,6 +170,85 @@ footer nav a {
     text-decoration: none;
     color: #8fd19e;
     font-weight: bold;
+=======
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 77, 0, 0.4);
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #45a049, #2e7d32);
+}
+
+/* Animação botão Sair */
+.sair {
+    background: linear-gradient(135deg, #e53935, #b71c1c);
+    color: #fff;
+    font-weight: bold;
+}
+
+.sair:hover {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* Botão de voltar */
+.buttonback {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    background-color: #8fd19e;
+    color: #121212;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0px 3px 6px rgba(143, 209, 158, 0.4);
+    transition: transform 0.3s, background 0.3s;
+}
+
+.buttonback:hover {
+    background-color: #b1f2be;
+    transform: scale(1.1);
+}
+
+/* Rodapé */
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    background: #1e1e1e;
+    padding: 12px 0 8px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+}
+
+footer nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+footer nav a {
+    text-decoration: none;
+    color: #8fd19e;
+    font-weight: bold;
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     font-size: 18px;
     transition: color 0.3s, transform 0.3s;
 }
@@ -183,9 +274,15 @@ footer nav a.active {
     z-index: 1000;
     left: 0;
     top: 0;
+<<<<<<< HEAD
     width: 100%;
     height: 100%;
     overflow: hidden;
+=======
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     background: rgba(18, 18, 18, 0.85);
     backdrop-filter: blur(2px);
     align-items: center;
@@ -194,11 +291,18 @@ footer nav a.active {
 
 .modal-content {
     background: #232323;
+<<<<<<< HEAD
     margin: 0 auto;
     padding: 30px 24px 24px 24px;
     border-radius: 18px;
     max-width: 560px;
     width: 90vw;
+=======
+    margin: 10% auto;
+    padding: 30px 24px 24px 24px;
+    border-radius: 18px;
+    max-width: 400px;
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     box-shadow: 0 8px 32px rgba(143, 209, 158, 0.15);
     color: #f0f0f0;
     position: relative;
@@ -206,6 +310,7 @@ footer nav a.active {
 }
 
 @keyframes modalFadeIn {
+<<<<<<< HEAD
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
@@ -220,6 +325,12 @@ body.modal-open .settings-icon {
 }
 
 
+=======
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 .close {
     position: absolute;
     top: 12px;
@@ -242,7 +353,10 @@ body.modal-open .settings-icon {
     }
     .modal-content {
         max-width: 95vw;
+<<<<<<< HEAD
         width: 95vw;
+=======
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
         padding: 18px 8px 16px 8px;
     }
     .user-icon img {
@@ -260,7 +374,11 @@ body.modal-open .settings-icon {
         font-size: 15px;
         padding: 10px;
     }
+<<<<<<< HEAD
     .buttonback {
+=======
+    .buttonback, .settings-icon {
+>>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
         font-size: 18px;
         width: 28px;
         height: 28px;
