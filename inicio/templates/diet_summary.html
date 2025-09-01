@@ -1,0 +1,719 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumo da Dieta - Nutra</title>
+  <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    }
+    
+    .summary-header {
+      background: linear-gradient(135deg, #0a5e00, #0d7a00);
+      color: #fff;
+      padding: 1.5rem 0;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 6px 25px rgba(10, 94, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .summary-header:hover::before {
+      left: 100%;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+    
+    .back-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .header-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 0;
+    }
+    
+    .date-navigation {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .nav-arrow {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 50%;
+      transition: background 0.3s;
+    }
+    
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .current-date {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px;
+    }
+    
+    .summary-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .summary-card:hover::before {
+      left: 100%;
+    }
+    
+    .summary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .summary-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #8fd19e;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .summary-label {
+      font-size: 14px;
+      color: #888;
+    }
+    
+    .charts-section {
+      margin: 20px;
+    }
+    
+    .chart-container {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .chart-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .chart-container:hover::before {
+      left: 100%;
+    }
+    
+    .chart-container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .chart-title {
+      color: #8fd19e;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .chart-wrapper {
+      position: relative;
+      height: 300px;
+      margin: 0 auto;
+      max-width: 400px;
+    }
+    
+    .meals-section {
+      margin: 20px;
+    }
+    
+    .meal-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .meal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .meal-card:hover::before {
+      left: 100%;
+    }
+    
+    .meal-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .meal-header {
+      background: linear-gradient(145deg, #333, #2a2a2a);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(143,209,158,0.1);
+    }
+    
+    .meal-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8fd19e;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .meal-calories {
+      color: #4ecdc4;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 0 1px 5px rgba(78, 205, 196, 0.3);
+    }
+    
+    .meal-items {
+      padding: 15px 20px;
+    }
+    
+    .meal-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #333;
+    }
+    
+    .meal-item:last-child {
+      border-bottom: none;
+    }
+    
+    .item-name {
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .item-details {
+      color: #888;
+      font-size: 12px;
+    }
+    
+    .progress-section {
+      margin: 20px;
+    }
+    
+    .progress-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 15px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .progress-card:hover::before {
+      left: 100%;
+    }
+    
+    .progress-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    .progress-label {
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .progress-value {
+      color: #8fd19e;
+      font-weight: bold;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-fill.calories { background: #4caf50; }
+    .progress-fill.protein { background: #ff6b6b; }
+    .progress-fill.carbs { background: #4ecdc4; }
+    .progress-fill.fat { background: #ffe66d; }
+    
+    .empty-state {
+      text-align: center;
+      color: #888;
+      padding: 40px 20px;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    
+    @media (max-width: 768px) {
+      .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .chart-wrapper {
+        height: 250px;
+      }
+    }
+    
+    /* Footer styles */
+    footer {
+      background: #232323;
+      border-top: 1px solid #333;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: transparent;
+    }
+    
+    footer nav a:hover {
+      color: #8fd19e;
+      background: rgba(143, 209, 158, 0.1);
+    }
+    
+    footer nav a.active {
+      color: #000;
+      background: #22c55e;
+      font-weight: bold;
+    }
+    
+    footer nav a i {
+      font-size: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      footer nav {
+        gap: 30px;
+      }
+      
+      footer nav a {
+        padding: 8px 15px;
+        font-size: 12px;
+      }
+      
+      footer nav a i {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top: 0;">
+    <!-- Header -->
+    <div class="summary-header">
+      <div class="header-content">
+        <button class="back-btn" onclick="window.history.back()">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="header-title">Resumo da Dieta</h1>
+        <div class="date-navigation">
+          <button class="nav-arrow" onclick="changeDate(-1)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <span class="current-date" id="currentDate">{{ selected_date|date:"d/m/Y" }}</span>
+          <button class="nav-arrow" onclick="changeDate(1)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="summary-value">{{ total_calories }}</div>
+        <div class="summary-label">Calorias</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">{{ total_protein|floatformat:0 }}</div>
+        <div class="summary-label">Proteínas (g)</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">{{ total_carbs|floatformat:0 }}</div>
+        <div class="summary-label">Carboidratos (g)</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">{{ total_fat|floatformat:0 }}</div>
+        <div class="summary-label">Gorduras (g)</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">{{ total_fiber|floatformat:0 }}</div>
+        <div class="summary-label">Fibras (g)</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-value">R$ {{ total_cost|floatformat:2 }}</div>
+        <div class="summary-label">Custo Total</div>
+      </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="progress-section">
+      <div class="progress-card">
+        <div class="progress-header">
+          <span class="progress-label">Calorias</span>
+          <span class="progress-value">{{ total_calories }} / {{ profile.daily_calories }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill calories" id="caloriesProgress" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-card">
+        <div class="progress-header">
+          <span class="progress-label">Proteínas</span>
+          <span class="progress-value">{{ total_protein|floatformat:0 }} / {{ profile.protein_goal }}g</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill protein" id="proteinProgress" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-card">
+        <div class="progress-header">
+          <span class="progress-label">Carboidratos</span>
+          <span class="progress-value">{{ total_carbs|floatformat:0 }} / {{ profile.carbs_goal }}g</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill carbs" id="carbsProgress" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-card">
+        <div class="progress-header">
+          <span class="progress-label">Gorduras</span>
+          <span class="progress-value">{{ total_fat|floatformat:0 }} / {{ profile.fat_goal }}g</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill fat" id="fatProgress" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="chart-container">
+        <h3 class="chart-title">Distribuição de Macronutrientes</h3>
+        <div class="chart-wrapper">
+          <canvas id="macrosChart"></canvas>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <h3 class="chart-title">Calorias por Refeição</h3>
+        <div class="chart-wrapper">
+          <canvas id="mealsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meals Section -->
+    <div class="meals-section">
+      <h3 style="color: #8fd19e; margin-bottom: 15px;">Refeições do Dia</h3>
+      
+      {% if meals %}
+        {% for meal in meals %}
+        <div class="meal-card">
+          <div class="meal-header">
+            <span class="meal-name">{{ meal.name }}</span>
+            <span class="meal-calories">{{ meal.get_total_calories }} kcal</span>
+          </div>
+          <div class="meal-items">
+            {% for item in meal.mealitem_set.all %}
+            <div class="meal-item">
+              <div class="item-name">{{ item.food.name }}</div>
+              <div class="item-details">
+                {{ item.quantity }}g | {{ item.get_calories }} kcal
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <i class="fas fa-utensils"></i>
+          <p>Nenhuma refeição registrada para este dia.</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <nav>
+      <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Date navigation
+    function changeDate(days) {
+      const currentDate = new Date('{{ selected_date|date:"Y-m-d" }}');
+      currentDate.setDate(currentDate.getDate() + days);
+      const dateStr = currentDate.toISOString().split('T')[0];
+      window.location.href = `{% url 'diet_summary' %}?date=${dateStr}`;
+    }
+    
+    // Update progress bars
+    function updateProgressBars() {
+      const caloriesProgress = ({{ total_calories }} / {{ profile.daily_calories }}) * 100;
+      const proteinProgress = ({{ total_protein }} / {{ profile.protein_goal }}) * 100;
+      const carbsProgress = ({{ total_carbs }} / {{ profile.carbs_goal }}) * 100;
+      const fatProgress = ({{ total_fat }} / {{ profile.fat_goal }}) * 100;
+      
+      document.getElementById('caloriesProgress').style.width = Math.min(caloriesProgress, 100) + '%';
+      document.getElementById('proteinProgress').style.width = Math.min(proteinProgress, 100) + '%';
+      document.getElementById('carbsProgress').style.width = Math.min(carbsProgress, 100) + '%';
+      document.getElementById('fatProgress').style.width = Math.min(fatProgress, 100) + '%';
+    }
+    
+    // Initialize charts
+    function initializeCharts() {
+      // Macronutrients Chart
+      const macrosCtx = document.getElementById('macrosChart').getContext('2d');
+      new Chart(macrosCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Proteínas', 'Carboidratos', 'Gorduras'],
+          datasets: [{
+            data: [{{ total_protein }}, {{ total_carbs }}, {{ total_fat }}],
+            backgroundColor: [
+              '#ff6b6b',
+              '#4ecdc4',
+              '#ffe66d'
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#fff',
+                font: {
+                  size: 12
+                }
+              }
+            }
+          }
+        }
+      });
+      
+      // Meals Chart
+      const mealsCtx = document.getElementById('mealsChart').getContext('2d');
+      const mealsData = [
+        {% for meal in meals %}
+          {{ meal.get_total_calories }},
+        {% endfor %}
+      ];
+      const mealsLabels = [
+        {% for meal in meals %}
+          '{{ meal.name }}',
+        {% endfor %}
+      ];
+      
+      if (mealsData.length > 0) {
+        new Chart(mealsCtx, {
+          type: 'bar',
+          data: {
+            labels: mealsLabels,
+            datasets: [{
+              label: 'Calorias',
+              data: mealsData,
+              backgroundColor: '#8fd19e',
+              borderColor: '#6bbf7a',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  color: '#fff'
+                },
+                grid: {
+                  color: '#333'
+                }
+              },
+              x: {
+                ticks: {
+                  color: '#fff'
+                },
+                grid: {
+                  color: '#333'
+                }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: {
+                  color: '#fff'
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      updateProgressBars();
+      initializeCharts();
+    });
+  </script>
+</body>
+</html>

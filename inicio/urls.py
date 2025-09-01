@@ -11,7 +11,6 @@ urlpatterns = [
     path('montar_treino/', views.montar_treino, name='montar_treino'),
     path('logout/', views.logout_view, name='logout'),
     path('configuracoes/', views.configuracoes, name='configuracoes'),
-<<<<<<< HEAD
     path('alterar_senha/', views.alterar_senha, name='alterar_senha'),
     path('sobre_sistema/', views.sobre_sistema, name='sobre_sistema'),
     path('sobre_desenvolvedores/', views.sobre_desenvolvedores,
@@ -28,24 +27,28 @@ urlpatterns = [
     # APIs do sistema de dieta
     path('api/profile/update/', views.update_profile, name='update_profile'),
     path('api/password/change/', views.change_password, name='change_password'),
-    path('api/personal-data/update/', views.update_personal_data, name='update_personal_data'),
+    path('api/password/forgot/', views.forgot_password, name='forgot_password'),
+    path('api/personal-data/update/', views.update_personal_data,
+         name='update_personal_data'),
     path('api/foods/search/', views.search_foods, name='search_foods'),
     path('api/meals/add/', views.add_meal, name='add_meal'),
     path('api/meals/<int:meal_id>/delete/',
          views.delete_meal, name='delete_meal'),
     path('api/meals/<int:meal_id>/copy/', views.copy_meal, name='copy_meal'),
+    path('api/meals/<int:meal_id>/edit/', views.edit_meal, name='edit_meal'),
+    path('api/meals/<int:meal_id>/add-food/',
+         views.add_food_to_meal, name='add_food_to_meal'),
+    path('api/meals/<int:meal_id>/remove-food/<int:food_id>/',
+         views.remove_food_from_meal, name='remove_food_from_meal'),
     path('api/diet/clear-day/', views.clear_day, name='clear_day'),
     path('api/diet/replicate-day/', views.replicate_day, name='replicate_day'),
     path('api/foods/<int:food_id>/toggle-favorite/',
          views.toggle_favorite, name='toggle_favorite'),
     path('populate-foods/', views.populate_sample_foods, name='populate_foods'),
 
-=======
-    path('sobre_sistema/', views.sobre_sistema, name='sobre_sistema'),
-    path('sobre_desenvolvedores/', views.sobre_desenvolvedores,
-         name='sobre_desenvolvedores'),
+    # Página de resumo da dieta
+    path('diet-summary/', views.diet_summary, name='diet_summary'),
 
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
     # Outras rotas...
 
 ]

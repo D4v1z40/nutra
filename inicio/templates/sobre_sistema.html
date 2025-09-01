@@ -4,67 +4,455 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sobre o Sistema</title>
+  <title>Sobre o Sistema - Nutra</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body { background: #111; color: #fff; min-height: 100vh; margin:0; }
-<<<<<<< HEAD
-    .sobre-header { background: #232323; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
-    .sobre-voltar { position: absolute; left: 18px; top: 18px; color: #8fd19e; font-size: 28px; cursor: pointer; }
-=======
-    .sobre-header { background: #185c1b; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
-    .sobre-logo { position: absolute; left: 18px; top: 12px; background: #185c1b; border-radius: 4px; padding: 2px 12px; color: #b1f2be; font-size: 28px; font-family: 'Times New Roman', serif; border: 2px solid #b1f2be; }
-    .sobre-voltar { position: absolute; left: 18px; top: 60px; color: #8fd19e; font-size: 28px; cursor: pointer; }
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    .sobre-center {
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+    
+    .system-header {
+      background: linear-gradient(135deg, #185c1b, #0d7a00);
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(24, 92, 27, 0.3);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .system-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .system-header:hover::before {
+      left: 100%;
+    }
+    
+    .system-voltar {
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8fd19e;
+      font-size: 32px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: none;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 70px);
-      width: 100vw;
+      width: 60px;
+      height: 60px;
     }
-    .sobre-box {
-      border: 2px solid #b18fff;
-      border-radius: 10px;
-      background: none;
-      color: #fff;
-      font-size: 1.25rem;
-      text-align: center;
-      line-height: 1.6;
-      box-shadow: 0 2px 18px rgba(177,143,255,0.05);
-      max-width: 600px;
-      width: 90vw;
-      padding: 38px 32px;
-      margin: 0 auto;
+    
+    .system-voltar:hover {
+      color: #b1f2be;
+      background: rgba(143, 209, 158, 0.1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+    }
+    
+    .system-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      flex: 1;
+    }
+    
+    .system-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .system-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .system-card:hover::before {
+      left: 100%;
+    }
+    
+    .system-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .card-header {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 15px;
     }
-    @media (max-width: 700px) {
-      .sobre-header { font-size: 16px; }
-<<<<<<< HEAD
-=======
-      .sobre-logo { font-size: 20px; padding: 1px 8px; }
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-      .sobre-box { font-size: 15px; padding: 8vw 2vw; }
+    
+    .card-header i {
+      font-size: 32px;
+      color: #8fd19e;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .card-header h3 {
+      color: #8fd19e;
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .card-description {
+      color: #ccc;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .feature-list li {
+      color: #8fd19e;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      background: rgba(143, 209, 158, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid #8fd19e;
+      transition: all 0.3s;
+    }
+    
+    .feature-list li:hover {
+      background: rgba(143, 209, 158, 0.1);
+      transform: translateX(5px);
+    }
+    
+    .tech-section {
+      margin-top: 40px;
+    }
+    
+    .tech-section h3 {
+      color: #8fd19e;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+    }
+    
+    .tech-item {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(143,209,158,0.1);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .tech-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .tech-item:hover::before {
+      left: 100%;
+    }
+    
+    .tech-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .tech-item i {
+      font-size: 36px;
+      color: #8fd19e;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .tech-item h4 {
+      color: #fff;
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .stats-section {
+      margin-top: 40px;
+    }
+    
+    .stats-section h3 {
+      color: #8fd19e;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(143,209,158,0.1);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .stat-card:hover::before {
+      left: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .stat-value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #8fd19e;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .stat-label {
+      color: #ccc;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    @media (max-width: 768px) {
+      .system-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .system-header {
+        font-size: 24px;
+        padding: 20px 0;
+      }
+      
+      .system-voltar {
+        font-size: 24px;
+        left: 20px;
+      }
+      
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="sobre-header">
-<<<<<<< HEAD
-=======
-    <span class="sobre-logo">N</span>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    SOBRE O SISTEMA
-  </div>
-  <a href="{% url 'configuracoes' %}" class="sobre-voltar"><i class="fas fa-arrow-left"></i></a>
-  <div class="sobre-center">
-    <div class="sobre-box">
-      O sistema oferece uma plataforma integrada para acompanhamento de treinos e alimentação, permitindo o cálculo preciso de calorias e macronutrientes, além do registro detalhado de exercícios e grupos musculares trabalhados.<br><br>
-      Destinado a atletas e praticantes comuns, ele facilita o planejamento e otimização dos resultados físicos, democratizando o acesso a ferramentas antes exclusivas de academias e consultórios nutricionais. Com isso, qualquer pessoa pode gerir sua jornada fitness de forma prática e autônoma, promovendo saúde, desempenho e qualidade de vida.
+  <div class="container">
+    <div class="system-header">
+      <a href="{% url 'configuracoes' %}" class="system-voltar">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      SOBRE O SISTEMA
+    </div>
+    
+    <div class="system-content">
+      <div class="system-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-cogs"></i>
+          </div>
+          <h3 class="card-title">Funcionalidades</h3>
+        </div>
+        <p class="card-description">
+          O Nutra é uma plataforma completa para gerenciamento de saúde e fitness, 
+          oferecendo ferramentas avançadas para controle de dieta e treinos.
+        </p>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <i class="fas fa-utensils"></i>
+            <span class="feature-text">Controle completo de dieta e nutrição</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-dumbbell"></i>
+            <span class="feature-text">Montagem e acompanhamento de treinos</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-chart-line"></i>
+            <span class="feature-text">Relatórios e estatísticas detalhadas</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-user-cog"></i>
+            <span class="feature-text">Perfil personalizado com objetivos</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="system-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3 class="card-title">Tecnologias</h3>
+        </div>
+        <p class="card-description">
+          Desenvolvido com as mais modernas tecnologias web para garantir 
+          performance, segurança e uma experiência de usuário excepcional.
+        </p>
+        <div class="tech-section">
+          <h4 class="tech-title">Stack Tecnológico</h4>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fab fa-python"></i></div>
+              <div class="tech-name">Python</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fab fa-js"></i></div>
+              <div class="tech-name">JavaScript</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fab fa-html5"></i></div>
+              <div class="tech-name">HTML5</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fab fa-css3-alt"></i></div>
+              <div class="tech-name">CSS3</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fas fa-database"></i></div>
+              <div class="tech-name">SQLite</div>
+            </div>
+            <div class="tech-item">
+              <div class="tech-icon"><i class="fab fa-git-alt"></i></div>
+              <div class="tech-name">Git</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="system-card">
+        <div class="card-header">
+          <div class="card-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="card-title">Segurança</h3>
+        </div>
+        <p class="card-description">
+          Priorizamos a segurança dos dados dos usuários com criptografia 
+          avançada e práticas de desenvolvimento seguras.
+        </p>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <i class="fas fa-lock"></i>
+            <span class="feature-text">Autenticação segura de usuários</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-key"></i>
+            <span class="feature-text">Criptografia de senhas</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-user-shield"></i>
+            <span class="feature-text">Proteção de dados pessoais</span>
+          </li>
+          <li class="feature-item">
+            <i class="fas fa-server"></i>
+            <span class="feature-text">Backup automático de dados</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="stats-section">
+      <div class="stat-card">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Uptime</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">256-bit</div>
+        <div class="stat-label">Criptografia</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Suporte</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Responsivo</div>
+      </div>
     </div>
   </div>
 </body>

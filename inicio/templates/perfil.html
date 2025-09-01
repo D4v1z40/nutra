@@ -4,22 +4,249 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nutra - Treino e Dieta</title>
+  <title>Nutra - Perfil</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<<<<<<< HEAD
   <style>
-    /* Centralizar formulários dos modais */
-    .modal-content {
-      max-width: 500px;
-      width: 90vw;
+    body {
+      background: #111 !important;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: #111 !important;
+    }
+    
+    /* Garantir que elementos específicos tenham fundo escuro */
+    main, header {
+      background-color: transparent !important;
+    }
+    
+    /* Forçar fundo escuro em todos os elementos principais */
+    html, body {
+      background: #111 !important;
+    }
+    
+    /* Garantir que não haja elementos com fundo claro */
+    .container, .container > * {
+      background-color: transparent !important;
+    }
+    
+    /* Exceções para elementos que devem ter fundo específico */
+    .modal-content {
+      background: #232323 !important;
+    }
+    
+    .perfil-btn {
+      background: linear-gradient(135deg, #8fd19e, #6bbf7a) !important;
+    }
+    
+    .perfil-btn.sair {
+      background: linear-gradient(135deg, #f44336, #d32f2f) !important;
+    }
+    
+    header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+    }
+    
+    .settings-icon {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border: 1px solid rgba(143, 209, 158, 0.2);
+      color: #8fd19e;
+      padding: 12px;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.1);
+    }
+    
+    .settings-icon:hover {
+      background: linear-gradient(145deg, #8fd19e, #6bbf7a);
+      color: #121212;
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.3);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
     
-    .form-group {
-      text-align: left;
+    .user-icon {
       margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .user-icon img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #8fd19e;
+      box-shadow: 0 0 30px rgba(143, 209, 158, 0.4);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .user-icon::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #8fd19e, #6bbf7a, #8fd19e);
+      background-size: 200% 200%;
+      animation: borderGlow 3s ease-in-out infinite;
+      z-index: -1;
+    }
+    
+    @keyframes borderGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .user-icon:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(143, 209, 158, 0.6);
+    }
+    
+    h1 {
+      color: #8fd19e;
+      font-size: 32px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    p {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 30px;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .perfil-btn {
+      background: linear-gradient(135deg, #8fd19e, #6bbf7a);
+      color: #121212;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s;
+      min-width: 200px;
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .perfil-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .perfil-btn:hover::before {
+      left: 100%;
+    }
+    
+    .perfil-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(143, 209, 158, 0.4);
+    }
+    
+    .perfil-btn.sair {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      color: #fff;
+    }
+    
+    .perfil-btn.sair:hover {
+      background: linear-gradient(135deg, #d32f2f, #b71c1c);
+      box-shadow: 0 6px 25px rgba(244, 67, 54, 0.4);
+    }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    
+    .modal-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #232323;
+      border: 1px solid #444;
+      border-radius: 16px;
+      padding: 30px;
+      min-width: 400px;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      z-index: 1001;
+    }
+    
+    .modal-content h2 {
+      color: #8fd19e;
+      margin-bottom: 25px;
+      font-size: 24px;
+      text-align: center;
+    }
+    
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: #888;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.3s;
+    }
+    
+    .close:hover {
+      color: #fff;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
     }
     
     .form-group label {
@@ -28,14 +255,13 @@
       font-weight: bold;
       margin-bottom: 8px;
       font-size: 14px;
-      text-align: left;
     }
     
     .form-group input,
     .form-group select {
       width: 100%;
       padding: 12px 15px;
-      background: #232323;
+      background: #333;
       border: 1px solid #444;
       border-radius: 8px;
       color: #fff;
@@ -92,20 +318,19 @@
     
     .modal-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 15px;
+      margin-top: 25px;
       justify-content: center;
     }
     
     .modal-btn {
-      flex: 1;
-      max-width: 150px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
       transition: all 0.3s;
+      min-width: 120px;
     }
     
     .modal-btn.primary {
@@ -115,6 +340,7 @@
     
     .modal-btn.primary:hover {
       background: #7bc08a;
+      transform: scale(1.05);
     }
     
     .modal-btn.secondary {
@@ -124,263 +350,242 @@
     
     .modal-btn.secondary:hover {
       background: #555;
+      transform: scale(1.05);
     }
     
-    .loading-spinner {
-      border: 3px solid #333;
-      border-top: 3px solid #8fd19e;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 15px;
+    /* Footer */
+    footer {
+      background: #232323;
+      border-top: 1px solid #333;
+      padding: 20px 0;
+      margin-top: auto;
     }
     
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
     }
     
-    #logoutLoading .modal-content {
-      text-align: center;
-      padding: 30px;
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: transparent;
     }
     
-    #logoutLoading p {
-      margin: 0;
+    footer nav a:hover {
       color: #8fd19e;
+      background: rgba(143, 209, 158, 0.1);
+    }
+    
+    footer nav a.active {
+      color: #000;
+      background: #22c55e;
       font-weight: bold;
     }
     
-    /* Fixar navegação no rodapé e evitar sobreposição do conteúdo */
-    body { padding-bottom: 90px; }
-    .container { padding-bottom: 90px; }
-    footer { position: fixed; left: 0; right: 0; bottom: 0; width: 100%; z-index: 1000; }
+    footer nav a i {
+      font-size: 20px;
+    }
+    
+    /* Notification system */
+    #notificationContainer {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10000;
+      pointer-events: none;
+    }
+    
+    .notification {
+      background: linear-gradient(135deg, #4caf50, #388e3c);
+      color: white;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      pointer-events: auto;
+      max-width: 300px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .notification.error {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+    }
+    
+    .notification.warning {
+      background: linear-gradient(135deg, #ff9800, #f57c00);
+    }
+    
+    .notification.info {
+      background: linear-gradient(135deg, #2196f3, #1976d2);
+    }
   </style>
-=======
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 </head>
 <body>
   <div class="container">
-    <header style="position:relative;">
-<<<<<<< HEAD
-      <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="background: none !important; box-shadow: none !important;"><i class="fas fa-cog"></i></a>
-=======
-      <a href="{% url 'configuracoes' %}" class="settings-icon" id="openSettings" style="position:fixed;top:32px;right:32px;z-index:1001;"><i class="fas fa-cog"></i></a>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
+    <header>
+      <a href="{% url 'configuracoes' %}" class="settings-icon" title="Configurações">
+        <i class="fas fa-cog"></i>
+      </a>
     </header>
+    
     <main>
-        <div class="user-icon">
-            <img src="{% static 'inicio/img/userCircle.png' %}" 
-                 alt="Ícone de usuário" />
-        </div>
+      <div class="user-icon">
+        <img src="{% static 'inicio/img/userCircle.png' %}" alt="Ícone de usuário" />
+      </div>
+      
       <h1>Seja bem-vindo(a)</h1>
-      <p>{{ user.get_full_name|default:user.username }}</p>      
-      <button class="edit perfil-btn" id="openEditModal">Editar Perfil</button>     
-      <button class="info perfil-btn" id="openInfoModal">Dados Pessoais</button>
-      <div> 
-<<<<<<< HEAD
-        <button type="button" class="sair perfil-btn" onclick="confirmLogout()">Sair</button>
-      </div>
+      <p>{{ user.get_full_name|default:user.username }}</p>
       
-      <!-- Modal de Confirmação de Logout -->
-      <div id="logoutModal" class="modal">
-        <div class="modal-content">
-          <h2>Confirmar Saída</h2>
-          <p>Tem certeza que deseja sair?</p>
-          <div class="modal-actions">
-            <button class="modal-btn secondary" onclick="closeLogoutModal()">Cancelar</button>
-            <button class="modal-btn primary" onclick="performLogout()">Sair</button>
+      <button class="perfil-btn edit" onclick="openEditModal()">
+        <i class="fas fa-edit"></i> Editar Perfil
+      </button>
+      
+      <button class="perfil-btn info" onclick="openInfoModal()">
+        <i class="fas fa-user-edit"></i> Dados Pessoais
+      </button>
+      
+      <button type="button" class="perfil-btn sair" onclick="confirmLogout()">
+        <i class="fas fa-sign-out-alt"></i> Sair
+      </button>
+    </main>
+    
+    <!-- Modal de Confirmação de Logout -->
+    <div id="logoutModal" class="modal">
+      <div class="modal-content">
+        <h2>Confirmar Saída</h2>
+        <p style="color: #fff; text-align: center; margin-bottom: 25px;">Tem certeza que deseja sair?</p>
+        <div class="modal-actions">
+          <button class="modal-btn secondary" onclick="closeLogoutModal()">Cancelar</button>
+          <button class="modal-btn primary" onclick="performLogout()">Sair</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Modal Editar Perfil -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Editar Perfil</h2>
+        <form id="editProfileForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label>Foto de Perfil</label>
+            <div class="profile-photo-upload">
+              <img id="profilePhotoPreview" src="{% static 'inicio/img/userCircle.png' %}" alt="Foto de perfil">
+              <input type="file" id="profilePhotoInput" name="profile_photo" accept="image/*" style="display: none;">
+              <button type="button" class="upload-btn" onclick="document.getElementById('profilePhotoInput').click()">
+                <i class="fas fa-camera"></i> Alterar Foto
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-      
-      <!-- Loading de Logout -->
-      <div id="logoutLoading" class="modal">
-        <div class="modal-content">
-          <div class="loading-spinner"></div>
-          <p>Saindo...</p>
-        </div>
-      </div>
-      
-=======
-        <form method="post" action="{% url 'logout' %}">{% csrf_token %}
-          <button type="submit" class="sair perfil-btn">Sair</button>
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="fullNameInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}" required>
+          </div>
+          <div class="form-group">
+            <label>Data de Nascimento</label>
+            <input type="date" id="birthDateInput" name="birth_date" value="{% if user.profile.birth_date %}{{ user.profile.birth_date|date:'Y-m-d' }}{% endif %}">
+          </div>
+          <div class="form-group">
+            <label>Gênero</label>
+            <select id="genderInput" name="gender">
+              <option value="M" {% if user.profile.gender == 'M' %}selected{% endif %}>Masculino</option>
+              <option value="F" {% if user.profile.gender == 'F' %}selected{% endif %}>Feminino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Altura (cm)</label>
+            <input type="number" id="heightInput" name="height" value="{% if user.profile.height %}{{ user.profile.height }}{% endif %}" min="100" max="250">
+          </div>
+          <div class="form-group">
+            <label>Peso (kg)</label>
+            <input type="number" id="weightInput" name="weight" value="{% if user.profile.weight %}{{ user.profile.weight }}{% endif %}" min="30" max="300" step="0.1">
+          </div>
+          <div class="form-group">
+            <label>Objetivo</label>
+            <select id="objectiveInput" name="objective">
+              <option value="maintain" {% if user.profile.objective == 'maintain' %}selected{% endif %}>Manter Peso</option>
+              <option value="lose" {% if user.profile.objective == 'lose' %}selected{% endif %}>Perder Peso</option>
+              <option value="gain" {% if user.profile.objective == 'gain' %}selected{% endif %}>Ganhar Peso</option>
+            </select>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="modal-btn secondary" onclick="closeEditModal()">Cancelar</button>
+            <button type="submit" class="modal-btn primary">Salvar</button>
+          </div>
         </form>
       </div>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-      <!-- Modal Editar Perfil -->
-      <div id="editModal" class="modal">
-        <div class="modal-content">
-          <span class="close" id="closeEditModal">&times;</span>
-          <h2>Editar Perfil</h2>
-<<<<<<< HEAD
-          <form id="editProfileForm" enctype="multipart/form-data">
-            <div class="form-group">
-              <label>Foto de Perfil</label>
-              <div class="profile-photo-upload">
-                <img id="profilePhotoPreview" src="{% static 'inicio/img/userCircle.png' %}" alt="Foto de perfil">
-                <input type="file" id="profilePhotoInput" name="profile_photo" accept="image/*" style="display: none;">
-                <button type="button" class="upload-btn" onclick="document.getElementById('profilePhotoInput').click()">
-                  <i class="fas fa-camera"></i> Alterar Foto
-                </button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Nome Completo</label>
-              <input type="text" id="fullNameInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% else %}{{ user.username }}{% endif %}" required>
-            </div>
-            <div class="form-group">
-              <label>Data de Nascimento</label>
-              <input type="date" id="birthDateInput" name="birth_date" value="{% if user.profile.birth_date %}{{ user.profile.birth_date|date:'Y-m-d' }}{% endif %}">
-            </div>
-            <div class="form-group">
-              <label>Gênero</label>
-              <select id="genderInput" name="gender">
-                <option value="M" {% if user.profile.gender == 'M' %}selected{% endif %}>Masculino</option>
-                <option value="F" {% if user.profile.gender == 'F' %}selected{% endif %}>Feminino</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Altura (cm)</label>
-              <input type="number" id="heightInput" name="height" value="{% if user.profile.height %}{{ user.profile.height }}{% endif %}" min="100" max="250">
-            </div>
-            <div class="form-group">
-              <label>Peso (kg)</label>
-              <input type="number" id="weightInput" name="weight" value="{% if user.profile.weight %}{{ user.profile.weight }}{% endif %}" min="30" max="300" step="0.1">
-            </div>
-            <div class="form-group">
-              <label>Objetivo</label>
-              <select id="objectiveInput" name="objective">
-                <option value="maintain" {% if user.profile.objective == 'maintain' %}selected{% endif %}>Manter Peso</option>
-                <option value="lose" {% if user.profile.objective == 'lose' %}selected{% endif %}>Perder Peso</option>
-                <option value="gain" {% if user.profile.objective == 'gain' %}selected{% endif %}>Ganhar Peso</option>
-              </select>
-            </div>
-            <div class="modal-actions">
-              <button type="button" class="modal-btn secondary" onclick="closeEditModal()">Cancelar</button>
-              <button type="submit" class="modal-btn primary">Salvar</button>
-            </div>
-          </form>
-        </div>
+    </div>
+    
+    <!-- Modal Dados Pessoais -->
+    <div id="infoModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeInfoModal()">&times;</span>
+        <h2>Dados Pessoais</h2>
+        <form id="personalDataForm">
+          <div class="form-group">
+            <label>Nome de Usuário</label>
+            <input type="text" id="usernameInput" name="username" value="{{ user.username }}" readonly>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="emailInput" name="email" value="{{ user.email }}" required>
+          </div>
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" id="phoneInput" name="phone" value="{% if user.profile.phone %}{{ user.profile.phone }}{% endif %}" placeholder="(00) 00000-0000">
+          </div>
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" id="fullNameInfoInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% endif %}" required>
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="modal-btn secondary" onclick="closeInfoModal()">Cancelar</button>
+            <button type="submit" class="modal-btn primary">Salvar</button>
+          </div>
+        </form>
       </div>
-      
-=======
-          <p>Funcionalidade em desenvolvimento.</p>
-        </div>
-      </div>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-      <!-- Modal Dados Pessoais -->
-      <div id="infoModal" class="modal">
-        <div class="modal-content">
-          <span class="close" id="closeInfoModal">&times;</span>
-          <h2>Dados Pessoais</h2>
-<<<<<<< HEAD
-          <form id="personalDataForm">
-            <div class="form-group">
-              <label>Nome de Usuário</label>
-              <input type="text" id="usernameInput" name="username" value="{{ user.username }}" readonly>
-            </div>
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" id="emailInput" name="email" value="{{ user.email }}" required>
-            </div>
-            <div class="form-group">
-              <label>Telefone</label>
-              <input type="tel" id="phoneInput" name="phone" value="{% if user.profile.phone %}{{ user.profile.phone }}{% endif %}" placeholder="(00) 00000-0000">
-            </div>
-            <div class="form-group">
-              <label>Nome Completo</label>
-              <input type="text" id="fullNameInfoInput" name="full_name" value="{% if user.get_full_name %}{{ user.get_full_name }}{% endif %}" required>
-            </div>
-            <div class="modal-actions">
-              <button type="button" class="modal-btn secondary" onclick="closeInfoModal()">Cancelar</button>
-              <button type="submit" class="modal-btn primary">Salvar</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      
-=======
-          <p>Funcionalidade em desenvolvimento.</p>
-        </div>
-      </div>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-      <!-- Modal Configurações -->
-      <div id="settingsModal" class="modal">
-        <div class="modal-content">
-          <span class="close" id="closeSettingsModal">&times;</span>
-          <h2>Configurações</h2>
-          <p>Funcionalidade em desenvolvimento.</p>
-        </div>
-      </div>
-    </main>
-<<<<<<< HEAD
+    </div>
   </div>
   
   <footer>
     <nav>
       <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
       <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
-      <a href="#" class="active"><i class="fas fa-user"></i> Perfil</a>
+      <a href="{% url 'perfil' %}" class="active"><i class="fas fa-user"></i> Perfil</a>
     </nav>
   </footer>
   
   <!-- Notification System -->
-  <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
+  <div id="notificationContainer"></div>
   
   <script>
-    // Page entrance animation
-    document.addEventListener('DOMContentLoaded', function() {
-      const container = document.querySelector('.container');
-      container.style.opacity = '0';
-      container.style.transform = 'translateY(20px)';
-      
-      setTimeout(() => {
-        container.style.transition = 'all 0.5s ease';
-        container.style.opacity = '1';
-        container.style.transform = 'translateY(0)';
-      }, 100);
-    });
-    
     // Notification system
     function showNotification(message, type = 'info', duration = 3000) {
       const container = document.getElementById('notificationContainer');
       const notification = document.createElement('div');
       
-      notification.className = `notification notification-${type}`;
-      notification.style.cssText = `
-        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
-                      type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
-                      type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
-                      'linear-gradient(135deg, #2196f3, #1976d2)'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        pointer-events: auto;
-        max-width: 300px;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+        <span>${message}</span>
       `;
       
-      const icon = document.createElement('i');
-      icon.className = type === 'success' ? 'fas fa-check-circle' :
-                      type === 'error' ? 'fas fa-exclamation-circle' :
-                      type === 'warning' ? 'fas fa-exclamation-triangle' :
-                      'fas fa-info-circle';
-      
-      const text = document.createElement('span');
-      text.textContent = message;
-      
-      notification.appendChild(icon);
-      notification.appendChild(text);
       container.appendChild(notification);
       
       // Animate in
@@ -397,30 +602,52 @@
           }
         }, 300);
       }, duration);
-      
-      // Click to dismiss
-      notification.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 300);
-      });
     }
     
-    // Modal Editar Perfil
-    document.getElementById('openEditModal').onclick = function() {
-      document.getElementById('editModal').style.display = 'flex';
-      document.body.classList.add('modal-open');
-    };
+    // Modal functions
+    function openEditModal() {
+      document.getElementById('editModal').style.display = 'block';
+    }
     
     function closeEditModal() {
       document.getElementById('editModal').style.display = 'none';
-      document.body.classList.remove('modal-open');
     }
     
-    document.getElementById('closeEditModal').onclick = closeEditModal;
+    function openInfoModal() {
+      document.getElementById('infoModal').style.display = 'block';
+    }
+    
+    function closeInfoModal() {
+      document.getElementById('infoModal').style.display = 'none';
+    }
+    
+    function confirmLogout() {
+      document.getElementById('logoutModal').style.display = 'block';
+    }
+    
+    function closeLogoutModal() {
+      document.getElementById('logoutModal').style.display = 'none';
+    }
+    
+    function performLogout() {
+      // Limpar dados temporários
+      localStorage.removeItem('selectedExercises');
+      localStorage.removeItem('workoutData');
+      
+      // Fazer logout
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = "{% url 'logout' %}";
+      
+      const csrfToken = document.createElement('input');
+      csrfToken.type = 'hidden';
+      csrfToken.name = 'csrfmiddlewaretoken';
+      csrfToken.value = getCookie('csrftoken');
+      
+      form.appendChild(csrfToken);
+      document.body.appendChild(form);
+      form.submit();
+    }
     
     // Profile photo preview
     document.getElementById('profilePhotoInput').addEventListener('change', function(e) {
@@ -489,103 +716,17 @@
       }
     });
     
-    // Modal Dados Pessoais
-    document.getElementById('openInfoModal').onclick = function() {
-      document.getElementById('infoModal').style.display = 'flex';
-      document.body.classList.add('modal-open');
-    };
-    
-    function closeInfoModal() {
-      document.getElementById('infoModal').style.display = 'none';
-      document.body.classList.remove('modal-open');
-    }
-    
-    document.getElementById('closeInfoModal').onclick = closeInfoModal;
-    
-=======
-    <footer>
-      <nav>
-        <a href="{% url 'montar_treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
-        <a href="#" class="active"><i class="fas fa-user"></i> Perfil</a>
-      </nav>
-    </footer>
-  </div>
-  <script>
-    // Modal Editar Perfil
-    document.getElementById('openEditModal').onclick = function() {
-      document.getElementById('editModal').style.display = 'block';
-    };
-    document.getElementById('closeEditModal').onclick = function() {
-      document.getElementById('editModal').style.display = 'none';
-    };
-    // Modal Dados Pessoais
-    document.getElementById('openInfoModal').onclick = function() {
-      document.getElementById('infoModal').style.display = 'block';
-    };
-    document.getElementById('closeInfoModal').onclick = function() {
-      document.getElementById('infoModal').style.display = 'none';
-    };
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    // Modal Configurações
-    document.getElementById('openSettings').onclick = function() {
-      window.location.href = "{% url 'configuracoes' %}";
-    };
-<<<<<<< HEAD
-    
-    document.getElementById('closeSettingsModal').onclick = function() {
-      document.getElementById('settingsModal').style.display = 'none';
-    };
-    
-    // Fechar modal ao clicar fora
+    // Close modals when clicking outside
     window.onclick = function(event) {
-      ['editModal','infoModal','settingsModal','logoutModal','logoutLoading'].forEach(function(id) {
-        var modal = document.getElementById(id);
-        if (event.target == modal) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
           modal.style.display = 'none';
-          document.body.classList.remove('modal-open');
         }
       });
     };
-
-    // Funções de logout
-    function confirmLogout() {
-      document.getElementById('logoutModal').style.display = 'flex';
-      document.body.classList.add('modal-open');
-    }
     
-    function closeLogoutModal() {
-      document.getElementById('logoutModal').style.display = 'none';
-      document.body.classList.remove('modal-open');
-    }
-    
-    function performLogout() {
-      // Limpar dados temporários do localStorage
-      localStorage.removeItem('selectedExercises');
-      localStorage.removeItem('workoutData');
-      
-      // Mostrar loading
-      document.getElementById('logoutModal').style.display = 'none';
-      document.getElementById('logoutLoading').style.display = 'flex';
-      document.body.classList.add('modal-open');
-      
-      // Simular delay e fazer logout
-      setTimeout(() => {
-        // Criar form temporário para fazer logout
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = "{% url 'logout' %}";
-        
-        const csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = 'csrfmiddlewaretoken';
-        csrfToken.value = getCookie('csrftoken');
-        
-        form.appendChild(csrfToken);
-        document.body.appendChild(form);
-        form.submit();
-      }, 1500);
-    }
-    
+    // Utility functions
     function getCookie(name) {
       let cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -600,20 +741,6 @@
       }
       return cookieValue;
     }
-=======
-    document.getElementById('closeSettingsModal').onclick = function() {
-      document.getElementById('settingsModal').style.display = 'none';
-    };
-    // Fechar modal ao clicar fora
-    window.onclick = function(event) {
-      ['editModal','infoModal','settingsModal'].forEach(function(id) {
-        var modal = document.getElementById(id);
-        if (event.target == modal) {
-          modal.style.display = 'none';
-        }
-      });
-    };
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
   </script>
 </body>
 </html>

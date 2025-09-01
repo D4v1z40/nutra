@@ -4,24 +4,25 @@ from django.contrib import messages  # para exibir mensagens (opcional)
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-<<<<<<< HEAD
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.utils import timezone
 from datetime import date, timedelta
 import json
+import random
+import string
+from django.core.mail import send_mail
+from django.conf import settings
 
 from .models import UserProfile, Food, UserFood, Meal, MealItem, DailyNutrition
-=======
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
+
 
 # Create your views here.
 
 
 def login(request):
     if request.method == 'POST':
-<<<<<<< HEAD
         username = request.POST.get('username')
         senha = request.POST.get('senha')
 
@@ -30,11 +31,6 @@ def login(request):
             messages.error(request, "Por favor, preencha todos os campos.")
             return render(request, 'login.html')
 
-=======
-        username = request.POST.get('username')  # Antes estava "email"
-        senha = request.POST.get('senha')
-
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
         user = authenticate(request, username=username, password=senha)
 
         if user is not None:
@@ -43,6 +39,7 @@ def login(request):
         else:
             messages.error(
                 request, "Credenciais inválidas. Verifique seu nome de usuário e senha.")
+
     return render(request, 'login.html')
 
 
@@ -96,7 +93,6 @@ def configuracoes(request):
 
 
 @login_required
-<<<<<<< HEAD
 def alterar_senha(request):
     return render(request, 'alterar_senha.html')
 
@@ -115,21 +111,21 @@ def change_password(request):
         # Validar se a senha atual está correta
         if not request.user.check_password(current_password):
             return JsonResponse({
-                'success': False, 
+                'success': False,
                 'error': 'Senha atual incorreta'
             })
 
         # Validar se as novas senhas coincidem
         if new_password != confirm_password:
             return JsonResponse({
-                'success': False, 
+                'success': False,
                 'error': 'As novas senhas não coincidem'
             })
 
         # Validar se a nova senha é diferente da atual
         if current_password == new_password:
             return JsonResponse({
-                'success': False, 
+                'success': False,
                 'error': 'A nova senha deve ser diferente da atual'
             })
 
@@ -141,6 +137,72 @@ def change_password(request):
             'success': True,
             'message': 'Senha alterada com sucesso!'
         })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def forgot_password(request):
+    """Sistema de recuperação de senha"""
+    try:
+        data = json.loads(request.body)
+        email = data.get('email')
+        new_password = data.get('new_password')
+
+        if not email:
+            return JsonResponse({
+                'success': False,
+                'error': 'Email é obrigatório'
+            })
+
+        if not new_password:
+            return JsonResponse({
+                'success': False,
+                'error': 'Nova senha é obrigatória'
+            })
+
+        # Verificar se o usuário existe
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Email não encontrado em nossa base de dados'
+            })
+
+        # Usar a senha escolhida pelo usuário
+        user.set_password(new_password)
+        user.save()
+
+        # Enviar email de confirmação (simulado - em produção você configuraria o email)
+        try:
+            subject = 'Senha Alterada - Nutra'
+            message = f'''
+            Olá {user.username},
+            
+            Sua senha foi alterada com sucesso.
+            
+            Por favor, faça login com sua nova senha.
+            
+            Atenciosamente,
+            Equipe Nutra
+            '''
+
+            # Em produção, descomente a linha abaixo e configure o email
+            # send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
+
+            return JsonResponse({
+                'success': True,
+                'message': f'Senha alterada com sucesso para o email {email}. Você pode fazer login com sua nova senha.'
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': 'Erro ao enviar email. Tente novamente.'
+            })
 
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
@@ -187,8 +249,6 @@ def update_personal_data(request):
 
 
 @login_required
-=======
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 def sobre_sistema(request):
     return render(request, 'sobre_sistema.html')
 
@@ -198,7 +258,6 @@ def sobre_desenvolvedores(request):
     return render(request, 'sobre_desenvolvedores.html')
 
 
-<<<<<<< HEAD
 @login_required
 def detalhes_alimento(request, food_id):
     try:
@@ -316,13 +375,10 @@ def visualizar_treino(request):
     return render(request, 'visualizar_treino.html')
 
 
-=======
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
 def logout_view(request):
     logout(request)
     # O 'login' aqui é o nome da URL da página de login
     return redirect('login')
-<<<<<<< HEAD
 
 
 # APIs para o sistema de dieta
@@ -334,7 +390,7 @@ def update_profile(request):
     """Atualiza o perfil do usuário"""
     try:
         profile, created = UserProfile.objects.get_or_create(user=request.user)
-        
+
         # Verificar se é um FormData (upload de arquivo) ou JSON
         if request.content_type and 'multipart/form-data' in request.content_type:
             # Tratar FormData para upload de foto
@@ -342,41 +398,42 @@ def update_profile(request):
                 # Aqui você pode processar a foto se necessário
                 # Por enquanto, apenas retornamos sucesso
                 pass
-            
+
             # Atualizar campos do perfil
             if 'full_name' in request.POST:
                 request.user.first_name = request.POST['full_name']
                 request.user.save()
-            
+
             if 'birth_date' in request.POST and request.POST['birth_date']:
                 from datetime import datetime
                 try:
-                    birth_date = datetime.strptime(request.POST['birth_date'], '%Y-%m-%d').date()
+                    birth_date = datetime.strptime(
+                        request.POST['birth_date'], '%Y-%m-%d').date()
                     profile.birth_date = birth_date
                 except ValueError:
                     pass
-            
+
             if 'gender' in request.POST:
                 profile.gender = request.POST['gender']
-            
+
             if 'height' in request.POST and request.POST['height']:
                 try:
                     profile.height = int(request.POST['height'])
                 except ValueError:
                     pass
-            
+
             if 'weight' in request.POST and request.POST['weight']:
                 try:
                     profile.weight = float(request.POST['weight'])
                 except ValueError:
                     pass
-            
+
             if 'objective' in request.POST:
                 profile.objective = request.POST['objective']
         else:
             # Tratar JSON para atualização de metas
             data = json.loads(request.body)
-            
+
             # Atualizar campos básicos
             if 'first_name' in data:
                 request.user.first_name = data['first_name']
@@ -517,7 +574,7 @@ def add_meal(request):
             try:
                 food = Food.objects.get(id=item_data['food_id'])
                 quantity = float(item_data.get('quantity', 100))
-                
+
                 MealItem.objects.create(
                     meal=meal,
                     food=food,
@@ -673,6 +730,184 @@ def toggle_favorite(request, food_id):
         return JsonResponse({'success': False, 'error': str(e)})
 
 
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def edit_meal(request, meal_id):
+    """Edita uma refeição existente"""
+    try:
+        data = json.loads(request.body)
+        meal = Meal.objects.get(id=meal_id, user=request.user)
+
+        # Atualizar nome da refeição
+        if 'name' in data:
+            meal.name = data['name']
+            meal.save()
+
+        # Atualizar itens se fornecidos
+        if 'items' in data:
+            # Remover itens existentes
+            meal.mealitem_set.all().delete()
+
+            # Adicionar novos itens
+            for item_data in data['items']:
+                try:
+                    food = Food.objects.get(id=item_data['food_id'])
+                    quantity = float(item_data.get('quantity', 100))
+
+                    MealItem.objects.create(
+                        meal=meal,
+                        food=food,
+                        quantity=quantity
+                    )
+                except (Food.DoesNotExist, ValueError, TypeError):
+                    continue
+
+        return JsonResponse({
+            'success': True,
+            'meal': {
+                'id': meal.id,
+                'name': meal.name,
+                'total_calories': meal.get_total_calories(),
+                'total_protein': meal.get_total_protein(),
+                'total_carbs': meal.get_total_carbs(),
+                'total_fat': meal.get_total_fat(),
+                'total_fiber': meal.get_total_fiber(),
+                'total_cost': meal.get_total_cost(),
+            }
+        })
+
+    except Meal.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Refeição não encontrada'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+@csrf_exempt
+@require_http_methods(["POST"])
+def add_food_to_meal(request, meal_id):
+    """Adiciona um alimento a uma refeição existente"""
+    try:
+        data = json.loads(request.body)
+        meal = Meal.objects.get(id=meal_id, user=request.user)
+
+        food_id = data.get('food_id')
+        quantity = float(data.get('quantity', 100))
+
+        food = Food.objects.get(id=food_id)
+
+        # Verificar se o alimento já existe na refeição
+        existing_item = meal.mealitem_set.filter(food=food).first()
+        if existing_item:
+            # Atualizar quantidade
+            existing_item.quantity += quantity
+            existing_item.save()
+        else:
+            # Criar novo item
+            MealItem.objects.create(
+                meal=meal,
+                food=food,
+                quantity=quantity
+            )
+
+        # Atualizar alimentos recentes do usuário
+        user_food, created = UserFood.objects.get_or_create(
+            user=request.user,
+            food=food
+        )
+        user_food.save()
+
+        return JsonResponse({
+            'success': True,
+            'meal': {
+                'id': meal.id,
+                'name': meal.name,
+                'total_calories': meal.get_total_calories(),
+                'total_protein': meal.get_total_protein(),
+                'total_carbs': meal.get_total_carbs(),
+                'total_fat': meal.get_total_fat(),
+                'total_fiber': meal.get_total_fiber(),
+                'total_cost': meal.get_total_cost(),
+            }
+        })
+
+    except (Meal.DoesNotExist, Food.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Refeição ou alimento não encontrado'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+@csrf_exempt
+@require_http_methods(["DELETE"])
+def remove_food_from_meal(request, meal_id, food_id):
+    """Remove um alimento de uma refeição"""
+    try:
+        meal = Meal.objects.get(id=meal_id, user=request.user)
+        meal_item = meal.mealitem_set.get(food_id=food_id)
+        meal_item.delete()
+
+        return JsonResponse({
+            'success': True,
+            'meal': {
+                'id': meal.id,
+                'name': meal.name,
+                'total_calories': meal.get_total_calories(),
+                'total_protein': meal.get_total_protein(),
+                'total_carbs': meal.get_total_carbs(),
+                'total_fat': meal.get_total_fat(),
+                'total_fiber': meal.get_total_fiber(),
+                'total_cost': meal.get_total_cost(),
+            }
+        })
+
+    except (Meal.DoesNotExist, MealItem.DoesNotExist):
+        return JsonResponse({'success': False, 'error': 'Refeição ou item não encontrado'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def diet_summary(request):
+    """Página de resumo da dieta com gráficos"""
+    # Obter data atual ou da URL
+    selected_date = request.GET.get('date', date.today().isoformat())
+    try:
+        selected_date = date.fromisoformat(selected_date)
+    except:
+        selected_date = date.today()
+
+    # Obter refeições do dia
+    meals = Meal.objects.filter(
+        user=request.user, date=selected_date).order_by('created_at')
+
+    # Calcular totais
+    total_calories = sum(meal.get_total_calories() for meal in meals)
+    total_protein = sum(meal.get_total_protein() for meal in meals)
+    total_carbs = sum(meal.get_total_carbs() for meal in meals)
+    total_fat = sum(meal.get_total_fat() for meal in meals)
+    total_fiber = sum(meal.get_total_fiber() for meal in meals)
+    total_cost = sum(meal.get_total_cost() for meal in meals)
+
+    # Obter perfil do usuário para metas
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+
+    context = {
+        'meals': meals,
+        'selected_date': selected_date,
+        'total_calories': total_calories,
+        'total_protein': total_protein,
+        'total_carbs': total_carbs,
+        'total_fat': total_fat,
+        'total_fiber': total_fiber,
+        'total_cost': total_cost,
+        'profile': profile,
+    }
+
+    return render(request, 'diet_summary.html', context)
+
+
 def populate_sample_foods(request):
     """Popula o banco com alimentos de exemplo"""
     sample_foods = [
@@ -732,13 +967,11 @@ def populate_sample_foods(request):
             'category': 'proteinas'
         }
     ]
-    
+
     for food_data in sample_foods:
         Food.objects.get_or_create(
             name=food_data['name'],
             defaults=food_data
         )
-    
+
     return JsonResponse({'success': True, 'message': 'Alimentos de exemplo adicionados!'})
-=======
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9

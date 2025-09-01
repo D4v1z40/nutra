@@ -12,6 +12,7 @@
       background: #111;
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
     }
     
     .diet-header {
@@ -19,8 +20,213 @@
       color: #fff;
       padding: 1.5rem 0;
       border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      box-shadow: 0 6px 25px rgba(10, 94, 0, 0.4);
       position: relative;
+      overflow: hidden;
+    }
+    
+    .diet-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .diet-header:hover::before {
+      left: 100%;
+    }
+    
+    .add-meal-btn {
+      background: linear-gradient(135deg, #8fd19e, #6bbf7a);
+      color: #121212;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.3);
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-meal-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .add-meal-btn:hover::before {
+      left: 100%;
+    }
+    
+    .add-meal-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(143, 209, 158, 0.4);
+      text-decoration: none;
+      color: #121212;
+    }
+    
+    .meal-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .meal-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .meal-card:hover::before {
+      left: 100%;
+    }
+    
+    .meal-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .meal-header {
+      background: linear-gradient(145deg, #333, #2a2a2a);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(143,209,158,0.1);
+    }
+    
+    .meal-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #8fd19e;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .meal-calories {
+      color: #4ecdc4;
+      font-weight: bold;
+      font-size: 16px;
+      text-shadow: 0 1px 5px rgba(78, 205, 196, 0.3);
+    }
+    
+    .food-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+    }
+    
+    .food-item:hover {
+      background: rgba(143, 209, 158, 0.05);
+      transform: translateX(5px);
+    }
+    
+    .food-item:last-child {
+      border-bottom: none;
+    }
+    
+    .food-name {
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .food-details {
+      color: #8fd19e;
+      font-size: 14px;
+      text-shadow: 0 1px 5px rgba(143, 209, 158, 0.3);
+    }
+    
+    .delete-food-btn {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .delete-food-btn:hover {
+      background: rgba(255, 107, 107, 0.1);
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+    
+    .summary-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .summary-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .summary-card:hover::before {
+      left: 100%;
+    }
+    
+    .summary-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .summary-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #8fd19e;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
     }
     
     .header-content {
@@ -244,59 +450,6 @@
       margin: 20px;
     }
     
-    .meal-card {
-      background: #232323;
-      border-radius: 15px;
-      margin-bottom: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .meal-header {
-      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .meal-name {
-      font-size: 16px;
-      font-weight: bold;
-      color: #8fd19e;
-    }
-    
-    .meal-calories {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .calories-text {
-      color: #4ecdc4;
-      font-weight: bold;
-    }
-    
-    .add-food-btn {
-      background: #4ecdc4;
-      border: none;
-      color: #fff;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      transition: all 0.3s;
-    }
-    
-    .add-food-btn:hover {
-      background: #45b7aa;
-      transform: scale(1.1);
-    }
-    
     .meal-macros {
       display: flex;
       justify-content: space-between;
@@ -411,14 +564,19 @@
     }
     
     .modal-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       background: #232323;
-      margin: 5% auto;
+      margin: 0;
       padding: 20px;
       border-radius: 15px;
       width: 90%;
       max-width: 500px;
       max-height: 80vh;
       overflow-y: auto;
+      z-index: 1001;
     }
     
     .modal-header {
@@ -646,6 +804,61 @@
         min-width: 60px;
       }
     }
+    
+    /* Corrigir rodapé */
+    footer {
+      background: #232323;
+      border-top: 1px solid #333;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: transparent;
+    }
+    
+    footer nav a:hover {
+      color: #8fd19e;
+      background: rgba(143, 209, 158, 0.1);
+    }
+    
+    footer nav a.active {
+      color: #000;
+      background: #22c55e;
+      font-weight: bold;
+    }
+    
+    footer nav a i {
+      font-size: 20px;
+    }
+    
+    /* Adicionar espaço para o rodapé */
+    body {
+      padding-bottom: 0;
+    }
+    
+    .container {
+      padding-bottom: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
   </style>
 </head>
 <body>
@@ -782,6 +995,29 @@
             <div class="macro-amount">R$ {{ meal.get_total_cost|floatformat:2 }}</div>
             <div class="macro-label">Custo</div>
           </div>
+        </div>
+        
+        <!-- Food Items -->
+        <div class="meal-food-items" style="padding: 15px 20px; border-top: 1px solid #333;">
+          <h4 style="color: #8fd19e; margin-bottom: 10px; font-size: 14px;">Alimentos:</h4>
+          {% for item in meal.mealitem_set.all %}
+          <div class="food-item-display" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #2a2a2a;">
+            <div style="flex: 1;">
+              <div style="color: #fff; font-size: 14px;">{{ item.food.name }}</div>
+              <div style="color: #888; font-size: 12px;">{{ item.quantity }}g</div>
+            </div>
+            <div style="display: flex; gap: 5px;">
+              <button class="action-btn" onclick="editFoodQuantity({{ meal.id }}, {{ item.food.id }}, {{ item.quantity }})" style="padding: 5px 8px; font-size: 11px;">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="action-btn" onclick="removeFoodFromMeal({{ meal.id }}, {{ item.food.id }})" style="padding: 5px 8px; font-size: 11px; background: #f44336; border-color: #f44336;">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          {% empty %}
+          <div style="color: #888; font-size: 12px; text-align: center; padding: 10px;">Nenhum alimento adicionado</div>
+          {% endfor %}
         </div>  
         
         <div class="meal-actions">
@@ -790,6 +1026,9 @@
           </button>
           <button class="action-btn" onclick="editMeal({{ meal.id }})">
             <i class="fas fa-edit"></i> Editar
+          </button>
+          <button class="action-btn" onclick="deleteMeal({{ meal.id }})" style="background: #f44336; border-color: #f44336;">
+            <i class="fas fa-trash"></i> Excluir
           </button>
         </div>
       </div>
@@ -824,6 +1063,10 @@
         <i class="fas fa-ellipsis-h"></i>
         Mais opções
       </button>
+      <button class="bottom-action-btn secondary" onclick="window.location.href='{% url 'diet_summary' %}?date={{ selected_date|date:'Y-m-d' }}'">
+        <i class="fas fa-chart-pie"></i>
+        Resumo
+      </button>
     </div>
   </div>
 
@@ -831,7 +1074,7 @@
   <footer>
     <nav>
       <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
-      <a href="#" class="active"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="{% url 'dieta' %}" class="active"><i class="fas fa-utensils"></i> Dieta</a>
       <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
     </nav>
   </footer>
@@ -902,204 +1145,398 @@
     </div>
   </div>
 
+  <!-- Edit Meal Modal -->
+  <div id="editMealModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Editar Refeição</h3>
+        <span class="close" onclick="closeEditMealModal()">&times;</span>
+      </div>
+      
+      <form id="editMealForm">
+        <input type="hidden" id="editMealId" value="">
+        <div class="form-group">
+          <label class="form-label">Nome da Refeição</label>
+          <input type="text" class="form-input" id="editMealName" placeholder="Nome da refeição" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Alimentos da Refeição</label>
+          <div id="editMealFoods">
+            <!-- Foods will be loaded here -->
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button type="button" class="modal-btn secondary" onclick="closeEditMealModal()">Cancelar</button>
+          <button type="submit" class="modal-btn primary">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Food to Meal Modal -->
+  <div id="addFoodToMealModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Adicionar Alimento</h3>
+        <span class="close" onclick="closeAddFoodToMealModal()">&times;</span>
+      </div>
+      
+      <div class="food-search">
+        <input type="text" class="search-input" id="addFoodSearchInput" placeholder="Buscar alimentos...">
+      </div>
+      
+      <div class="filter-tabs">
+        <div class="filter-tab active" data-filter="all">Todos</div>
+        <div class="filter-tab" data-filter="favorites">Favoritos</div>
+        <div class="filter-tab" data-filter="recent">Recentes</div>
+      </div>
+      
+      <div class="food-list" id="addFoodList">
+        <!-- Foods will be loaded here -->
+      </div>
+      
+      <div class="modal-actions">
+        <button type="button" class="modal-btn secondary" onclick="closeAddFoodToMealModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Notification System -->
   <div id="notificationContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000; pointer-events: none;"></div>
 
   <script>
     // Page entrance animation
     document.addEventListener('DOMContentLoaded', function() {
-      const container = document.querySelector('.container');
-      container.style.opacity = '0';
-      container.style.transform = 'translateY(20px)';
-      
-      setTimeout(() => {
-        container.style.transition = 'all 0.5s ease';
-        container.style.opacity = '1';
-        container.style.transform = 'translateY(0)';
-      }, 100);
+      try {
+        const container = document.querySelector('.container');
+        if (container) {
+          container.style.opacity = '0';
+          container.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            container.style.transition = 'all 0.5s ease';
+            container.style.opacity = '1';
+            container.style.transform = 'translateY(0)';
+          }, 100);
+        }
+      } catch (error) {
+        console.error('Erro na animação de entrada:', error);
+      }
     });
     
     // Global variables
     let currentDate = new Date('{{ selected_date|date:"Y-m-d" }}');
     let selectedFoods = [];
     let currentFilter = 'all';
+    let currentMealId = null;
+    let selectedFoodForMeal = null;
     
     // Notification system
     function showNotification(message, type = 'info', duration = 3000) {
-      const container = document.getElementById('notificationContainer');
-      const notification = document.createElement('div');
-      
-      notification.className = `notification notification-${type}`;
-      notification.style.cssText = `
-        background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
-                      type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
-                      type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
-                      'linear-gradient(135deg, #2196f3, #1976d2)'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        pointer-events: auto;
-        max-width: 300px;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      `;
-      
-      const icon = document.createElement('i');
-      icon.className = type === 'success' ? 'fas fa-check-circle' :
-                      type === 'error' ? 'fas fa-exclamation-circle' :
-                      type === 'warning' ? 'fas fa-exclamation-triangle' :
-                      'fas fa-info-circle';
-      
-      const text = document.createElement('span');
-      text.textContent = message;
-      
-      notification.appendChild(icon);
-      notification.appendChild(text);
-      container.appendChild(notification);
-      
-      // Animate in
-      setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-      }, 100);
-      
-      // Auto remove
-      setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
+      try {
+        const container = document.getElementById('notificationContainer');
+        if (!container) return;
+        
+        const notification = document.createElement('div');
+        
+        notification.className = `notification notification-${type}`;
+        notification.style.cssText = `
+          background: ${type === 'success' ? 'linear-gradient(135deg, #4caf50, #388e3c)' : 
+                        type === 'error' ? 'linear-gradient(135deg, #f44336, #d32f2f)' : 
+                        type === 'warning' ? 'linear-gradient(135deg, #ff9800, #f57c00)' : 
+                        'linear-gradient(135deg, #2196f3, #1976d2)'};
+          color: white;
+          padding: 15px 20px;
+          border-radius: 10px;
+          margin-bottom: 10px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          pointer-events: auto;
+          max-width: 300px;
+          font-size: 14px;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        `;
+        
+        const icon = document.createElement('i');
+        icon.className = type === 'success' ? 'fas fa-check-circle' :
+                        type === 'error' ? 'fas fa-exclamation-circle' :
+                        type === 'warning' ? 'fas fa-exclamation-triangle' :
+                        'fas fa-info-circle';
+        
+        const text = document.createElement('span');
+        text.textContent = message;
+        
+        notification.appendChild(icon);
+        notification.appendChild(text);
+        container.appendChild(notification);
+        
+        // Animate in
         setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 300);
-      }, duration);
-      
-      // Click to dismiss
-      notification.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
+          notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Auto remove
         setTimeout(() => {
-          if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-          }
-        }, 300);
-      });
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        }, duration);
+        
+        // Click to dismiss
+        notification.addEventListener('click', () => {
+          notification.style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.parentNode.removeChild(notification);
+            }
+          }, 300);
+        });
+      } catch (error) {
+        console.error('Erro ao mostrar notificação:', error);
+      }
     }
     
     // Initialize page
     document.addEventListener('DOMContentLoaded', function() {
-      updateDateDisplay();
-      updateProgress();
-      updateMacroRemaining();
-      loadFoods();
-      
-      // Event listeners
-      document.getElementById('foodSearchInput').addEventListener('input', debounce(searchFoods, 300));
-      
-      // Filter tabs
-      document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          currentFilter = this.dataset.filter;
-          searchFoods();
+      try {
+        updateDateDisplay();
+        updateProgress();
+        updateMacroRemaining();
+        loadFoods();
+        
+        // Event listeners
+        document.getElementById('foodSearchInput').addEventListener('input', debounce(searchFoods, 300));
+        document.getElementById('addFoodSearchInput').addEventListener('input', debounce(searchFoodsForMeal, 300));
+        
+        // Filter tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            currentFilter = this.dataset.filter;
+            searchFoods();
+          });
         });
-      });
-      
-      // Goal form
-      document.getElementById('goalForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        updateGoals();
-      });
+        
+        // Filter tabs for add food modal
+        document.querySelectorAll('#addFoodToMealModal .filter-tab').forEach(tab => {
+          tab.addEventListener('click', function() {
+            document.querySelectorAll('#addFoodToMealModal .filter-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            searchFoodsForMeal();
+          });
+        });
+        
+        // Goal form
+        document.getElementById('goalForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          updateGoals();
+        });
+      } catch (error) {
+        console.error('Erro ao inicializar página:', error);
+      }
     });
     
     // Calculate remaining macros
     function updateMacroRemaining() {
-      const carbsGoal = parseInt(document.getElementById('carbsValues').textContent.match(/(\d+)g/)[1]);
-      const proteinGoal = parseInt(document.getElementById('proteinValues').textContent.match(/(\d+)g/)[1]);
-      const fatGoal = parseInt(document.getElementById('fatValues').textContent.match(/(\d+)g/)[1]);
-      
-      const carbsConsumed = parseInt(document.getElementById('carbsValues').textContent.match(/^(\d+)/)[1]);
-      const proteinConsumed = parseInt(document.getElementById('proteinValues').textContent.match(/^(\d+)/)[1]);
-      const fatConsumed = parseInt(document.getElementById('fatValues').textContent.match(/^(\d+)/)[1]);
-      
-      const carbsRemaining = Math.max(0, carbsGoal - carbsConsumed);
-      const proteinRemaining = Math.max(0, proteinGoal - proteinConsumed);
-      const fatRemaining = Math.max(0, fatGoal - fatConsumed);
-      
-      document.getElementById('carbsRemaining').textContent = carbsRemaining;
-      document.getElementById('proteinRemaining').textContent = proteinRemaining;
-      document.getElementById('fatRemaining').textContent = fatRemaining;
+      try {
+        const carbsValuesElement = document.getElementById('carbsValues');
+        const proteinValuesElement = document.getElementById('proteinValues');
+        const fatValuesElement = document.getElementById('fatValues');
+        
+        if (!carbsValuesElement || !proteinValuesElement || !fatValuesElement) {
+          return; // Elementos não encontrados, pular função
+        }
+        
+        // Obter valores reais dos totais consumidos
+        const carbsConsumed = {{ total_carbs|default:0 }};
+        const proteinConsumed = {{ total_protein|default:0 }};
+        const fatConsumed = {{ total_fat|default:0 }};
+        
+        // Obter valores das metas
+        const carbsGoal = {{ profile.carbs_goal|default:250 }};
+        const proteinGoal = {{ profile.protein_goal|default:150 }};
+        const fatGoal = {{ profile.fat_goal|default:67 }};
+        
+        // Calcular restantes
+        const carbsRemaining = Math.max(0, carbsGoal - carbsConsumed);
+        const proteinRemaining = Math.max(0, proteinGoal - proteinConsumed);
+        const fatRemaining = Math.max(0, fatGoal - fatConsumed);
+        
+        // Atualizar elementos se existirem
+        const carbsRemainingElement = document.getElementById('carbsRemaining');
+        const proteinRemainingElement = document.getElementById('proteinRemaining');
+        const fatRemainingElement = document.getElementById('fatRemaining');
+        
+        if (carbsRemainingElement) carbsRemainingElement.textContent = carbsRemaining;
+        if (proteinRemainingElement) proteinRemainingElement.textContent = proteinRemaining;
+        if (fatRemainingElement) fatRemainingElement.textContent = fatRemaining;
+        
+        // Atualizar barras de progresso com valores reais
+        updateMacroProgress('carbs', carbsConsumed, carbsGoal);
+        updateMacroProgress('protein', proteinConsumed, proteinGoal);
+        updateMacroProgress('fat', fatConsumed, fatGoal);
+      } catch (error) {
+        console.error('Erro ao calcular macros restantes:', error);
+      }
     }
     
     // Date navigation
     function changeDate(days) {
-      currentDate.setDate(currentDate.getDate() + days);
-      updateDateDisplay();
-      window.location.href = `{% url 'dieta' %}?date=${currentDate.toISOString().split('T')[0]}`;
+      try {
+        currentDate.setDate(currentDate.getDate() + days);
+        updateDateDisplay();
+        const newDate = currentDate.toISOString().split('T')[0];
+        window.location.href = `{% url 'dieta' %}?date=${newDate}`;
+      } catch (error) {
+        console.error('Erro ao alterar data:', error);
+        showNotification('Erro ao alterar data', 'error');
+      }
     }
     
     function updateDateDisplay() {
-      const today = new Date();
-      const dateStr = currentDate.toLocaleDateString('pt-BR');
-      
-      if (currentDate.toDateString() === today.toDateString()) {
-        document.getElementById('currentDate').textContent = 'Hoje';
-      } else {
-        document.getElementById('currentDate').textContent = dateStr;
+      try {
+        const today = new Date();
+        const dateStr = currentDate.toLocaleDateString('pt-BR');
+        const currentDateElement = document.getElementById('currentDate');
+        
+        if (!currentDateElement) {
+          return; // Elemento não encontrado, pular função
+        }
+        
+        if (currentDate.toDateString() === today.toDateString()) {
+          currentDateElement.textContent = 'Hoje';
+        } else {
+          currentDateElement.textContent = dateStr;
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar data:', error);
       }
     }
     
     // Progress calculations
     function updateProgress() {
-      const dailyGoal = parseInt(document.getElementById('dailyGoal').textContent);
-      const consumed = parseInt(document.getElementById('consumedCalories').textContent);
-      const remaining = Math.max(0, dailyGoal - consumed);
-      
-      // Update progress circle
-      const percentage = Math.min(100, (consumed / dailyGoal) * 100);
-      const circumference = 2 * Math.PI * 52;
-      const dashArray = (percentage / 100) * circumference;
-      
-      document.getElementById('progressCircle').style.strokeDasharray = `${dashArray} ${circumference}`;
-      document.getElementById('remainingCalories').textContent = remaining;
-      
-      // Update macro progress bars
-      updateMacroProgress('carbs', {{ total_carbs }}, {{ profile.carbs_goal }});
-      updateMacroProgress('protein', {{ total_protein }}, {{ profile.protein_goal }});
-      updateMacroProgress('fat', {{ total_fat }}, {{ profile.fat_goal }});
-      
-      // Update remaining macros
-      updateMacroRemaining();
+      try {
+        const dailyGoalElement = document.getElementById('dailyGoal');
+        const consumedElement = document.getElementById('consumedCalories');
+        const progressCircleElement = document.getElementById('progressCircle');
+        const remainingElement = document.getElementById('remainingCalories');
+        
+        if (!dailyGoalElement || !consumedElement) {
+          return; // Elementos não encontrados, pular função
+        }
+        
+        const dailyGoal = parseInt(dailyGoalElement.textContent) || 2000;
+        const consumed = parseInt(consumedElement.textContent) || 0;
+        const remaining = Math.max(0, dailyGoal - consumed);
+        
+        // Update progress circle
+        if (progressCircleElement) {
+          const percentage = Math.min(100, (consumed / dailyGoal) * 100);
+          const circumference = 2 * Math.PI * 52;
+          const dashArray = (percentage / 100) * circumference;
+          progressCircleElement.style.strokeDasharray = `${dashArray} ${circumference}`;
+        }
+        
+        if (remainingElement) {
+          remainingElement.textContent = remaining;
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar progresso:', error);
+      }
     }
     
     function updateMacroProgress(macro, consumed, goal) {
-      const percentage = Math.min(100, (consumed / goal) * 100);
-      document.getElementById(`${macro}Progress`).style.width = `${percentage}%`;
+      try {
+        const progressElement = document.getElementById(`${macro}Progress`);
+        if (!progressElement) {
+          return; // Elemento não encontrado, pular função
+        }
+        
+        // Calcular porcentagem baseada no consumo real vs meta
+        const percentage = Math.min(100, (consumed / goal) * 100);
+        progressElement.style.width = `${percentage}%`;
+      } catch (error) {
+        console.error(`Erro ao atualizar progresso de ${macro}:`, error);
+      }
     }
     
     // Goal modal
     function openGoalModal() {
-      document.getElementById('goalModal').style.display = 'block';
+      try {
+        const modal = document.getElementById('goalModal');
+        if (modal) {
+          modal.style.display = 'block';
+        } else {
+          console.error('Modal de metas não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao abrir modal de metas:', error);
+      }
     }
     
     function closeGoalModal() {
-      document.getElementById('goalModal').style.display = 'none';
+      try {
+        const modal = document.getElementById('goalModal');
+        if (modal) {
+          modal.style.display = 'none';
+        } else {
+          console.error('Modal de metas não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao fechar modal de metas:', error);
+      }
     }
     
     async function updateGoals() {
-      const data = {
-        daily_calories: parseInt(document.getElementById('dailyCaloriesInput').value),
-        protein_goal: parseInt(document.getElementById('proteinGoalInput').value),
-        carbs_goal: parseInt(document.getElementById('carbsGoalInput').value),
-        fat_goal: parseInt(document.getElementById('fatGoalInput').value),
-      };
-      
       try {
+        const dailyCaloriesInput = document.getElementById('dailyCaloriesInput');
+        const proteinGoalInput = document.getElementById('proteinGoalInput');
+        const carbsGoalInput = document.getElementById('carbsGoalInput');
+        const fatGoalInput = document.getElementById('fatGoalInput');
+        
+        if (!dailyCaloriesInput || !proteinGoalInput || !carbsGoalInput || !fatGoalInput) {
+          showNotification('Campos de metas não encontrados', 'error');
+          return;
+        }
+        
+        const data = {
+          daily_calories: parseInt(dailyCaloriesInput.value) || 2000,
+          protein_goal: parseInt(proteinGoalInput.value) || 150,
+          carbs_goal: parseInt(carbsGoalInput.value) || 250,
+          fat_goal: parseInt(fatGoalInput.value) || 67,
+        };
+        
+        // Validar valores
+        if (data.daily_calories < 1000 || data.daily_calories > 5000) {
+          showNotification('Calorias devem estar entre 1000 e 5000', 'error');
+          return;
+        }
+        
+        if (data.protein_goal < 50 || data.protein_goal > 300) {
+          showNotification('Proteínas devem estar entre 50g e 300g', 'error');
+          return;
+        }
+        
+        if (data.carbs_goal < 100 || data.carbs_goal > 600) {
+          showNotification('Carboidratos devem estar entre 100g e 600g', 'error');
+          return;
+        }
+        
+        if (data.fat_goal < 30 || data.fat_goal > 150) {
+          showNotification('Gorduras devem estar entre 30g e 150g', 'error');
+          return;
+        }
+        
         const response = await fetch('{% url "update_profile" %}', {
           method: 'POST',
           headers: {
@@ -1111,7 +1548,10 @@
         
         const result = await response.json();
         if (result.success) {
-          document.getElementById('dailyGoal').textContent = data.daily_calories;
+          const dailyGoalElement = document.getElementById('dailyGoal');
+          if (dailyGoalElement) {
+            dailyGoalElement.textContent = data.daily_calories;
+          }
           closeGoalModal();
           updateProgress();
           showNotification('Metas atualizadas com sucesso!', 'success');
@@ -1126,21 +1566,56 @@
     
     // Food search and selection
     async function loadFoods() {
-      await searchFoods();
+      try {
+        const foodSearchInput = document.getElementById('foodSearchInput');
+        if (foodSearchInput) {
+          foodSearchInput.value = '';
+        }
+        await searchFoods();
+      } catch (error) {
+        console.error('Erro ao carregar alimentos:', error);
+      }
     }
     
     async function searchFoods() {
-      const query = document.getElementById('foodSearchInput').value;
-      
       try {
+        const query = document.getElementById('foodSearchInput').value;
+        
         const response = await fetch(`{% url "search_foods" %}?q=${encodeURIComponent(query)}&filter=${currentFilter}`);
         const data = await response.json();
         
         const foodList = document.getElementById('foodList');
+        if (foodList) {
+          foodList.innerHTML = '';
+          
+          if (data.foods && data.foods.length > 0) {
+            data.foods.forEach(food => {
+              const foodItem = createFoodItem(food);
+              foodList.appendChild(foodItem);
+            });
+          } else {
+            foodList.innerHTML = '<p style="color: #888; text-align: center; padding: 20px;">Nenhum alimento encontrado</p>';
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao buscar alimentos:', error);
+        showNotification('Erro ao buscar alimentos', 'error');
+      }
+    }
+    
+    async function searchFoodsForMeal() {
+      try {
+        const query = document.getElementById('addFoodSearchInput').value;
+        const filter = document.querySelector('#addFoodToMealModal .filter-tab.active').dataset.filter;
+        
+        const response = await fetch(`{% url "search_foods" %}?q=${encodeURIComponent(query)}&filter=${filter}`);
+        const data = await response.json();
+        
+        const foodList = document.getElementById('addFoodList');
         foodList.innerHTML = '';
         
         data.foods.forEach(food => {
-          const foodItem = createFoodItem(food);
+          const foodItem = createFoodItemForMeal(food);
           foodList.appendChild(foodItem);
         });
       } catch (error) {
@@ -1150,77 +1625,180 @@
     }
     
     function createFoodItem(food) {
-      const div = document.createElement('div');
-      div.className = 'food-item';
-      div.innerHTML = `
-        <div class="food-info">
-          <div class="food-name">${food.name}</div>
-          <div class="food-macros">
-            P: ${food.protein_per_100g}g | C: ${food.carbs_per_100g}g | G: ${food.fat_per_100g}g | F: ${food.fiber_per_100g}g
+      try {
+        const div = document.createElement('div');
+        div.className = 'food-item';
+        div.innerHTML = `
+          <div class="food-info">
+            <div class="food-name">${food.name}</div>
+            <div class="food-macros">
+              P: ${food.protein_per_100g}g | C: ${food.carbs_per_100g}g | G: ${food.fat_per_100g}g | F: ${food.fiber_per_100g}g
+            </div>
           </div>
-        </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span class="food-calories">${food.calories_per_100g} kcal</span>
-          <input type="number" class="quantity-input" placeholder="g" min="1" value="100" 
-                 onchange="updateSelectedFood(${food.id}, this.value)">
-        </div>
-      `;
-      
-      div.addEventListener('click', function(e) {
-        if (e.target.tagName !== 'INPUT') {
-          // Redirect to food details page
-          window.location.href = `/inicio/detalhes_alimento/${food.id}/`;
-        }
-      });
-      
-      return div;
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="food-calories">${food.calories_per_100g} kcal</span>
+            <input type="number" class="quantity-input" placeholder="g" min="1" value="100" 
+                   onchange="updateSelectedFood(${food.id}, this.value)">
+            <button class="modal-btn secondary" onclick="toggleFavorite(${food.id})" style="padding: 5px 10px; font-size: 12px; background: #666;">
+              <i class="far fa-star"></i>
+            </button>
+            <button class="modal-btn primary" onclick="toggleFoodSelection(${food.id})" style="padding: 5px 10px; font-size: 12px;">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        `;
+        
+        div.addEventListener('click', function(e) {
+          if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+            // Não redirecionar mais para detalhes_alimento
+            // Apenas permitir seleção do alimento
+            toggleFoodSelection(food.id);
+          }
+        });
+        
+        return div;
+      } catch (error) {
+        console.error('Erro ao criar item de alimento:', error);
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = '<p style="color: #f44336; text-align: center; padding: 10px;">Erro ao carregar alimento</p>';
+        return errorDiv;
+      }
     }
     
     function toggleFoodSelection(foodId) {
-      const index = selectedFoods.findIndex(f => f.food_id === foodId);
-      if (index > -1) {
-        selectedFoods.splice(index, 1);
-      } else {
-        selectedFoods.push({
-          food_id: foodId,
-          quantity: 100
-        });
+      try {
+        const index = selectedFoods.findIndex(f => f.food_id === foodId);
+        const foodItem = document.querySelector(`[onclick="toggleFoodSelection(${foodId})"]`);
+        
+        if (!foodItem) {
+          console.error('Botão de seleção não encontrado');
+          return;
+        }
+        
+        if (index > -1) {
+          selectedFoods.splice(index, 1);
+          foodItem.innerHTML = '<i class="fas fa-plus"></i>';
+          foodItem.className = 'modal-btn primary';
+        } else {
+          // Buscar quantidade do input correspondente
+          const quantityInput = foodItem.closest('div').querySelector('.quantity-input');
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 100 : 100;
+          
+          selectedFoods.push({
+            food_id: foodId,
+            quantity: quantity
+          });
+          foodItem.innerHTML = '<i class="fas fa-check"></i>';
+          foodItem.className = 'modal-btn secondary';
+        }
+      } catch (error) {
+        console.error('Erro ao alternar seleção de alimento:', error);
       }
     }
     
     function updateSelectedFood(foodId, quantity) {
-      const food = selectedFoods.find(f => f.food_id === foodId);
-      if (food) {
-        food.quantity = parseInt(quantity);
+      try {
+        const quantityValue = parseInt(quantity) || 100;
+        const food = selectedFoods.find(f => f.food_id === foodId);
+        if (food) {
+          food.quantity = quantityValue;
+        } else {
+          // Se o alimento não estiver selecionado, adicionar
+          selectedFoods.push({
+            food_id: foodId,
+            quantity: quantityValue
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao atualizar alimento selecionado:', error);
+      }
+    }
+    
+    // Função para favoritar/desfavoritar alimentos
+    function toggleFavorite(foodId) {
+      try {
+        const favoriteBtn = event.target.closest('button');
+        const icon = favoriteBtn.querySelector('i');
+        
+        if (icon.classList.contains('far')) {
+          // Favoritar
+          icon.classList.remove('far');
+          icon.classList.add('fas');
+          favoriteBtn.style.background = '#ffd700';
+          favoriteBtn.style.color = '#333';
+          showNotification('Alimento adicionado aos favoritos!', 'success');
+        } else {
+          // Desfavoritar
+          icon.classList.remove('fas');
+          icon.classList.add('far');
+          favoriteBtn.style.background = '#666';
+          favoriteBtn.style.color = '#fff';
+          showNotification('Alimento removido dos favoritos!', 'info');
+        }
+        
+        // Aqui você pode implementar a lógica para salvar no backend
+        // Por enquanto, apenas simula a funcionalidade
+      } catch (error) {
+        console.error('Erro ao favoritar alimento:', error);
+        showNotification('Erro ao favoritar alimento', 'error');
       }
     }
     
     // Meal modals
     function openAddMealModal() {
-      document.getElementById('addMealModal').style.display = 'block';
-      selectedFoods = [];
+      try {
+        const modal = document.getElementById('addMealModal');
+        if (modal) {
+          modal.style.display = 'block';
+          selectedFoods = [];
+          loadFoods();
+        } else {
+          console.error('Modal de adicionar refeição não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao abrir modal de refeição:', error);
+      }
     }
     
     function closeAddMealModal() {
-      document.getElementById('addMealModal').style.display = 'none';
-      selectedFoods = [];
+      try {
+        const modal = document.getElementById('addMealModal');
+        if (modal) {
+          modal.style.display = 'none';
+          selectedFoods = [];
+          const foodList = document.getElementById('foodList');
+          if (foodList) {
+            foodList.innerHTML = '';
+          }
+        } else {
+          console.error('Modal de adicionar refeição não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao fechar modal de refeição:', error);
+      }
     }
     
     async function createMeal() {
-      if (selectedFoods.length === 0) {
-        showNotification('Selecione pelo menos um alimento', 'warning');
-        return;
-      }
-      
-      const mealName = prompt('Nome da refeição:') || 'Refeição';
-      
-      const data = {
-        name: mealName,
-        date: currentDate.toISOString().split('T')[0],
-        items: selectedFoods
-      };
-      
       try {
+        if (selectedFoods.length === 0) {
+          showNotification('Selecione pelo menos um alimento', 'warning');
+          return;
+        }
+        
+        const mealName = prompt('Nome da refeição:') || 'Refeição';
+        
+        // Usar as quantidades corretas dos alimentos selecionados
+        const itemsWithQuantities = selectedFoods.map(food => ({
+          food_id: food.food_id,
+          quantity: food.quantity || 100
+        }));
+        
+        const data = {
+          name: mealName,
+          date: currentDate.toISOString().split('T')[0],
+          items: itemsWithQuantities
+        };
+        
         const response = await fetch('{% url "add_meal" %}', {
           method: 'POST',
           headers: {
@@ -1245,10 +1823,16 @@
     
     // Meal actions
     async function copyMeal(mealId) {
-      const targetDate = prompt('Data de destino (YYYY-MM-DD):');
-      if (!targetDate) return;
-      
       try {
+        const targetDate = prompt('Data de destino (YYYY-MM-DD):');
+        if (!targetDate) return;
+        
+        // Validar formato da data
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate)) {
+          showNotification('Formato de data inválido. Use YYYY-MM-DD', 'error');
+          return;
+        }
+        
         const response = await fetch(`{% url "copy_meal" meal_id=0 %}`.replace('0', mealId), {
           method: 'POST',
           headers: {
@@ -1261,6 +1845,7 @@
         const result = await response.json();
         if (result.success) {
           showNotification('Refeição copiada com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
         } else {
           showNotification('Erro ao copiar refeição: ' + result.error, 'error');
         }
@@ -1269,19 +1854,42 @@
       }
     }
     
+    async function deleteMeal(mealId) {
+      try {
+        if (!confirm('Tem certeza que deseja excluir esta refeição?')) return;
+        
+        const response = await fetch(`{% url "delete_meal" meal_id=0 %}`.replace('0', mealId), {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+          }
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Refeição excluída com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao excluir refeição: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao excluir refeição: ' + error.message, 'error');
+      }
+    }
+    
     function editMeal(mealId) {
-      showNotification('Funcionalidade de edição em desenvolvimento', 'info');
+      openEditMealModal(mealId);
     }
     
     function addFoodToMeal(mealId) {
-      showNotification('Funcionalidade de adicionar alimento em desenvolvimento', 'info');
+      openAddFoodToMealModal(mealId);
     }
     
     // Day actions
     async function clearDay() {
-      if (!confirm('Tem certeza que deseja limpar todas as refeições deste dia?')) return;
-      
       try {
+        if (!confirm('Tem certeza que deseja limpar todas as refeições deste dia?')) return;
+        
         const response = await fetch('{% url "clear_day" %}', {
           method: 'POST',
           headers: {
@@ -1304,10 +1912,16 @@
     }
     
     async function replicateDay() {
-      const targetDate = prompt('Data de destino (YYYY-MM-DD):');
-      if (!targetDate) return;
-      
       try {
+        const targetDate = prompt('Data de destino (YYYY-MM-DD):');
+        if (!targetDate) return;
+        
+        // Validar formato da data
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(targetDate)) {
+          showNotification('Formato de data inválido. Use YYYY-MM-DD', 'error');
+          return;
+        }
+        
         const response = await fetch('{% url "replicate_day" %}', {
           method: 'POST',
           headers: {
@@ -1323,6 +1937,7 @@
         const result = await response.json();
         if (result.success) {
           showNotification('Dia replicado com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
         } else {
           showNotification('Erro ao replicar dia: ' + result.error, 'error');
         }
@@ -1341,40 +1956,402 @@
     
     // Utility functions
     function debounce(func, wait) {
-      let timeout;
-      return function executedFunction(...args) {
-        const later = () => {
+      try {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
           clearTimeout(timeout);
-          func(...args);
+          timeout = setTimeout(later, wait);
         };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-      };
+      } catch (error) {
+        console.error('Erro na função debounce:', error);
+        return func;
+      }
     }
     
     function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
+      try {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
           }
         }
+        return cookieValue;
+      } catch (error) {
+        console.error('Erro ao obter cookie:', error);
+        return null;
       }
-      return cookieValue;
     }
+    
+    // Modal management functions
+    function openEditMealModal(mealId) {
+      try {
+        const modal = document.getElementById('editMealModal');
+        if (modal) {
+          const editMealIdInput = document.getElementById('editMealId');
+          if (editMealIdInput) editMealIdInput.value = mealId;
+          
+          loadMealForEdit(mealId);
+          modal.style.display = 'block';
+        } else {
+          console.error('Modal de edição não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao abrir modal de edição:', error);
+      }
+    }
+    
+    function closeEditMealModal() {
+      try {
+        const modal = document.getElementById('editMealModal');
+        if (modal) {
+          modal.style.display = 'none';
+          // Limpar campos do formulário
+          const editMealName = document.getElementById('editMealName');
+          if (editMealName) editMealName.value = '';
+          const editMealFoods = document.getElementById('editMealFoods');
+          if (editMealFoods) editMealFoods.innerHTML = '';
+        } else {
+          console.error('Modal de edição não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao fechar modal de edição:', error);
+      }
+    }
+    
+    function openAddFoodToMealModal(mealId) {
+      try {
+        currentMealId = mealId;
+        selectedFoodForMeal = null;
+        const modal = document.getElementById('addFoodToMealModal');
+        if (modal) {
+          // Limpar busca anterior
+          const searchInput = document.getElementById('addFoodSearchInput');
+          if (searchInput) searchInput.value = '';
+          
+          loadFoodsForMeal();
+          modal.style.display = 'block';
+        } else {
+          console.error('Modal de adicionar alimento não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao abrir modal de adicionar alimento:', error);
+      }
+    }
+    
+    function closeAddFoodToMealModal() {
+      try {
+        const modal = document.getElementById('addFoodToMealModal');
+        if (modal) {
+          modal.style.display = 'none';
+          selectedFoodForMeal = null;
+          currentMealId = null;
+        } else {
+          console.error('Modal de adicionar alimento não encontrado');
+        }
+      } catch (error) {
+        console.error('Erro ao fechar modal de adicionar alimento:', error);
+      }
+    }
+    
+    async function loadMealForEdit(mealId) {
+      try {
+        const editMealFoods = document.getElementById('editMealFoods');
+        if (!editMealFoods) return;
+        
+        editMealFoods.innerHTML = '';
+        
+        // Carregar alimentos da refeição atual
+        const mealCard = document.querySelector(`.meal-card[data-meal-id="${mealId}"]`);
+        if (mealCard) {
+          const mealNameElement = mealCard.querySelector('.meal-name');
+          if (mealNameElement) {
+            document.getElementById('editMealName').value = mealNameElement.textContent;
+          }
+          
+          // Carregar alimentos existentes da refeição
+          const foodItems = mealCard.querySelectorAll('.food-item-display');
+          if (foodItems.length > 0) {
+            foodItems.forEach(item => {
+              try {
+                const foodNameElement = item.querySelector('div:first-child div:first-child');
+                const foodQuantityElement = item.querySelector('div:first-child div:last-child');
+                const removeButton = item.querySelector('button:last-child');
+                
+                if (foodNameElement && foodQuantityElement && removeButton) {
+                  const foodName = foodNameElement.textContent || 'Alimento';
+                  const foodQuantity = foodQuantityElement.textContent || '100g';
+                  
+                  // Extrair food_id do onclick do botão de remover
+                  const onclickAttr = removeButton.getAttribute('onclick');
+                  const foodIdMatch = onclickAttr.match(/removeFoodFromMeal\(\d+,\s*(\d+)\)/);
+                  const foodId = foodIdMatch ? foodIdMatch[1] : '0';
+                  
+                  const foodDiv = document.createElement('div');
+                  foodDiv.className = 'edit-food-item';
+                  foodDiv.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #2a2a2a;';
+                  foodDiv.innerHTML = `
+                    <span style="color: #fff;">${foodName} - ${foodQuantity}</span>
+                    <button type="button" class="modal-btn secondary" onclick="removeFoodFromMeal(${mealId}, ${foodId})">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  `;
+                  editMealFoods.appendChild(foodDiv);
+                }
+              } catch (error) {
+                console.error('Erro ao processar item de alimento:', error);
+              }
+            });
+          } else {
+            editMealFoods.innerHTML = '<p style="color: #888; text-align: center;">Nenhum alimento adicionado</p>';
+          }
+        }
+        
+      } catch (error) {
+        console.error('Erro ao carregar refeição:', error);
+      }
+    }
+    
+    async function loadFoodsForMeal() {
+      try {
+        const addFoodSearchInput = document.getElementById('addFoodSearchInput');
+        if (addFoodSearchInput) {
+          addFoodSearchInput.value = '';
+        }
+        await searchFoodsForMeal();
+      } catch (error) {
+        console.error('Erro ao carregar alimentos para refeição:', error);
+      }
+    }
+    
+    async function searchFoodsForMeal() {
+      try {
+        const query = document.getElementById('addFoodSearchInput').value;
+        const filter = document.querySelector('#addFoodToMealModal .filter-tab.active')?.dataset.filter || 'all';
+        
+        const response = await fetch(`{% url "search_foods" %}?q=${encodeURIComponent(query)}&filter=${filter}`);
+        const data = await response.json();
+        
+        const foodList = document.getElementById('addFoodList');
+        if (foodList) {
+          foodList.innerHTML = '';
+          
+          data.foods.forEach(food => {
+            const foodItem = createFoodItemForMeal(food);
+            foodList.appendChild(foodItem);
+          });
+        }
+      } catch (error) {
+        console.error('Erro ao buscar alimentos:', error);
+        showNotification('Erro ao buscar alimentos', 'error');
+      }
+    }
+    
+    function createFoodItemForMeal(food) {
+      try {
+        const div = document.createElement('div');
+        div.className = 'food-item';
+        div.innerHTML = `
+          <div class="food-info">
+            <div class="food-name">${food.name}</div>
+            <div class="food-macros">
+              P: ${food.protein_per_100g}g | C: ${food.carbs_per_100g}g | G: ${food.fat_per_100g}g | F: ${food.fiber_per_100g}g
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="food-calories">${food.calories_per_100g} kcal</span>
+            <input type="number" class="quantity-input" placeholder="g" min="1" value="100" 
+                   onchange="updateSelectedFoodForMeal(${food.id}, this.value)">
+            <button class="modal-btn primary" onclick="addFoodToCurrentMeal(${food.id})" style="padding: 5px 10px; font-size: 12px;">
+              Adicionar
+            </button>
+          </div>
+        `;
+        
+        // Inicializar selectedFoodForMeal com o primeiro alimento
+        if (!selectedFoodForMeal) {
+          selectedFoodForMeal = {
+            food_id: food.id,
+            quantity: 100
+          };
+        }
+        
+        return div;
+      } catch (error) {
+        console.error('Erro ao criar item de alimento para refeição:', error);
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = '<p style="color: #f44336; text-align: center; padding: 10px;">Erro ao carregar alimento</p>';
+        return errorDiv;
+      }
+    }
+    
+    function updateSelectedFoodForMeal(foodId, quantity) {
+      try {
+        const quantityValue = parseInt(quantity) || 100;
+        selectedFoodForMeal = {
+          food_id: foodId,
+          quantity: quantityValue
+        };
+      } catch (error) {
+        console.error('Erro ao atualizar alimento para refeição:', error);
+        selectedFoodForMeal = {
+          food_id: foodId,
+          quantity: 100
+        };
+      }
+    }
+    
+    async function addFoodToCurrentMeal(foodId) {
+      try {
+        if (!selectedFoodForMeal || selectedFoodForMeal.food_id !== foodId) {
+          showNotification('Selecione uma quantidade válida', 'warning');
+          return;
+        }
+        
+        const response = await fetch(`{% url "add_food_to_meal" meal_id=0 %}`.replace('0', currentMealId), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify(selectedFoodForMeal)
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Alimento adicionado com sucesso!', 'success');
+          closeAddFoodToMealModal();
+          selectedFoodForMeal = null;
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao adicionar alimento: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao adicionar alimento: ' + error.message, 'error');
+      }
+    }
+    
+    async function removeFoodFromMeal(mealId, foodId) {
+      try {
+        if (!confirm('Tem certeza que deseja remover este alimento?')) return;
+        
+        const response = await fetch(`{% url "remove_food_from_meal" meal_id=0 food_id=0 %}`.replace('0', mealId).replace('0', foodId), {
+          method: 'DELETE',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken')
+          }
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Alimento removido com sucesso!', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao remover alimento: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao remover alimento: ' + error.message, 'error');
+      }
+    }
+    
+    async function editFoodQuantity(mealId, foodId, currentQuantity) {
+      try {
+        const newQuantity = prompt('Nova quantidade (em gramas):', currentQuantity);
+        if (!newQuantity || isNaN(newQuantity) || newQuantity <= 0) {
+          showNotification('Quantidade inválida', 'error');
+          return;
+        }
+        
+        const quantity = parseFloat(newQuantity);
+        
+        // Primeiro remover o alimento atual
+        await removeFoodFromMeal(mealId, foodId);
+        
+        // Aguardar um pouco e depois adicionar com nova quantidade
+        setTimeout(async () => {
+          try {
+            const response = await fetch(`{% url "add_food_to_meal" meal_id=0 %}`.replace('0', mealId), {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+              },
+              body: JSON.stringify({
+                food_id: foodId,
+                quantity: quantity
+              })
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+              showNotification('Quantidade atualizada com sucesso!', 'success');
+              setTimeout(() => location.reload(), 1500);
+            } else {
+              showNotification('Erro ao atualizar quantidade: ' + result.error, 'error');
+            }
+          } catch (error) {
+            showNotification('Erro ao atualizar quantidade: ' + error.message, 'error');
+          }
+        }, 1000);
+        
+      } catch (error) {
+        showNotification('Erro ao editar quantidade: ' + error.message, 'error');
+      }
+    }
+    
+    // Handle edit meal form submission
+    document.getElementById('editMealForm').addEventListener('submit', async function(e) {
+      try {
+        e.preventDefault();
+        
+        const mealId = document.getElementById('editMealId').value;
+        const mealName = document.getElementById('editMealName').value;
+        
+        const response = await fetch(`{% url "edit_meal" meal_id=0 %}`.replace('0', mealId), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({
+            name: mealName
+          })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          showNotification('Refeição atualizada com sucesso!', 'success');
+          closeEditMealModal();
+          setTimeout(() => location.reload(), 1500);
+        } else {
+          showNotification('Erro ao atualizar refeição: ' + result.error, 'error');
+        }
+      } catch (error) {
+        showNotification('Erro ao atualizar refeição: ' + error.message, 'error');
+      }
+    });
     
     // Close modals when clicking outside
     window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
+      try {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
+      } catch (error) {
+        console.error('Erro ao fechar modal:', error);
+      }
     };
   </script>
 </body>

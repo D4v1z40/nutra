@@ -12,6 +12,7 @@
       background: #111;
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
     }
     
     .workout-header {
@@ -19,8 +20,24 @@
       color: #fff;
       padding: 1.5rem 0;
       border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      box-shadow: 0 6px 25px rgba(10, 94, 0, 0.4);
       position: relative;
+      overflow: hidden;
+    }
+    
+    .workout-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .workout-header:hover::before {
+      left: 100%;
     }
     
     .header-content {
@@ -84,29 +101,69 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.3);
       transition: all 0.3s;
       display: inline-flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-workout-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .add-workout-btn:hover::before {
+      left: 100%;
     }
     
     .add-workout-btn:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.4);
+      box-shadow: 0 8px 30px rgba(143, 209, 158, 0.4);
       text-decoration: none;
       color: #121212;
     }
     
     .workout-card {
-      background: #232323;
-      border-radius: 12px;
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
       margin: 15px 20px;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(143,209,158,0.1);
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
       border: 1px solid rgba(143,209,158,0.1);
       position: relative;
+      transition: all 0.3s;
+      overflow: hidden;
+    }
+    
+    .workout-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .workout-card:hover::before {
+      left: 100%;
+    }
+    
+    .workout-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
     }
     
     .workout-header-card {
@@ -121,6 +178,7 @@
       font-size: 18px;
       font-weight: bold;
       margin: 0;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
     }
     
     .workout-date {
@@ -134,14 +192,20 @@
       color: #ff6b6b;
       cursor: pointer;
       font-size: 16px;
-      padding: 5px;
+      padding: 8px;
       border-radius: 50%;
       transition: all 0.3s;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .delete-workout-btn:hover {
       background: rgba(255, 107, 107, 0.1);
       transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
     }
     
     .workout-stats {
@@ -152,6 +216,17 @@
     
     .stat-item {
       text-align: center;
+      padding: 10px;
+      background: rgba(143, 209, 158, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(143, 209, 158, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .stat-item:hover {
+      background: rgba(143, 209, 158, 0.1);
+      border-color: rgba(143, 209, 158, 0.2);
+      transform: translateY(-2px);
     }
     
     .stat-label {
@@ -161,9 +236,10 @@
     }
     
     .stat-value {
-      color: #fff;
+      color: #8fd19e;
       font-size: 16px;
       font-weight: bold;
+      text-shadow: 0 1px 5px rgba(143, 209, 158, 0.3);
     }
     
     .workout-exercises {
@@ -175,6 +251,15 @@
       display: flex;
       align-items: center;
       margin-bottom: 8px;
+      padding: 8px 12px;
+      background: rgba(143, 209, 158, 0.03);
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    
+    .exercise-item:hover {
+      background: rgba(143, 209, 158, 0.08);
+      transform: translateX(5px);
     }
     
     .exercise-item:last-child {
@@ -184,7 +269,7 @@
     .exercise-icon {
       width: 30px;
       height: 30px;
-      background: #333;
+      background: linear-gradient(145deg, #333, #2a2a2a);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -192,6 +277,7 @@
       margin-right: 10px;
       color: #8fd19e;
       font-size: 12px;
+      box-shadow: 0 2px 8px rgba(143, 209, 158, 0.2);
     }
     
     .exercise-details {
@@ -220,6 +306,67 @@
       font-size: 48px;
       margin-bottom: 15px;
       color: #444;
+    }
+    
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    
+    /* Corrigir rodapé */
+    footer {
+      background: #232323;
+      border-top: 1px solid #333;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: transparent;
+    }
+    
+    footer nav a:hover {
+      color: #8fd19e;
+      background: rgba(143, 209, 158, 0.1);
+    }
+    
+    footer nav a.active {
+      color: #000;
+      background: #22c55e;
+      font-weight: bold;
+    }
+    
+    footer nav a i {
+      font-size: 20px;
+    }
+    
+    /* Adicionar espaço para o rodapé */
+    body {
+      padding-bottom: 0;
+    }
+    
+    .container {
+      padding-bottom: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
   </style>
 </head>
@@ -258,7 +405,7 @@
   <!-- Footer -->
   <footer>
     <nav>
-      <a href="#" class="active"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="{% url 'treino' %}" class="active"><i class="fas fa-dumbbell"></i> Treinos</a>
       <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
       <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
     </nav>

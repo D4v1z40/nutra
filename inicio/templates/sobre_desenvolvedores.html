@@ -4,76 +4,516 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sobre os Desenvolvedores</title>
+  <title>Sobre os Desenvolvedores - Nutra</title>
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    body { background: #111; color: #fff; min-height: 100vh; margin:0; }
-<<<<<<< HEAD
-    .sobre-header { background: #232323; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
-    .sobre-voltar { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #8fd19e; font-size: 32px; cursor: pointer; z-index: 10; background: none; border: none; }
-=======
-    .sobre-header { background: #185c1b; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 2vw; font-weight: bold; letter-spacing: 1px; position: relative; }
-    .sobre-logo { position: absolute; left: 18px; top: 12px; background: #185c1b; border-radius: 4px; padding: 2px 12px; color: #b1f2be; font-size: 28px; font-family: 'Times New Roman', serif; border: 2px solid #b1f2be; }
-    .sobre-voltar { position: absolute; left: 18px; top: 100%; margin-top: 18px; color: #8fd19e; font-size: 32px; cursor: pointer; z-index: 10; background: none; border: none; }
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    .devs-center {
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+    
+    .dev-header {
+      background: linear-gradient(135deg, #185c1b, #0d7a00);
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(24, 92, 27, 0.3);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dev-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .dev-header:hover::before {
+      left: 100%;
+    }
+    
+    .dev-voltar {
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8fd19e;
+      font-size: 32px;
+      cursor: pointer;
+      transition: all 0.3s;
+      background: none;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(100vh - 70px);
-      width: 100vw;
+      width: 60px;
+      height: 60px;
     }
-    .devs-container { display: flex; justify-content: center; align-items: flex-start; gap: 60px; margin-top: 0; }
-    .dev-box { background: none; border: 2px solid #fff; border-radius: 10px; padding: 18px 24px; min-width: 260px; max-width: 320px; color: #fff; text-align: left; margin-top: 18px; }
-    .dev-foto { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; border: 3px solid #8fd19e; display: block; margin: 0 auto 10px auto; box-shadow: 0 0 15px rgba(143,209,158,0.18); background: #232323; }
-    .dev-foto[src=""] { background: #232323 url('https://cdn-icons-png.flaticon.com/512/149/149071.png') center/60% no-repeat; }
-    .dev-nome { text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 8px; }
-    .dev-contato { margin-top: 10px; }
-    .dev-contato i { color: #25d366; margin-right: 8px; font-size: 20px; vertical-align: middle; }
-    .dev-contato .email-icon { color: #ea4335; }
-    .dev-contato span { font-size: 16px; vertical-align: middle; }
-    .dev-contato a { color: #fff; text-decoration: none; }
-    .dev-contato a:hover { text-decoration: underline; }
-    .dev-traco { width: 60px; height: 180px; display: flex; align-items: center; justify-content: center; }
-    .dev-traco svg { width: 100%; height: 100%; }
-    @media (max-width: 900px) { .devs-container { flex-direction: column; align-items: center; gap: 0; } .dev-traco { display: none; } }
-<<<<<<< HEAD
-    @media (max-width: 600px) { .dev-box { min-width: 90vw; max-width: 98vw; padding: 10px 4vw; } .dev-foto { width: 80px; height: 80px; } .sobre-header { font-size: 16px; } .sobre-voltar { font-size: 22px; } }
-=======
-    @media (max-width: 600px) { .dev-box { min-width: 90vw; max-width: 98vw; padding: 10px 4vw; } .dev-foto { width: 80px; height: 80px; } .sobre-header { font-size: 16px; } .sobre-logo { font-size: 20px; padding: 1px 8px; } .sobre-voltar { font-size: 22px; } }
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
+    
+    .dev-voltar:hover {
+      color: #b1f2be;
+      background: rgba(143, 209, 158, 0.1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+    }
+    
+    .intro-section {
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .intro-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .intro-section:hover::before {
+      left: 100%;
+    }
+    
+    .intro-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .intro-section h2 {
+      color: #8fd19e;
+      font-size: 28px;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .intro-section p {
+      color: #ccc;
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .devs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      flex: 1;
+    }
+    
+    .dev-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .dev-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .dev-card:hover::before {
+      left: 100%;
+    }
+    
+    .dev-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .dev-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      border: 4px solid #8fd19e;
+      box-shadow: 0 0 30px rgba(143, 209, 158, 0.4);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .dev-avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(143, 209, 158, 0.6);
+    }
+    
+    .dev-name {
+      color: #8fd19e;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .dev-role {
+      color: #b1f2be;
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    
+    .dev-description {
+      color: #ccc;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    
+    .dev-contact {
+      margin-bottom: 20px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: rgba(143, 209, 158, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid #8fd19e;
+      transition: all 0.3s;
+    }
+    
+    .contact-item:hover {
+      background: rgba(143, 209, 158, 0.1);
+      transform: translateX(5px);
+    }
+    
+    .contact-item i {
+      color: #8fd19e;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .contact-item span {
+      color: #fff;
+      font-size: 14px;
+    }
+    
+    .dev-skills {
+      margin-top: 20px;
+    }
+    
+    .dev-skills h4 {
+      color: #8fd19e;
+      font-size: 18px;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    
+    .skill-tag {
+      background: linear-gradient(145deg, #8fd19e, #6bbf7a);
+      color: #121212;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(143, 209, 158, 0.3);
+    }
+    
+    .skill-tag:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.4);
+    }
+    
+    .team-section {
+      margin-top: 40px;
+    }
+    
+    .team-section h3 {
+      color: #8fd19e;
+      font-size: 28px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .team-section p {
+      color: #ccc;
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .team-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(143,209,158,0.1);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .stat-card:hover::before {
+      left: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .stat-value {
+      font-size: 32px;
+      font-weight: bold;
+      color: #8fd19e;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .stat-label {
+      color: #ccc;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    @media (max-width: 768px) {
+      .devs-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .dev-header {
+        font-size: 24px;
+        padding: 20px 0;
+      }
+      
+      .dev-voltar {
+        font-size: 24px;
+        left: 20px;
+      }
+      
+      .team-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .dev-avatar {
+        width: 100px;
+        height: 100px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="sobre-header">
-<<<<<<< HEAD
-=======
-    <span class="sobre-logo">N</span>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    SOBRE OS DESENVOLVEDORES
-    <a href="{% url 'configuracoes' %}" class="sobre-voltar"><i class="fas fa-arrow-left"></i></a>
-  </div>
-  <div class="devs-center">
-    <div class="devs-container">
-      <div>
-        <img src="{% static 'inicio/img/programador1.png' %}" alt="Davizao" class="dev-foto">
-        <div class="dev-nome">Davi Pinheiro Moreira</div>
-        <div class="dev-box">
-          <div class="dev-contato"><i class="fab fa-whatsapp"></i><span>+55 19 98752-3023</span></div>
-          <div class="dev-contato"><i class="fas fa-envelope email-icon"></i><span>daviimoreira096@gmail.com</span></div>
+  <div class="container">
+    <div class="dev-header">
+      <a href="{% url 'configuracoes' %}" class="dev-voltar">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      SOBRE OS DESENVOLVEDORES
+    </div>
+    
+    <div class="intro-section">
+      <h2 class="intro-title">Equipe de Desenvolvimento</h2>
+      <p class="intro-text">
+        Conheça a equipe apaixonada por tecnologia e inovação que transformou 
+        a ideia do Nutra em uma realidade. Nossa missão é democratizar o acesso 
+        a ferramentas de saúde e fitness através da tecnologia.
+      </p>
+    </div>
+    
+    <div class="devs-grid">
+      <div class="dev-card">
+        <img src="{% static 'inicio/img/programador1.png' %}" alt="Davi Pinheiro Moreira" class="dev-avatar">
+        <h3 class="dev-name">Davi Pinheiro Moreira</h3>
+        <p class="dev-role">Desenvolvedor Full-Stack</p>
+        <p class="dev-description">
+          Especialista em desenvolvimento web com foco em Python e Django. 
+          Apaixonado por criar soluções inovadoras que fazem a diferença 
+          na vida das pessoas.
+        </p>
+        
+        <div class="dev-contact">
+          <div class="contact-item">
+            <i class="fab fa-whatsapp contact-icon whatsapp"></i>
+            <span class="contact-text">+55 19 98752-3023</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope contact-icon email"></i>
+            <a href="mailto:daviimoreira096@gmail.com" class="contact-text">daviimoreira096@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="dev-skills">
+          <h4>Habilidades</h4>
+          <div class="skills-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">HTML</span>
+          </div>
+        </div>
+        
+        <div class="dev-social">
+          <a href="#" class="social-link" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-link" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="social-link" title="Portfolio">
+            <i class="fas fa-globe"></i>
+          </a>
         </div>
       </div>
-      <div class="dev-traco">
-        <svg viewBox="0 0 60 180"><path d="M30,0 Q40,40 30,90 Q20,140 30,180" stroke="#8fd19e" stroke-width="3" fill="none"/></svg>
+      
+      <div class="dev-card">
+        <img src="{% static 'inicio/img/programador2.png' %}" alt="Raissa Franco dos Santos" class="dev-avatar">
+        <h3 class="dev-name">Raissa Franco dos Santos</h3>
+        <p class="dev-role">Desenvolvedora Full-Stack</p>
+        <p class="dev-description">
+          Especialista em desenvolvimento web e interfaces de usuário. 
+          Dedica-se a criar soluções robustas e intuitivas que 
+          proporcionam uma experiência excepcional aos usuários.
+        </p>
+        
+        <div class="dev-contact">
+          <div class="contact-item">
+            <i class="fab fa-whatsapp contact-icon whatsapp"></i>
+            <span class="contact-text">+55 (19) 99112-8143</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope contact-icon email"></i>
+            <a href="mailto:raissafsantos41447@gmail.com" class="contact-text">raissafsantos41447@gmail.com</a>
+          </div>
+        </div>
+        
+        <div class="dev-skills">
+          <h4>Habilidades</h4>
+          <div class="skills-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">C#</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">HTML</span>
+          </div>
+        </div>
+        
+        <div class="dev-social">
+          <a href="#" class="social-link" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="#" class="social-link" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="#" class="social-link" title="Portfolio">
+            <i class="fas fa-globe"></i>
+          </a>
+        </div>
       </div>
-      <div>
-        <img src="{% static 'inicio/img/programador2.png' %}" alt="Raissa" class="dev-foto">
-        <div class="dev-nome">Raissa Franco dos Santos</div>
-        <div class="dev-box">
-          <div class="dev-contato"><i class="fab fa-whatsapp"></i><span>+55 (19) 99112-8143</span></div>
-          <div class="dev-contato"><i class="fas fa-envelope email-icon"></i><span>raissafsantos41447@gmail.com</span></div>
+    </div>
+    
+    <div class="team-section">
+      <h3>Nossa Equipe</h3>
+      <p>
+        Trabalhamos juntos para criar uma plataforma que realmente faz a diferença 
+        na vida das pessoas. Nossa abordagem colaborativa e foco na qualidade 
+        garantem que cada funcionalidade seja desenvolvida com excelência.
+      </p>
+      
+      <div class="team-stats">
+        <div class="stat-card">
+          <div class="stat-value">50K+</div>
+          <div class="stat-label">Linhas de Código</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">6+</div>
+          <div class="stat-label">Meses de Desenvolvimento</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">Desenvolvedores</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-value">99.9%</div>
+          <div class="stat-label">Taxa de Sucesso</div>
         </div>
       </div>
     </div>

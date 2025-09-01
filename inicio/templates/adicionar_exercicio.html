@@ -12,6 +12,7 @@
       background: #111;
       color: #fff;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
     }
     
     .exercise-header {
@@ -19,8 +20,24 @@
       color: #fff;
       padding: 1.5rem 0;
       border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 15px rgba(10, 94, 0, 0.3);
+      box-shadow: 0 6px 25px rgba(10, 94, 0, 0.4);
       position: relative;
+      overflow: hidden;
+    }
+    
+    .exercise-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .exercise-header:hover::before {
+      left: 100%;
     }
     
     .header-content {
@@ -52,8 +69,8 @@
     }
     
     .search-bar {
-      background: #232323;
-      border: 1px solid #333;
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border: 1px solid rgba(143, 209, 158, 0.2);
       border-radius: 25px;
       padding: 12px 20px;
       margin: 20px auto;
@@ -62,6 +79,14 @@
       display: flex;
       align-items: center;
       color: #fff;
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .search-bar:focus-within {
+      border-color: rgba(143, 209, 158, 0.4);
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.2);
+      transform: translateY(-2px);
     }
     
     .search-bar input {
@@ -84,19 +109,27 @@
     }
     
     .filter-btn {
-      background: #232323;
-      border: 1px solid #333;
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border: 1px solid rgba(143, 209, 158, 0.2);
       color: #8fd19e;
       padding: 8px 16px;
       border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s;
       font-size: 14px;
+      box-shadow: 0 2px 8px rgba(143, 209, 158, 0.1);
+    }
+    
+    .filter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.2);
     }
     
     .filter-btn.active {
-      background: #8fd19e;
+      background: linear-gradient(145deg, #8fd19e, #6bbf7a);
       color: #121212;
+      border-color: rgba(143, 209, 158, 0.4);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
     }
     
     .muscle-group {
@@ -109,11 +142,12 @@
       font-weight: bold;
       margin-bottom: 15px;
       padding: 0 20px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
     }
     
     .exercise-item {
-      background: #232323;
-      border: 1px solid #333;
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border: 1px solid rgba(143, 209, 158, 0.1);
       border-radius: 12px;
       padding: 15px 20px;
       margin: 8px 20px;
@@ -122,28 +156,49 @@
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.1);
+      overflow: hidden;
+    }
+    
+    .exercise-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143, 209, 158, 0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .exercise-item:hover::before {
+      left: 100%;
     }
     
     .exercise-item:hover {
-      background: #2a2a2a;
-      border-color: #8fd19e;
+      background: linear-gradient(145deg, #333, #2a2a2a);
+      border-color: rgba(143, 209, 158, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.2);
     }
     
     .exercise-item.selected {
       background: linear-gradient(145deg, #2a3a2a, #1e2e1e);
       border-color: #8fd19e;
+      box-shadow: 0 6px 20px rgba(143, 209, 158, 0.3);
     }
     
     .exercise-icon {
       width: 40px;
       height: 40px;
-      background: #333;
+      background: linear-gradient(145deg, #333, #2a2a2a);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-right: 15px;
       color: #8fd19e;
+      box-shadow: 0 2px 8px rgba(143, 209, 158, 0.2);
     }
     
     .exercise-info {
@@ -155,6 +210,7 @@
       font-size: 16px;
       font-weight: bold;
       margin-bottom: 4px;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     }
     
     .exercise-muscle {
@@ -207,17 +263,34 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
       transition: all 0.3s;
       width: 100%;
       max-width: 300px;
       margin: 0 auto;
       display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .add-exercises-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .add-exercises-btn:hover::before {
+      left: 100%;
     }
     
     .add-exercises-btn:hover {
       transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+      box-shadow: 0 8px 30px rgba(76, 175, 80, 0.4);
     }
     
     .add-exercises-btn:disabled {

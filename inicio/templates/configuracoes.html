@@ -8,50 +8,273 @@
   <link rel="stylesheet" href="{% static 'inicio/css/perfil.css' %}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-<<<<<<< HEAD
-    .config-header { background: linear-gradient(135deg, #185c1b, #0d7a00); color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 22px; font-weight: bold; letter-spacing: 1px; border-radius: 0 0 20px 20px; box-shadow: 0 4px 15px rgba(24, 92, 27, 0.3); }
-    .config-voltar { position: absolute; left: 18px; top: 60px; color: #8fd19e; font-size: 28px; cursor: pointer; transition: color 0.3s; }
-    .config-voltar:hover { color: #b1f2be; }
-    .config-box { background: linear-gradient(145deg, #333, #2a2a2a); border-radius: 16px; margin: 30px auto 18px auto; max-width: 400px; padding: 22px 18px 18px 18px; box-shadow: 0 8px 25px rgba(143,209,158,0.15); border: 1px solid rgba(143,209,158,0.1); }
-    .config-box h3 { color: #8fd19e; margin-bottom: 15px; font-size: 18px; font-weight: bold; }
-    .config-link { display: block; background: linear-gradient(145deg, #232323, #1e1e1e); color: #b1f2be; border-radius: 12px; padding: 15px 12px; margin: 10px 0; text-decoration: none; font-size: 16px; transition: all 0.3s ease; border: 1px solid rgba(143,209,158,0.1); }
-    .config-link:hover { background: linear-gradient(145deg, #2a3a2a, #1e2e1e); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(143,209,158,0.2); }
-    @media (max-width: 600px) { .config-header { font-size: 16px; } .config-box { padding: 15px 10px; } .config-link { padding: 12px 10px; } }
-=======
-    .config-header { background: #185c1b; color: #fff; padding: 18px 0 10px 0; text-align: center; font-size: 22px; font-weight: bold; letter-spacing: 1px; }
-    .config-logo { position: absolute; left: 18px; top: 12px; background: #185c1b; border-radius: 4px; padding: 2px 12px; color: #b1f2be; font-size: 28px; font-family: 'Times New Roman', serif; border: 2px solid #b1f2be; }
-    .config-voltar { position: absolute; left: 18px; top: 60px; color: #8fd19e; font-size: 28px; cursor: pointer; }
-    .config-box { background: #333; border-radius: 16px; margin: 30px auto 18px auto; max-width: 400px; padding: 22px 18px 18px 18px; box-shadow: 0 2px 12px rgba(143,209,158,0.10); }
-    .config-box h3 { color: #8fd19e; margin-bottom: 10px; font-size: 18px; }
-    .config-link { display: block; background: #232323; color: #b1f2be; border-radius: 8px; padding: 12px 10px; margin: 8px 0; text-decoration: none; font-size: 16px; transition: background 0.2s; }
-    .config-link:hover { background: #222e22; color: #fff; }
-    @media (max-width: 600px) { .config-header { font-size: 16px; } .config-logo { font-size: 20px; padding: 1px 8px; } .config-box { padding: 10px 4px; } }
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .config-header {
+      background: linear-gradient(135deg, #185c1b, #0d7a00);
+      color: #fff;
+      padding: 30px 0;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(24, 92, 27, 0.3);
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .config-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .config-header:hover::before {
+      left: 100%;
+    }
+    
+    .config-voltar {
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8fd19e;
+      font-size: 32px;
+      cursor: pointer;
+      transition: color 0.3s;
+      background: none;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+    }
+    
+    .config-voltar:hover {
+      color: #b1f2be;
+      background: rgba(143, 209, 158, 0.1);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 4px 15px rgba(143, 209, 158, 0.3);
+    }
+    
+    .config-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      flex: 1;
+    }
+    
+    .config-box {
+      background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 25px rgba(143,209,158,0.15);
+      border: 1px solid rgba(143,209,158,0.1);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .config-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.05), transparent);
+      transition: left 0.5s;
+    }
+    
+    .config-box:hover::before {
+      left: 100%;
+    }
+    
+    .config-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(143,209,158,0.2);
+      border-color: rgba(143,209,158,0.2);
+    }
+    
+    .config-box h3 {
+      color: #8fd19e;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      border-bottom: 2px solid rgba(143,209,158,0.3);
+      padding-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    .config-link {
+      display: block;
+      background: linear-gradient(145deg, #232323, #1e1e1e);
+      color: #b1f2be;
+      border-radius: 15px;
+      padding: 20px 25px;
+      margin: 15px 0;
+      text-decoration: none;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(143,209,158,0.1);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(143,209,158,0.1);
+    }
+    
+    .config-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(143,209,158,0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .config-link:hover::before {
+      left: 100%;
+    }
+    
+    .config-link:hover {
+      background: linear-gradient(145deg, #2a3a2a, #1e2e1e);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(143,209,158,0.3);
+      border-color: rgba(143,209,158,0.3);
+    }
+    
+    .config-link i {
+      margin-right: 15px;
+      font-size: 20px;
+      color: #8fd19e;
+      text-shadow: 0 2px 10px rgba(143, 209, 158, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: #232323;
+      border-top: 1px solid #333;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    
+    footer nav {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    
+    footer nav a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: transparent;
+    }
+    
+    footer nav a:hover {
+      color: #8fd19e;
+      background: rgba(143, 209, 158, 0.1);
+    }
+    
+    footer nav a.active {
+      color: #000;
+      background: #22c55e;
+      font-weight: bold;
+    }
+    
+    footer nav a i {
+      font-size: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .config-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .config-header {
+        font-size: 24px;
+        padding: 20px 0;
+      }
+      
+      .config-voltar {
+        font-size: 24px;
+        left: 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container" style="padding-top:0;">
+  <div class="container">
     <div class="config-header">
-<<<<<<< HEAD
-=======
-      <span class="config-logo">N</span>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
+      <a href="{% url 'perfil' %}" class="config-voltar">
+        <i class="fas fa-arrow-left"></i>
+      </a>
       CONFIGURAÇÕES
     </div>
-    <a href="{% url 'perfil' %}" class="config-voltar"><i class="fas fa-arrow-left"></i></a>
-    <div class="config-box">
-      <h3>Detalhes da conta:</h3>
-<<<<<<< HEAD
-      <a href="{% url 'alterar_senha' %}" class="config-link">Alterar senha</a>
-=======
-      <a href="#" class="config-link">Alterar senha</a>
->>>>>>> 7c00dd63e00d5001ae3bb0d5b39c11a1dfb22ba9
-    </div>
-    <div class="config-box">
-      <h3>Detalhes do site:</h3>
-      <a href="{% url 'sobre_sistema' %}" class="config-link">Sobre o sistema</a>
-      <a href="{% url 'sobre_desenvolvedores' %}" class="config-link">Sobre os desenvolvedores</a>
+    
+    <div class="config-content">
+      <div class="config-box">
+        <h3><i class="fas fa-user-cog"></i> Detalhes da Conta</h3>
+        <a href="{% url 'alterar_senha' %}" class="config-link">
+          <i class="fas fa-key"></i> Alterar senha
+        </a>
+      </div>
+      
+      <div class="config-box">
+        <h3><i class="fas fa-info-circle"></i> Detalhes do Site</h3>
+        <a href="{% url 'sobre_sistema' %}" class="config-link">
+          <i class="fas fa-cogs"></i> Sobre o sistema
+        </a>
+        <a href="{% url 'sobre_desenvolvedores' %}" class="config-link">
+          <i class="fas fa-users"></i> Sobre os desenvolvedores
+        </a>
+      </div>
     </div>
   </div>
+  
+  <!-- Footer -->
+  <footer>
+    <nav>
+      <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+      <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
+      <a href="{% url 'perfil' %}" class="active"><i class="fas fa-user"></i> Perfil</a>
+    </nav>
+  </footer>
 </body>
 </html> 

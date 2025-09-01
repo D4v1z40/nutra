@@ -6,6 +6,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nutra - Registro</title>
     <link rel="stylesheet" href="{% static 'inicio/css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8fd19e, #6bbf7a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            flex-direction: column;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            min-width: 450px;
+            max-width: 550px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(143, 209, 158, 0.1);
+            border: 2px solid rgba(143, 209, 158, 0.3);
+            border-radius: 50%;
+            color: #8fd19e;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .back-button:hover {
+            background: rgba(143, 209, 158, 0.2);
+            border-color: #8fd19e;
+            transform: scale(1.1);
+            color: #6bbf7a;
+        }
+        
+        .logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .input-group {
+            position: relative;
+            text-align: left;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            background: #fff;
+            color: #333;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #8fd19e;
+            box-shadow: 0 0 0 3px rgba(143, 209, 158, 0.1);
+        }
+        
+        .input-group input::placeholder {
+            color: #999;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #8fd19e, #6bbf7a);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(143, 209, 158, 0.3);
+        }
+        
+        .login-link {
+            margin-top: 25px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .login-link span {
+            color: #8fd19e;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        .login-link:hover span {
+            color: #6bbf7a;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+        
+        .alert.success {
+            background: rgba(143, 209, 158, 0.1);
+            border: 2px solid #8fd19e;
+            color: #2e7d32;
+        }
+        
+        .alert.error {
+            background: rgba(244, 67, 54, 0.1);
+            border: 2px solid #f44336;
+            color: #d32f2f;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #8fd19e;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Footer styles */
+        footer {
+            background: #232323;
+            border-top: 1px solid #333;
+            padding: 20px 0;
+            width: 100%;
+        }
+        
+        footer nav {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+        }
+        
+        footer nav a {
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: transparent;
+        }
+        
+        footer nav a:hover {
+            color: #8fd19e;
+            background: rgba(143, 209, 158, 0.1);
+        }
+        
+        footer nav a.active {
+            color: #000;
+            background: #22c55e;
+            font-weight: bold;
+        }
+        
+        footer nav a i {
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            footer nav {
+                gap: 30px;
+            }
+            
+            footer nav a {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            
+            footer nav a i {
+                font-size: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
@@ -15,19 +254,15 @@
         <form action="{% url 'register' %}" method="post" class="login-form">
             {% csrf_token %}
             <div class="input-group">
-                <span class="input-icon"><i class="fa fa-user"></i></span>
                 <input type="text" name="usuario" id="usuario" placeholder="Usuário">
             </div>
             <div class="input-group">
-                <span class="input-icon"><i class="fa fa-phone"></i></span>
                 <input type="text" name="telefone" id="telefone" placeholder="Telefone">
             </div>
             <div class="input-group">
-                <span class="input-icon"><i class="fa fa-envelope"></i></span>
                 <input type="email" name="email" id="email" placeholder="Email">
             </div>
             <div class="input-group">
-                <span class="input-icon"><i class="fa fa-lock"></i></span>
                 <input type="password" name="senha" id="senha" placeholder="Senha">
             </div>
             <div class="input-group">
@@ -37,5 +272,14 @@
             <button type="submit" class="btn">Registrar</button>
         </form>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <nav>
+            <a href="{% url 'treino' %}"><i class="fas fa-dumbbell"></i> Treinos</a>
+            <a href="{% url 'dieta' %}"><i class="fas fa-utensils"></i> Dieta</a>
+            <a href="{% url 'perfil' %}"><i class="fas fa-user"></i> Perfil</a>
+        </nav>
+    </footer>
 </body>
 </html>
